@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link type="text/css" rel="stylesheet"
+      href="/Cliente/proyectoCIIT/src/assets/materialize/css/materialize.min.css"
+      media="screen,projection" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css"
+      href="/src/assets/materialize/style.css">
+    <!-- Agrega este enlace a tu archivo CSS -->
+  </head>
+  <body ng-app="mainModule" ng-controller="mainController">
+
+    <nav class="custom-nav"> <!-- Añade la clase personalizada -->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+      <div class="nav-wrapper">
+        <a class="brand-logo">
+          <img src="https://i.imgur.com/Xrn81hA.png" alt="Logo">>
+        </a>
+        <li class="center-text"> <a class="nav-text">Balneario
+            Atonaltzin</a></li>
+        <ul id="nav-mobile" class="right hide-one-med-and-down" *ngIf="ID_Cliente == undefined">
+          <li><a id="user-icon" class="dropdown-trigger btn"
+              data-target="dropdown1"><i
+                class="material-icons">account_circle</i></a></li>
+        </ul>
+        <ul id="nav-mobile" class="right hide-one-med-and-down" *ngIf="ID_Cliente != undefined">
+          <li><a id="user-icon"  class="btn white lighten-2 dark-text" (click)="gotoReservaciones()">Mis reservaciones</a></li>
+          <li><a id="user-icon"  class="btn white lighten-2" (click)="logout()"><i class="material-icons">exit_to_app</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="slider">
+      <ul class="slides">
+        <li>
+          <img
+            src="https://scontent.foax2-1.fna.fbcdn.net/v/t39.30808-6/181630305_2734875459969670_3588802457201423228_n.jpg?stp=dst-jpg_s960x960&_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeF4Ii_LpwsWcoftg5jb71oIsoWmVwZAbeiyhaZXBkBt6MOh_Xb8s_GeFRbmhktV0KPreFW9USS-FMEsdANpfqHD&_nc_ohc=eqXGkxdV07YAX95BskB&_nc_ht=scontent.foax2-1.fna&oh=00_AfB2zXzYvTgtCV9v4LZeW8zWFeucimjxDB2Op5jUaLQfig&oe=66108FF3"
+            style="width: 100%;"> <!-- random image -->
+          <div class="caption center-align">
+            <h3>Balneario Atonaltzin</h3>
+            <h5 class="light grey-text text-lighten-3">Las mejores instalaciones
+              para tener una comoda estancia</h5>
+          </div>
+        </li>
+        <li>
+          <img
+            src="https://i.imgur.com/PimXUoA.jpeg">
+          <!-- random image -->
+          <div class="caption left-align">
+            <h3></h3>
+            <h5 class="light grey-text text-lighten-3"></h5>
+          </div>
+        </li>
+        <li>
+          <img
+            src="https://i.imgur.com/fIuqoqv.jpeg">
+          <!-- random image -->
+          <div class="caption right-align">
+            <h3></h3>
+            <h5 class="light grey-text text-lighten-3"></h5>
+          </div>
+        </li>
+        <li>
+          <img src="https://i.imgur.com/xdsxZcc.jpeg"> <!-- random image -->
+          <div class="caption center-align">
+            <h3></h3>
+            <h5 class="light grey-text text-lighten-3"></h5>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3801.2553806114147!2d-97.56771952608645!3d17.685391994154376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85c611b45661c56b%3A0xef3a0af052e11416!2sBalneario%20Atonaltzin!5e0!3m2!1ses!2smx!4v1709594430829!5m2!1ses!2smx"
+      width="600" height="450" style="border:0;" allowfullscreen loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="row">
+
+      <!-- Cabaña 1 -->
+      <div class="col s12 m3">
+        <div class="card">
+          <div class="card-image">
+            <img src="https://i.imgur.com/OthaB7b.jpg">
+            <!-- Reemplaza "URL_DE_LA_IMAGEN" con la URL de tu nueva imagen -->
+            <span class="card-title">Atonaltzin</span>
+          </div>
+          <div class="card-content">
+            <p> Cómoda recámara equipada con 1 cama matrimonial, baño completo,
+              internet,
+              frigobar y cafetera.<br>MXN 800.00 </p>
+          </div>
+          <div class="card-action">
+            <a href="home/reserva">Reservar</a>
+            <!-- Reemplaza "LINK" con el enlace adecuado -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cabaña 2 -->
+      <div class="col s12 m3">
+        <div class="card">
+          <div class="card-image">
+            <img src="https://i.imgur.com/Jj5NWfC.jpeg">
+            <!-- Reemplaza "URL_DE_LA_IMAGEN" con la URL de tu nueva imagen -->
+            <span class="card-title">Atonaltzin</span>
+          </div>
+          <div class="card-content">
+            <p>Acogedora cabaña de dos niveles con cuarto compartido, dos camas
+              matrimoniales,
+              baño completo con calentador solar, servicio de internet, TV con
+              cable, cafetera, frigobar
+              y chimenea con leña.<br>MXN 1,600.00</p>
+          </div>
+          <div class="card-action">
+            <a href="home/apartado">Reservar</a>
+            <!-- Reemplaza "LINK" con el enlace adecuado -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cabaña 3 -->
+      <div class="col s12 m3">
+        <div class="card">
+          <div class="card-image">
+            <img src="https://i.imgur.com/YvXTjVR.jpeg">
+            <!-- Reemplaza "URL_DE_LA_IMAGEN" con la URL de tu nueva imagen -->
+            <span class="card-title">Atonaltzin</span>
+          </div>
+          <div class="card-content">
+            <p>Acogedora cabaña de dos niveles, con sala en el primer nivel,
+              servicio de internet,
+              cafetera, frigobar, TV con cable, habitación compartida
+              con 3 camas matrimoniales, baño completo y chimenea con
+              leña.<br>MXN 2,400.00.</p>
+          </div>
+          <div class="card-action">
+            <a href="home/reservacion">Reservar</a>
+            <!-- Reemplaza "LINK" con el enlace adecuado -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cabaña 4 -->
+      <div class="col s12 m3">
+        <div class="card">
+          <div class="card-image">
+            <img src="https://i.imgur.com/56LmVoB.jpeg">
+            <!-- Reemplaza "URL_DE_LA_IMAGEN" con la URL de tu nueva imagen -->
+            <span class="card-title">Atonaltzin</span>
+          </div>
+          <div class="card-content">
+            <p>Acogedora cabaña de dos niveles, con sala y baño en el primer
+              nivel, baño completo con calentador solar,
+              habitación compartida con 5 camas matrimoniales, chimenea con
+              leña, frigobar,
+              servicio de internet, TV con cable y cafetera.<br>MXN 4,000.00</p>
+          </div>
+          <div class="card-action">
+            <a href="home/booking">Reservar</a>
+            <!-- Reemplaza "LINK" con el enlace adecuado -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <script type="text/javascript"
+      src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      var instances = M.Dropdown.init(elems, {});
+    });
+  </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      var instances = M.Dropdown.init(elems, {});
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.slider');
+    var instances = M.Slider.init(elems, options);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.dropdown-trigger');
+    var instances = M.Dropdown.init(elems, options);
+  });
+  </script>
+  </body>
+</html>
+<app-footer></app-footer>
+
+<!-- Dropdown Structure -->
+<ul id='dropdown1' class='dropdown-content'>
+  <li><a href="/login">Iniciar sesion</a></li>
+  <li><a href="home/usuario">Registarse</a></li>
+</ul>

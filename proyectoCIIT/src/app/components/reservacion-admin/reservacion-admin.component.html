@@ -1,0 +1,70 @@
+<table class="default" *ngIf="reservaciones !== undefined">
+    <tr>
+        <th>ID Cliente</th>
+        <th>ID Cabaña</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Acciones</th>
+    </tr>
+    <tr *ngFor="let reservacion of reservaciones |
+    paginate: {
+      itemsPerPage: pageSize,
+      currentPage: p };let i=index">
+        <td>{{ reservacion.ID_Cliente }}</td>      <!-- Cambiar por el nombre del cliente -->
+        <td>{{ reservacion.ID_Cabana }}</td>        <!-- Cambiar por el nombre de la cabaña -->
+        <td>{{ reservacion.FechaInicio | date:'shortDate' }}</td>
+        <td>{{ reservacion.FechaFin | date:'shortDate' }}</td>
+        <td>
+          <a href="javascript: void(0);" class="space" (click)="actualizarReservacion(reservacion.ID_Reservacion)">
+            <i class="material-icons">edit</i></a>
+          <a href="javascript: void(0);" class="material-icons" (click)="eliminarReservacion(reservacion.ID_Reservacion)" style="color: red;"><i class="material-icons">delete_forever</i></a>
+        </td>
+    </tr>
+</table>
+<div class="blue-text text-darken-2">
+  <pagination-controls class="col s6" (pageChange)="p = ($event)"
+  previousLabel="Anterior" nextLabel="Siguiente">
+  </pagination-controls>
+</div>
+
+<!-- Modal Structure -->
+<div id="modalModificarReservacion" class="modal">
+  <div class="modal-content">
+    <h4>Modificar Reservación</h4>
+    <p>Realiza los cambios necesarios y presiona "Guardar".</p>
+
+    <!-- Aquí puedes agregar los campos para modificar la reservación -->
+    <form>
+      <div class="input-field">
+        <input id="ID_Cabana" type="text" class="validate" [(ngModel)]="reservacion.ID_Cabana" name="ID_Cabana">
+        <label for="ID_Cabana">ID Cabana</label>
+      </div>
+      <div class="input-field">
+        <input id="ID_Cliente" type="text" class="validate" [(ngModel)]="reservacion.ID_Cliente" name="ID_Cliente">
+        <label for="ID_Cliente">ID Cliente</label>
+      </div>
+      <div class="input-field">
+        <input id="FechaInicio" type="date" class="validate" [(ngModel)]="reservacion.FechaInicio" name="FechaInicio">
+        <label for="FechaInicio">Fecha Inicio</label>
+      </div>
+      <div class="input-field">
+        <input id="FechaFin" type="date" class="validate" [(ngModel)]="reservacion.FechaFin" name="FechaFin">
+        <label for="FechaFin">Fecha Fin</label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect waves-green btn-flat" (click)="guardarActualizarReservacion()">Guardar</a>
+  </div>
+</div>
+
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Reservación Eliminada</h4>
+    <p>La reservación ha sido eliminada exitosamente.</p>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect waves-green btn-flat" (click)="recargarReservaciones()">Aceptar</a>
+  </div>
+</div>

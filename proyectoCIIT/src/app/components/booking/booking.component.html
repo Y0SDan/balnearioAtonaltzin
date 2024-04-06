@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materialize Date Picker Example</title>
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h3 class="center-align">Reserva</h3>
+        <div class="row">
+            <input id="first_name" type="text" class="validate" [(ngModel)]="nuevaReserva.ID_Cabana" name="nombre" hidden>
+            <input id="first_name" type="text" class="validate" [(ngModel)]="nuevaReserva.ID_Cliente" name="nombre" hidden>
+            
+
+            <div class="input-field col s6">
+                <input [(ngModel)]="FechaInicio" type="text" id="fechaIni" #fechaI
+(change)="actualizarFechaIni(fechaI.value)" class="datepicker">
+                <label for="fechaInicio">Fecha de inicio</label>
+            </div>
+            <div class="input-field col s6">
+                <input [(ngModel)]="FechaFin" type="text" id="fechaFin" #fechaF
+(change)="actualizarFechaFin(fechaF.value)" class="datepicker">
+                <label for="fechaFinal">Fecha final</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 center-align">
+                <button (click)="guardarNuevaReserva()" class="btn waves-effect waves-light blue" type="submit" name="action">
+                    Enviar
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Initialize Datepicker -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.datepicker');
+            var options = {
+                format: 'yyyy-mm-dd',
+                autoClose: true
+            };
+            var instances = M.Datepicker.init(elems, options);
+        });
+    </script>
+</body>
+</html>
+

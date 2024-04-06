@@ -1,0 +1,55 @@
+<app-navigation></app-navigation>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Importar Google Icon Font -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Importar materialize.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection">
+  <!-- Ajustar para dispositivos móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <div class="container">
+    <div id="login-page" class="row">
+      <div class="z-depth-1 grey lighten-4 col s12 m8 l6 offset-m2 offset-l3" style="padding: 48px; border: 1px solid #EEE;">
+        <form class="login-form">
+          <div class="row"></div>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">mail_outline</i>
+              <input class="validate" type="email" [(ngModel)]="cliente.Email" [ngModelOptions]="{standalone: true}">
+              <label class="active" for="email">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">lock_outline</i>
+              <input id="password" type="password" name="password" [(ngModel)]="cliente.password1"  autocomplete="off">
+              <label class="active" for="password">Password</label>
+            </div>
+          </div>
+          <div class="row center-align">
+            <div class="input-field col s12">
+                <button (click)="logueo()" class="btn waves-effect waves-light black" type="submit" name="action">
+                    <i class="material-icons left">send</i>Login
+                </button>
+            </div>
+        </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <p class="margin medium-small"><a href="home/usuario">Register Now!</a></p>
+            </div>
+            <div class="input-field col s6">
+              <p class="margin right-align medium-small"><a href="home/olvide-contrasena">Forgot Password?</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+<app-footer></app-footer>

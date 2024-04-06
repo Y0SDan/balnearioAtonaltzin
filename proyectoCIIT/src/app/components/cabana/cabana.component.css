@@ -1,0 +1,15 @@
+/* Cambiar el color de fondo de la paginación */
+.pagination-controls {
+    background-color: blue !important; /* Color de fondo azul */
+}
+
+/* Cambiar el color del texto de los botones de paginación */
+.pagination-controls .page-link {
+    color: white !important; /* Color de texto blanco */
+}
+
+/* Cambiar el color de fondo del botón activo de la paginación */
+.pagination-controls .current {
+    background-color: rgb(252, 252, 252) !important; /* Color de fondo rojo */
+    color: white !important; /* Color de texto blanco */
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restablecer Contraseña</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <div class="container">
+        <h3>Restablecer Contraseña</h3>
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input [(ngModel)]="nuevaContrasena" name="nuevaContrasena" id="new-password" type="password" class="validate">
+                        <label for="new-password">Nueva Contraseña</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input [(ngModel)]="nuevaContrasenaConfirmacion" name="nuevaContrasenaConfirmacion" id="confirm-password" type="password" class="validate">
+                        <label for="confirm-password">Confirmar Contraseña</label>
+                    </div>
+                </div>
+                    <button (click)="actualizarContrasena()" class="btn col l12 s12 m12 btnLogin ">ACEPTAR</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>

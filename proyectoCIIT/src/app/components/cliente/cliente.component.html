@@ -1,0 +1,143 @@
+    <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="addCliente()">
+        <i class="material-icons left">add</i> Crear usuario
+    </a>
+
+    <table class="default" *ngIf="clientes != undefined && clientes.length > 0">
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Contraseña</th>
+            <th>Tipo</th>
+        </tr>
+        <tr *ngFor="let cliente of clientes |
+        paginate: {
+          itemsPerPage: pageSize,
+          currentPage: p };let i=index" >
+            <td>{{ cliente.Nombre }}</td>
+            <td>{{ cliente.Apellido }}</td>
+            <td>{{ cliente.Email }}</td>
+            <td>{{ cliente.Telefono }}</td>
+            <td>{{ cliente.password1 }}</td>
+            <td>{{ cliente.tipo }}</td>
+            <td>
+              <a href="javascript: void(0);" class="space" (click)="actualizarCliente(cliente.ID_Cliente)">
+                <i class="material-icons">edit</i></a>
+                <a href="javascript: void(0);" class="material-icons"
+                  (click)="eliminarUsuario(cliente.ID_Cliente)" style="color: red;">
+                  <i class="material-icons">delete_forever</i></a>
+                </td>
+        </tr>
+    </table>
+    <div class="blue-text text-darken-2">
+      <pagination-controls class="col s6" (pageChange)="p = ($event)"
+      previousLabel="Anterior" nextLabel="Siguiente">
+      </pagination-controls>
+    </div>
+
+    <div id="modalModificarCliente" class="modal">
+        <div class="modal-content">
+          <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+              <h5 class="center">Actualizar usuario</h5>
+            </div>
+          </div>
+          <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+              <div class="input-field col s12">
+                <label class="active" for="nombre_cliente">Nombre </label>
+                <input id="nombre_cliente" [(ngModel)]="cliente.Nombre" type="text" class="validate">
+              </div>
+              <div class="input-field col s6">
+                <label class="active">Apellido </label>
+                <input [(ngModel)]="cliente.Apellido" type="text" class="validate">
+              </div>
+              <div class="input-field col s6">
+                  <label class="active">Email </label>
+                  <input [(ngModel)]="cliente.Email" type="text" class="validate">
+                </div>
+                <div class="input-field col s6">
+                  <label class="active">Telefono </label>
+                  <input [(ngModel)]="cliente.Telefono" type="text" class="validate">
+                </div>
+                <div class="input-field col s6">
+                  <label class="active">password1 </label>
+                  <input [(ngModel)]="cliente.password1" type="text" class="validate">
+                </div>
+                <div class="input-field col s6">
+                  <select [(ngModel)]="cliente.tipo">
+                    <option value="" disabled selected>Elige el tipo de usuario</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="seller">Seller</option>
+                    <option value="usuario" selected>Usuario</option>
+                  </select>
+                  <label class="active">Tipo</label>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col s6 center">
+                <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+                  (click)="guardarActualizarCliente()" value="Enviar">
+              </div>
+              <div class="col s6 center">
+                <a class="modal-action modal-close waves-effect btn-large brown lighten-3
+        black-text">Cancelar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modalCrearCliente" class="modal">
+        <div class="modal-content">
+          <div class="row " style="margin-bottom: 0px !important;">
+            <div class="col s12">
+              <h5 class="center">Crear usuario</h5>
+            </div>
+          </div>
+          <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+              <div class="input-field col s12">
+                <label class="active" for="nombre_usuario">Nombre </label>
+                <input id="nombre_usuario" [(ngModel)]="clienteNuevo.Nombre" type="text" class="validate">
+              </div>
+              <div class="input-field col s6">
+                  <label class="active">Apellido </label>
+                  <input [(ngModel)]="clienteNuevo.Apellido" type="text" class="validate">
+                </div>
+                  <div class="input-field col s6">
+                    <label class="active">Email </label>
+                    <input [(ngModel)]="clienteNuevo.Email" type="text" class="validate">
+                  </div>
+                  <div class="input-field col s6">
+                    <label class="active">password1 </label>
+                    <input [(ngModel)]="clienteNuevo.password1" type="text" class="validate">
+                  </div>
+                  <div class="input-field col s6">
+                    <label class="active">Telefono </label>
+                    <input [(ngModel)]="clienteNuevo.Telefono" type="text" class="validate">
+                  </div>
+                  <div class="input-field col s12">
+                    <select [(ngModel)]="clienteNuevo.tipo">
+                      <option value="" disabled selected>Elige el tipo de usuario</option>
+                      <option value="administrador">Administrador</option>
+                      <option value="seller">Seller</option>
+                      <option value="usuario" selected>Usuario</option>
+                    </select>
+                    <label class="active">Tipo</label>
+                  </div>
+            </div>
+            <div class="row">
+              <div class="col s6 center">
+                <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+                  (click)="guardarNuevoUsuario()" value="Enviar">
+              </div>
+              <div class="col s6 center">
+                <a class="modal-action modal-close waves-effect btn-large brown lighten-3
+        black-text">Cancelar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
