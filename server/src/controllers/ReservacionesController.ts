@@ -45,6 +45,12 @@ class ReservacionesController
         const { ID_Cabana, ID_Cliente, FechaInicio, FechaFin } = req.body;
     
         try {
+            // Drop del disparador si existe
+            if (new Date(FechaInicio) >= new Date(FechaFin) || new Date(FechaInicio).getTime() === new Date(FechaFin).getTime()) {
+                res.status(400).json({ error: true, message: 'Error: Las fechas de la reservacion no son válidas' });
+                return;
+            }
+    
             // Insertar la reserva
             const result = await pool.query("INSERT INTO reservaciones (ID_Cabana, ID_Cliente, FechaInicio, FechaFin) VALUES (?, ?, ?, ?)", [ID_Cabana, ID_Cliente, FechaInicio, FechaFin]);
             const ID_reservacion = result.insertId;
@@ -52,7 +58,7 @@ class ReservacionesController
             // Consultar el monto total a cobrar
             const respCobro = await pool.query(`
                 SELECT 
-                    (DATEDIFF(r.FechaFin, r.FechaInicio) + 1) * c.PrecioPorNoche AS monto_total
+                    (DATEDIFF(r.FechaFin, r.FechaInicio)) * c.PrecioPorNoche AS monto_total
                 FROM 
                     reservaciones r
                 JOIN 
@@ -73,10 +79,13 @@ class ReservacionesController
             res.status(500).json({ message: 'Error al agregar la reserva' });
         }
     }
-    public async showReservas(req: Request, res: Response ): Promise<void>{
+    
+    public async showReservas(req: Request, res: Response): Promise<void> {
         console.log("YA ESTAMOS AQUI");
         const respuesta = await pool.query('SELECT * FROM reservaciones');
-        res.json( respuesta );
+        console.log(respuesta);
+        
+        res.json(respuesta);
     }
     public async showOne(req: Request, res: Response): Promise <void>{
         const {id} = req.params;
@@ -103,36 +112,77 @@ class ReservacionesController
     //res.json(null);
     }
 
-        public async PrecioReserva(req: Request, res: Response): Promise<void> {
-            const { idCabana, fechaInicio, fechaFin } = req.params;
+public async PrecioReserva(req: Request, res: Response): Promise<void> {
+    const { id, FechaInicio, FechaFin } = req.params;
+    console.log(id);
+            
         
-            if (!idCabana || !fechaInicio || !fechaFin) {
-                res.status(400).json({ message: 'Se requieren los parámetros idCabana, fechaInicio y fechaFin' });
-                return;
-            }
+    if (!id || !FechaInicio || !FechaFin) {
+        res.status(400).json({ message: 'Se requieren los parámetros idCabana, fechaInicio y fechaFin' });
+        return;
+    }
         
-            const sqlQuery = `
-                INSERT INTO cobros (IdReservacion, MontoCobrado)
-                SELECT r.ID_Reservacion, c.PrecioPorNoche * DATEDIFF(?, ?) AS total_a_pagar
-                FROM reservaciones r
-                JOIN cabana c ON r.ID_Cabana = c.ID_Cabana
-                WHERE r.ID_Cabana = ?;`;
+    const sqlQuery = `
+        INSERT INTO cobros (IdReservacion, MontoCobrado)
+        SELECT r.ID_Reservacion, c.PrecioPorNoche * DATEDIFF(?, ?) AS total_a_pagar
+        FROM reservaciones r
+        JOIN cabana c ON r.ID_Cabana = c.ID_Cabana
+        WHERE r.ID_Cabana = ?;`;
         
-            try {
-                const resp = await pool.query(sqlQuery, [fechaFin, fechaInicio, idCabana]);
-                console.log(resp);
-                res.json(resp);
-            } catch (error) {
-                console.error(error);
-                res.status(500).json({ message: 'Error al realizar la consulta' });
-            }
-        }
-        public async mostrarReservasXUsuario(req: Request, res: Response): Promise <void>{
-            const {id} = req.params;
-            const respuesta = await pool.query('SELECT * FROM reservaciones WHERE ID_Cliente = ?', [id]);
-            console.log(respuesta);
-            res.json(respuesta);
-        }
+    try {
+        const resp = await pool.query(sqlQuery, [FechaFin, FechaInicio, id]);
+        console.log("Respuesta: ",resp);
+        res.json(resp);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al realizar la consulta' });
+    }
+}
+public async mostrarReservasXUsuario(req: Request, res: Response): Promise <void>{
+    const {id} = req.params;
+    const respuesta = await pool.query('SELECT * FROM reservaciones WHERE ID_Cliente = ?', [id]);
+    console.log(respuesta);
+    res.json(respuesta);
+}
+
+public async mostrarPrecioReserva(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+
+    if (!id) {
+        res.status(400).json({ message: 'Se requiere el parámetro idReservacion' });
+        return;
+    }
+
+    const sqlQuery = `
+        SELECT 
+            r.ID_Reservacion,
+            r.ID_Cabana,
+            c.Nombre AS NombreCabana,
+            r.FechaInicio,
+            r.FechaFin,
+            c.PrecioPorNoche,
+            DATEDIFF(r.FechaFin, r.FechaInicio) AS DiasReservados,
+            (DATEDIFF(r.FechaFin, r.FechaInicio) + 1) * c.PrecioPorNoche AS TotalAPagar
+        FROM 
+            reservaciones r
+        JOIN
+            cabana c ON r.ID_Cabana = c.ID_Cabana
+        WHERE
+            r.ID_Cabana = ?;`;
+
+    try {
+        const resp = await pool.query(sqlQuery, [id]);
+        console.log("id: ",id);
+
+        const result =  resp[0];
+        console.log(result);
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error al realizar la consulta' });
+    }
+}
+
 
 
 }

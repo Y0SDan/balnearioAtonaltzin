@@ -8,13 +8,55 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
+
     <div class="container">
         <h3 class="center-align">Reserva</h3>
         <div class="row">
+            <div class="col s12 m6">
+                <div class="image-container">
+                    <img class="materialboxed" width="600" src="https://i.imgur.com/jMopKkO.jpg">
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="row">
+                    <div class="col s6">
+                        <div class="image-container">
+                            <img class="materialboxed" width="300" src="https://i.imgur.com/AbHMvM9.jpg">
+                        </div>
+                    </div>
+                    <div class="col s6">
+                        <div class="image-container">
+                            <img class="materialboxed" width="300" src="https://i.imgur.com/56LmVoB.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
             <input id="first_name" type="text" class="validate" [(ngModel)]="nuevaReserva.ID_Cabana" name="nombre" hidden>
             <input id="first_name" type="text" class="validate" [(ngModel)]="nuevaReserva.ID_Cliente" name="nombre" hidden>
+
+            <div class="col s12">
+                <p>Precio por noche: {{ nuevaReserva.PrecioPorNoche }}</p>
+                <p>Días reservados: {{ nuevaReserva.DiasReservados }}</p>
+                <p>Total a pagar: {{ nuevaReserva.TotalAPagar }}</p>
+            </div>
             
 
             <div class="input-field col s6">
@@ -50,6 +92,10 @@
             };
             var instances = M.Datepicker.init(elems, options);
         });
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.materialboxed');
+            var instances = M.Materialbox.init(elems, options);
+          });
     </script>
 </body>
 </html>

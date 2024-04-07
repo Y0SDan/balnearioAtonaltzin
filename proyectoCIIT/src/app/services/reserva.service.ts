@@ -36,4 +36,9 @@ export class ReservaService {
     return this.http.get(`${environment.API_URL}/reservas/ValidarReserva/${id}/${FechaInicio}/${FechaFin}`);
 
   }
+  mostrarPrecioReserva(id : any){
+
+    return this.http.get(`${environment.API_URL}/reservas/mostrarPrecioReserva/${id}`);
+
+  }
 }

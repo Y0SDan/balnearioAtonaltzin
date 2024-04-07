@@ -19,6 +19,8 @@ this.router.get('/Mostrar_reservaciones_usuario/:id',reservacionesController.mos
 this.router.get('/showOne/:id',reservacionesController.showOne);
 this.router.delete('/eliminarReservacion/:id', reservacionesController.eliminarReservacion);
 this.router.put('/actualizarReservacion/:id',reservacionesController.actualizarReservacion);
+this.router.get('/PrecioReserva/:id/:FechaInicio/:FechaFin',reservacionesController.PrecioReserva);
+this.router.get('/mostrarPrecioReserva/:id',reservacionesController.mostrarPrecioReserva);
 }
 }
 const reservacionRoutes= new reservacionesRoutes();

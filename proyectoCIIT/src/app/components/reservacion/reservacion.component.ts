@@ -13,12 +13,18 @@ export class ReservacionComponent implements OnInit {
   reservas :  [] = [];
   reserva: Reservacion3 = new Reservacion3();
   nuevaReserva: Reservacion3 = new Reservacion3();
-FechaInicio:string;
-FechaFin:string;
+  FechaInicio:string;
+  FechaFin:string;
+  DiasReservados: number;
+  TotalAPagar: number;
+  PrecioPorNoche: number;
 
   constructor(private reservaService: ReservaService) {
     this.FechaInicio=""
-this.FechaFin=""
+    this.FechaFin=""
+    this.DiasReservados = 0;
+    this.TotalAPagar = 0;
+    this.PrecioPorNoche=0;
    }
 
   ngOnInit(): void {
@@ -26,6 +32,27 @@ this.FechaFin=""
       this.initDatepickerIni();
       this.initDatepickerFin();
       }
+      $(document).ready(function(){
+        $('.materialboxed').materialbox();
+      });
+}
+calcularPrecioTotal() {
+  const fechaInicio = new Date(this.FechaInicio);
+  const fechaFin = new Date(this.FechaFin);
+  const diasReservados = Math.ceil((fechaFin.getTime() - fechaInicio.getTime()) / (1000 * 3600 * 24));
+  this.nuevaReserva.DiasReservados = diasReservados;
+  console.log("Dias reservados:",this.nuevaReserva.DiasReservados);
+
+  this.reservaService.mostrarPrecioReserva(this.nuevaReserva.ID_Cabana)
+    .subscribe((res: any) => {
+      this.nuevaReserva.PrecioPorNoche = res.PrecioPorNoche; // Suponiendo que la respuesta del backend tiene una propiedad precioPorNoche
+      console.log("precio por noche:",res);
+      
+      this.nuevaReserva.TotalAPagar = diasReservados * this.nuevaReserva.PrecioPorNoche;
+    }, err => {
+      console.error(err);
+      // Manejo del error, por ejemplo, mostrar un mensaje de error
+    });
 }
 initDatepickerIni()
 {
@@ -52,6 +79,7 @@ actualizarFechaFin(date?: any)
 {
 if(date){
 this.FechaFin = date;
+this.calcularPrecioTotal();
 }
 }
   addReserva() {
@@ -78,6 +106,15 @@ guardarNuevaReserva() {
           text: 'La cabaña no está disponible en el rango de fechas seleccionado'
         });
       } else {
+        if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
+          // Las fechas no son válidas, muestra un mensaje de error
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            text: 'Las fechas de la reserva no son válidas'
+          });
+          return;
+        }
         // Si la cabaña está disponible, se agrega la reserva
         this.reservaService.addReserva(this.nuevaReserva).subscribe((res) => {
           $('#modalCrearReservacion').modal('close');

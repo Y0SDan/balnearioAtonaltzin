@@ -13,12 +13,18 @@ export class ReservaComponent implements OnInit {
   reservas :  [] = [];
   reserva: Reservacion = new Reservacion();
   nuevaReserva: Reservacion = new Reservacion();
-FechaInicio:string;
-FechaFin:string;
+  FechaInicio:string;
+  FechaFin:string;
+  DiasReservados: number;
+  TotalAPagar: number;
+  PrecioPorNoche: number;
 
   constructor(private reservaService: ReservaService) {
     this.FechaInicio=""
-this.FechaFin=""
+    this.FechaFin=""
+    this.DiasReservados = 0;
+    this.TotalAPagar = 0;
+    this.PrecioPorNoche=0;
    }
 
   ngOnInit(): void {
@@ -31,6 +37,25 @@ this.FechaFin=""
       });
           
 }
+calcularPrecioTotal() {
+  const fechaInicio = new Date(this.FechaInicio);
+  const fechaFin = new Date(this.FechaFin);
+  const diasReservados = Math.ceil((fechaFin.getTime() - fechaInicio.getTime()) / (1000 * 3600 * 24));
+  this.nuevaReserva.DiasReservados = diasReservados;
+  console.log("Dias reservados:",this.nuevaReserva.DiasReservados);
+
+  this.reservaService.mostrarPrecioReserva(this.nuevaReserva.ID_Cabana)
+    .subscribe((res: any) => {
+      this.nuevaReserva.PrecioPorNoche = res.PrecioPorNoche; // Suponiendo que la respuesta del backend tiene una propiedad precioPorNoche
+      console.log("precio por noche:",res);
+      
+      this.nuevaReserva.TotalAPagar = diasReservados * this.nuevaReserva.PrecioPorNoche;
+    }, err => {
+      console.error(err);
+      // Manejo del error, por ejemplo, mostrar un mensaje de error
+    });
+}
+
 initDatepickerIni()
 {
 $("#fechaIni").datepicker({
@@ -56,6 +81,7 @@ actualizarFechaFin(date?: any)
 {
 if(date){
 this.FechaFin = date;
+this.calcularPrecioTotal();
 }
 }
   addReserva() {
@@ -66,11 +92,10 @@ this.FechaFin = date;
     $("#modalCrearReservacion").modal("open");
 }
 
-guardarNuevaReserva(){
+guardarNuevaReserva() {
   this.nuevaReserva.FechaInicio = this.FechaInicio;
   this.nuevaReserva.FechaFin = this.FechaFin;
-  
-  // Aquí se llama al servicio que verifica la disponibilidad
+
   this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
     .subscribe((res: any) => {
       console.log(res.resultado);
@@ -81,29 +106,46 @@ guardarNuevaReserva(){
           icon: 'error',
           text: 'La cabaña no está disponible en el rango de fechas seleccionado'
         });
+      } else if (res.error) {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          text: res.message
+        });
       } else {
-        // Si la cabaña está disponible, se agrega la reserva
-        this.reservaService.addReserva(this.nuevaReserva).subscribe((res) => {
-          $('#modalCrearReservacion').modal('close');
-          this.reservaService.list().subscribe(
-            (resusuarios: any) => {
-              this.reserva = resusuarios;
-              console.log(resusuarios);
-            },
-            (err: any) => {
-              console.error(err);
-              this.showAlert('Something went wrong!', 'error');
-            }
-          );
+        if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
+          // Las fechas no son válidas, muestra un mensaje de error
           Swal.fire({
             position: 'center',
-            icon: 'success',
-            text: 'Reserva realizada'
+            icon: 'error',
+            text: 'Las fechas de la reserva no son válidas'
           });
-        }, err => console.error(err));
+          return;
+        }
+        this.reservaService.addReserva(this.nuevaReserva)
+          .subscribe(() => {
+            $('#modalCrearReservacion').modal('close');
+            this.reservaService.list().subscribe(
+              (resusuarios: any) => {
+                this.reserva = resusuarios;
+                console.log(resusuarios);
+              },
+              (err: any) => {
+                console.error(err);
+                this.showAlert('Something went wrong!', 'error');
+              }
+            );
+            
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              text: 'Reserva realizada'
+            });
+          }, err => console.error(err));
       }
-  },err => console.error(err));
+  }, err => console.error(err));   // Llamar a mostrarPrecioReserva para obtener el precio total
 }
+
 
 updateFechaInicio(event: any) {
   this.nuevaReserva.FechaInicio = event.target.value;
