@@ -94,7 +94,7 @@
               frigobar y cafetera.<br>MXN 800.00 </p>
           </div>
           <div class="card-action">
-            <a href="home/reserva">Reservar</a>
+            <a (click)="redireccion('reserva')">Reservar</a>
             <!-- Reemplaza "LINK" con el enlace adecuado -->
           </div>
         </div>
@@ -116,12 +116,11 @@
               y chimenea con leña.<br>MXN 1,600.00</p>
           </div>
           <div class="card-action">
-            <a href="home/apartado">Reservar</a>
+            <a (click)="redireccion('apartado')">Reservar</a>
             <!-- Reemplaza "LINK" con el enlace adecuado -->
           </div>
         </div>
       </div>
-
       <!-- Cabaña 3 -->
       <div class="col s12 m3">
         <div class="card">
@@ -138,7 +137,7 @@
               leña.<br>MXN 2,400.00.</p>
           </div>
           <div class="card-action">
-            <a href="home/reservacion">Reservar</a>
+            <a (click)="redireccion('reservacion')">Reservar</a>
             <!-- Reemplaza "LINK" con el enlace adecuado -->
           </div>
         </div>
@@ -160,7 +159,7 @@
               servicio de internet, TV con cable y cafetera.<br>MXN 4,000.00</p>
           </div>
           <div class="card-action">
-            <a href="home/booking">Reservar</a>
+            <a  (click)="redireccion('booking')">Reservar</a>
             <!-- Reemplaza "LINK" con el enlace adecuado -->
           </div>
         </div>
@@ -198,6 +197,6 @@
 
 <!-- Dropdown Structure -->
 <ul id='dropdown1' class='dropdown-content'>
-  <li><a href="/login">Iniciar sesion</a></li>
-  <li><a href="home/usuario">Registarse</a></li>
+  <li><a  (click)="redireccion('login')">Iniciar sesion</a></li>
+  <li><a  (click)="redireccion('usuario')">Registarse</a></li>
 </ul>
