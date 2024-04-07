@@ -13,7 +13,7 @@
     "basePath": "",
     "tags": [
         {
-            "name": "Cabanas",
+            "name": "Cabañas",
             "description": "API para obtener información de las cabanas atonaltzin"
         },
         {
@@ -39,9 +39,38 @@
         "application/json"
     ],
     "paths": {
+        "/api/cabanas/crearcabana": {
+            "post": {
+                "summary": "Agregar una cabaña",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Cabañas",
+                        "in": "body",
+                        "description": "Cabaña agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaCabana"
+                        }
+                    }
+                ],
+                "tags": ["Cabañas"],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
         "/api/cabanas/MostrarTodasCabanas": {
             "get": {
-                "tags": ["Cabanas"],
+                "tags": ["Cabañas"],
                 "summary": "Listado de todas las cabanas que existen",
                 "description": "<p>Servicio que devuelve la información detallada de todas las cabañas que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las cabanas registradas?</strong></em></p>",
                 "responses": {
@@ -69,9 +98,9 @@
                 }
             }
         },
-        "/api/cabanas/listOne/{nombre}": {
+        "/api/cabanas/listOne/{id}": {
             "get": {
-                "tags": ["Cabanas"],
+                "tags": ["Cabañas"],
                 "summary": "Informacion asociada a la cabana, si es que existe en el atonaltzin",
                 "description": "<p>Servicio que devuelve la información detallada de la cabana solicitada</p><p>&nbsp;</p><p><em><strong>¿Cuál es la cabana de este nombre?</strong></em></p>",
                 "responses": {
@@ -103,45 +132,16 @@
                 },
                 "parameters": [
                     {
-                        "name": "nombre",
+                        "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "Nombre de la cabaña",
+                        "description": "ID de la cabaña",
                         "schema": {
                             "type": "string",
-                            "example": "CabañaA"
+                            "example": "1"
                         }
                     }
                 ]
-            }
-        },
-        "/api/cabanas/crearcabana": {
-            "post": {
-                "summary": "Agregando una cabana",
-                "operationId": "create",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "Cabanas",
-                        "in": "body",
-                        "description": "Cabana agregada",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/NuevaCabana"
-                        }
-                    }
-                ],
-                "tags": ["Cabanas"],
-                "responses": {
-                    "200": {
-                        "description": "Insertado con exito"
-                    },
-                    "403": {
-                        "description": "Prohibido"
-                    }
-                }
             }
         },
         "/api/cabanas/actualizarCabana/{id}": {
@@ -170,7 +170,7 @@
                         }
                     }
                 ],
-                "tags": ["Cabanas"],
+                "tags": ["Cabañas"],
                 "responses": {
                     "200": {
                         "description": "OK"
@@ -353,10 +353,16 @@
                     {
                         "name": "id",
                         "in": "body",
-                        "description": "Empresa agregada",
+                        "description": "Reservacion agregada",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/NuevaReservacion"
+                        },
+                        "example": {
+                            "ID_Cabana": 30,
+                            "ID_Cliente": 27,
+                            "FechaInicio": "2023-07-01",
+                            "FechaFin": "2023-07-10"
                         }
                     }
                 ],
@@ -793,19 +799,23 @@
             "properties": {
                 "ID_Cabana": {
                     "type": "number",
-                    "description": "Codigo que permite identificar la cabana"
+                    "description": "Codigo que permite identificar la cabana",
+                    "default": "30"
                 },
                 "ID_Cliente": {
                     "type": "number",
-                    "description": "Codigo que permite identificar al cliente"
+                    "description": "Codigo que permite identificar al cliente",
+                    "default": "27"
                 },
                 "FechaInicio": {
                     "type": "string",
-                    "description": "Permite saber el inicio de fecha de reservacion"
+                    "description": "Permite saber el inicio de fecha de reservacion",
+                    "default": "2023-07-01"
                 },
                 "FechaFin": {
                     "type": "string",
-                    "description": "Permite saber el final de la fecha de reservacion"
+                    "description": "Permite saber el final de la fecha de reservacion",
+                    "default": "2023-07-10"
                 }
             }
         },
