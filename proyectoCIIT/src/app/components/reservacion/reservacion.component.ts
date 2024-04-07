@@ -25,7 +25,7 @@ export class ReservacionComponent implements OnInit {
     this.DiasReservados = 0;
     this.TotalAPagar = 0;
     this.PrecioPorNoche=0;
-   }
+  }
 
   ngOnInit(): void {
     {
