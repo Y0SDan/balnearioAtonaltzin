@@ -25,7 +25,7 @@
             "description": "API para obtener información de los cobros de reservaciones"
         },
         {
-            "name": "Usuario",
+            "name": "Usuarios",
             "description": "API para obtener información de los usuarios"
         }
     ],
@@ -684,22 +684,91 @@
                 ]
             }
         },
-        "/api/clientes/addCliente": {
-            "post": {
-                "tags": [
-                    "Usuario"
+        "/api/cobros/actualizarCobro/{id}": {
+            "put": {
+                "summary": "Actualizar la información del cobro",
+                "description": "<p>Servicio que permite editar la información de un cobro dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
                 ],
-                "summary": "Muestra usuarios del balneario atonaltzin.",
-                "operationId": "create",
-                "description": "<p>Servicio que devuelve los clienets registrados en la pagina de balneario Atonaltzin.</p><p>&nbsp;</p><p><em><strong></strong></em></p>",
                 "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
                         "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id del cobro",
+                        "type": "number",
+                        "default": 0
+                    },
+                    {
+                        "name": "Cobro",
                         "in": "body",
-                        "description": "<p>Información de los usuarios que se van a agragar.</p>",
+                        "description": "Cobro a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoCobro"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Cobros"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/cobros/eliminarCobro/{id}": {
+            "delete": {
+                "tags": [
+                    "Cobros"
+                ],
+                "summary": "Elimina un cobro del balneario.",
+                "description": "<p>Servicio que elimina un cobro registrado en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué cobro se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id del cobro.",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/addCliente": {
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Agrega un usuario al balneario.",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "<p>Información del usuario que se va a agregar.</p>",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/NuevoUsuario"
@@ -708,7 +777,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Usuario Insertado con exito"
+                        "description": "Usuario agregado"
                     },
                     "403": {
                         "description": "Prohibido"
@@ -719,11 +788,11 @@
         "/api/clientes/login": {
             "post": {
                 "tags": [
-                    "Login"
+                    "Usuarios"
                 ],
-                "summary": "Muestra si el usuario es cliente o administrador.",
+                "summary": "Muestra el rol del usuario.",
                 "operationId": "create",
-                "description": "<p>Servicio que devuelve el rol del usuario.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los roles de los usuarios</strong></em></p>",
+                "description": "<p>Servicio que devuelve el rol del usuario.</p><p>&nbsp;</p><p><em><strong>¿Cuál es el rol del usuario</strong></em></p>",
                 "produces": [
                     "application/json"
                 ],
@@ -731,7 +800,7 @@
                     {
                         "name": "Email",
                         "in": "body",
-                        "description": "<p>Información del rol que se busco.</p>",
+                        "description": "<p>Correo electronico.</p>",
                         "required": true,
                         "schema": {
                             "$ref": "#/definitions/Login"
@@ -751,10 +820,10 @@
         "/api/clientes/showOne/{id}": {
             "get": {
                 "tags": [
-                    "Usuario"
+                    "Usuarios"
                 ],
-                "summary": "Muestra un usuario existente en balneario atonaltzin.",
-                "description": "<p>Servicio que devuelve la información detallada de todos los usuarios que existen en atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los roles existentes en el ciit?</strong></em></p>",
+                "summary": "Muestra un usuario existente en el balneario atonaltzin.",
+                "description": "<p>Servicio que devuelve la información detallada de un usuario existente en el atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Existe el usuario?</strong></em></p>",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -792,7 +861,7 @@
         "/api/clientes/obtenerReservacionesPorCliente/{nombre}": {
             "get": {
                 "tags": [
-                    "Usuario"
+                    "Usuarios"
                 ],
                 "summary": "Muestra la informacion de reserva de un cliente.",
                 "description": "<p>Servicio que devuelve la informacion de la reserva de un cliente del balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las rerservaciones del cliente?</strong></em></p>",
@@ -839,10 +908,10 @@
         "/api/clientes/ShowCliente": {
             "get": {
                 "tags": [
-                    "Usuario"
+                    "Usuarios"
                 ],
                 "summary": "Listado de todas los usuarios que existen en atonaltzin.",
-                "description": "<p>Servicio que devuelve la información detallada de todas los que existen en atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuantos usuarios existen?</strong></em></p>",
+                "description": "<p>Servicio que devuelve la información detallada de todos los usuarios que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuantos usuarios existen?</strong></em></p>",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -869,7 +938,7 @@
         }
     },
     "definitions": {
-        "Cabanas": {
+        "Cabana": {
             "type": "object",
             "properties": {
                 " ID_Cabana": {
@@ -904,6 +973,12 @@
                 }
             }
         },
+        "Cabanas" : {
+            "type" : "array",
+            "items" : {
+                "$ref" : "#/definitions/Cabana"
+            }
+        },
         "NuevaCabana": {
             "type": "object",
             "properties": {
@@ -934,6 +1009,37 @@
                 }
             }
         },
+        "Reservacion": {
+            "type": "object",
+            "properties": {
+                "ID_Reservacion": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la reservacion"
+                },
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la cabana"
+                },
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al cliente"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "description": "Permite saber el inicio de fecha de reservacion"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "description": "Permite saber el final de la fecha de reservacion"
+                }
+            }
+        },
+        "Reservaciones" : {
+            "type" : "array",
+            "items" : {
+                "$ref" : "#/definitions/Reservacion"
+            }
+        },
         "NuevaReservacion": {
             "type": "object",
             "properties": {
@@ -959,32 +1065,7 @@
                 }
             }
         },
-        "Reservaciones": {
-            "type": "object",
-            "properties": {
-                "ID_Reservacion": {
-                    "type": "number",
-                    "description": "Codigo que permite identificar la reservacion"
-                },
-                "ID_Cabana": {
-                    "type": "number",
-                    "description": "Codigo que permite identificar la cabana"
-                },
-                "ID_Cliente": {
-                    "type": "number",
-                    "description": "Codigo que permite identificar al cliente"
-                },
-                "FechaInicio": {
-                    "type": "string",
-                    "description": "Permite saber el inicio de fecha de reservacion"
-                },
-                "FechaFin": {
-                    "type": "string",
-                    "description": "Permite saber el final de la fecha de reservacion"
-                }
-            }
-        },
-        "Cobros": {
+        "Cobro": {
             "type": "object",
             "properties": {
                 "IdCobro": {
@@ -1009,6 +1090,12 @@
                     "type": "string",
                     "description": "Permite saber el estado del cobro"
                 }
+            }
+        },
+        "Cobros" : {
+            "type" : "array",
+            "items" : {
+                "$ref" : "#/definitions/Cobros"
             }
         },
         "NuevoCobro": {
@@ -1077,6 +1164,12 @@
                     "type": "string",
                     "description": "Tipo de usuario"
                 }
+            }
+        },
+        "Usuarios" : {
+            "type" : "array",
+            "items" : {
+                "$ref" : "#/definitions/Usuario"
             }
         },
         "NuevoUsuario": {
