@@ -24,6 +24,7 @@ import { SellerComponent } from './components/seller/seller.component';
 import { ReservacionUsuarioComponent } from './components/reservacion-usuario/reservacion-usuario.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide-contrasena.component';
+import { OfertasComponent } from './components/ofertas/ofertas.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide
     ReservacionAdminComponent,
     SellerComponent,
     ReservacionUsuarioComponent,
-    OlvideContrasenaComponent
+    OlvideContrasenaComponent,
+    OfertasComponent
   ],
   imports: [
     BrowserModule,

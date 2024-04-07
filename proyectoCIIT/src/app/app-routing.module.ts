@@ -19,6 +19,7 @@ import { SellerComponent } from './components/seller/seller.component';
 import { ReservacionUsuarioComponent } from './components/reservacion-usuario/reservacion-usuario.component';
 import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide-contrasena.component';
 import { RestablecerComponent } from './components/restablecer/restablecer.component';
+import { OfertasComponent } from './components/ofertas/ofertas.component';
 
 
 
@@ -113,6 +114,10 @@ const routes: Routes = [
             {
                 path: 'restablecer/:token',
                 component: RestablecerComponent,
+            },
+            {
+                path: 'ofertas',
+                component: OfertasComponent,
             }
         ]
     }
