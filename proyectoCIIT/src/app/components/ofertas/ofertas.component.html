@@ -45,20 +45,14 @@
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
-        <div class="input-field col s12">
-          <label class="active" for="nombre_usuario">Cabaña </label>
-          <input id="nombre_usuario" [(ngModel)]="oferta.id_cabana"
-            type="text" class="validate">
-        </div>
-        <div class="input-field col s6">
-          <label class="active">Cabaña</label>
-          <select id="opciones" name="opciones">
-            <option *ngFor="let cabana of cabanas" [value]="oferta.id_cabana">{{
-              cabana.Nombre }}</option>
+        <div>
+          <label for="">Cabañas</label>
+          <select [(ngModel)]="oferta.id_cabana" *ngIf="cabanas != undefined" class="browser-default">
+            <option *ngFor="let cabana of cabanas" [value]="cabana.ID_Cabana">{{cabana.Nombre}}</option>
           </select>
         </div>
         <div class="input-field col s12">
-          <label class="active" for="nombre_oferta">Descuento </label>
+          <label class="active" for="nombre_oferta">Descuento %</label>
           <input id="nombre_oferta" [(ngModel)]="oferta.descuento" type="text"
             class="validate">
         </div>
@@ -96,20 +90,14 @@
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
-        <div class="input-field col s12">
-          <label class="active" for="nombre_usuario">Cabaña </label>
-          <input id="nombre_usuario" [(ngModel)]="ofertaNuevo.id_cabana"
-            type="text" class="validate">
-        </div>
-        <div class="input-field col s6">
-          <label class="active">Cabaña</label>
-          <select id="opciones" name="opciones">
-            <option *ngFor="let cabana of cabanas" [value]="ofertaNuevo.id_cabana">{{
-              cabana.Nombre }}</option>
+        <div>
+          <label for="">Cabañas</label>
+          <select [(ngModel)]="oferta.id_cabana" *ngIf="cabanas != undefined" class="browser-default">
+            <option *ngFor="let cabana of cabanas" [value]="cabana.ID_Cabana">{{cabana.Nombre}}</option>
           </select>
         </div>
         <div class="input-field col s6">
-          <label class="active">Descuento</label>
+          <label class="active">Descuento %</label>
           <input [(ngModel)]="ofertaNuevo.descuento" type="text"
             class="validate">
         </div>

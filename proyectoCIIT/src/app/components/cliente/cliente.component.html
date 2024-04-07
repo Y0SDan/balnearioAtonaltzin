@@ -8,7 +8,6 @@
             <th>Apellido</th>
             <th>Email</th>
             <th>Telefono</th>
-            <th>Contraseña</th>
             <th>Tipo</th>
         </tr>
         <tr *ngFor="let cliente of clientes |
@@ -19,7 +18,6 @@
             <td>{{ cliente.Apellido }}</td>
             <td>{{ cliente.Email }}</td>
             <td>{{ cliente.Telefono }}</td>
-            <td>{{ cliente.password1 }}</td>
             <td>{{ cliente.tipo }}</td>
             <td>
               <a href="javascript: void(0);" class="space" (click)="actualizarCliente(cliente.ID_Cliente)">
@@ -60,10 +58,6 @@
                 <div class="input-field col s6">
                   <label class="active">Telefono </label>
                   <input [(ngModel)]="cliente.Telefono" type="text" class="validate">
-                </div>
-                <div class="input-field col s6">
-                  <label class="active">password1 </label>
-                  <input [(ngModel)]="cliente.password1" type="text" class="validate">
                 </div>
                 <div class="input-field col s6">
                   <select [(ngModel)]="cliente.tipo">
