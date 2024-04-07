@@ -167,6 +167,6 @@ export class ClienteComponent implements OnInit {
     this.clienteService.list().subscribe((resReservas: any) => {
       this.clientes = resReservas;
     },err => console.error(err));
-  }
+  } 
 
 }

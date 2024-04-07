@@ -32,8 +32,8 @@ class PromocionController
         const {id} = req.params;
         console.log("id: ", id);
         
-        const respuesta = await pool.query('SELECT * FROM promocion WHERE id_cabana = ?', [id]);
-        if(respuesta.length>0){
+        const respuesta = await pool.query('SELECT * FROM promocion WHERE id_promocion = ?', [id]);
+        if(respuesta.length>0){ 
             res.json(respuesta[0]);
             return ;
         }

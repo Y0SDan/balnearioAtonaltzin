@@ -1,111 +1,139 @@
-<a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="AgregarOferta()">
-    <i class="material-icons left">add</i> Crear Ofertas
+<a href="javascript:void(0);" class="waves-effect btn btn-border"
+  (click)="AgregarOferta()">
+  <i class="material-icons left">add</i> Crear Ofertas
 </a>
 
 <table class="default" *ngIf="ofertas != undefined && ofertas.length > 0">
-    <tr>
-        <th>Id Oferta</th>
-        <th>Id Producto</th>
-        <th>Descuento</th>
-        <th>Fecha Inicio</th>
-        <th>Fecha Fin</th>
-    </tr>
-    <tr *ngFor="let oferta of ofertas |
+  <tr>
+    <th>Id Oferta</th>
+    <th>Id Producto</th>
+    <th>Descuento</th>
+    <th>Fecha Inicio</th>
+    <th>Fecha Fin</th>
+  </tr>
+  <tr *ngFor="let oferta of ofertas |
     paginate: {
       itemsPerPage: pageSize,
-      currentPage: p };let i=index" >
-        <td>{{ oferta.Id_promocion }}</td>
-        <td>{{ oferta.Id_cabana }}</td>
-        <td>{{ oferta.descuento }}</td>
-        <td>{{ oferta.Fecha_Inicio }}</td>
-        <td>{{ oferta.Fecha_Fin }}</td>
-        <td>
-          <a href="javascript: void(0);" class="space" (click)="funcion()">
-            <i class="material-icons">edit</i></a>
-            <a href="javascript: void(0);" class="material-icons"
-              (click)="funcion()" style="color: red;">
-              <i class="material-icons">delete_forever</i></a>
-            </td>
-    </tr>
+      currentPage: p };let i=index">
+    <td>{{ oferta.id_promocion }}</td>
+    <td>{{ oferta.id_cabana }}</td>
+    <td>{{ oferta.descuento }} %</td>
+    <td>{{ oferta.Fecha_inicio }}</td>
+    <td>{{ oferta.Fecha_fin }}</td>
+    <td>
+      <a href="javascript: void(0);" class="space"
+        (click)="EditarOferta(oferta.id_promocion)">
+        <i class="material-icons">edit</i></a>
+      <a href="javascript: void(0);" class="material-icons"
+        (click)="EliminarOferta(oferta.id_promocion)" style="color: red;">
+        <i class="material-icons">delete_forever</i></a>
+    </td>
+  </tr>
 </table>
 <div class="blue-text text-darken-2">
   <pagination-controls class="col s6" (pageChange)="p = ($event)"
-  previousLabel="Anterior" nextLabel="Siguiente">
+    previousLabel="Anterior" nextLabel="Siguiente">
   </pagination-controls>
 </div>
 
 <div id="modalModificarOfertas" class="modal">
-    <div class="modal-content">
-      <div class="row" style="margin-bottom: 0px !important;">
-        <div class="col s12">
-          <h5 class="center">Actualizar Oferta</h5>
+  <div class="modal-content">
+    <div class="row" style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">Actualizar Oferta</h5>
+      </div>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_usuario">Cabaña </label>
+          <input id="nombre_usuario" [(ngModel)]="oferta.id_cabana"
+            type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">Cabaña</label>
+          <select id="opciones" name="opciones">
+            <option *ngFor="let cabana of cabanas" [value]="oferta.id_cabana">{{
+              cabana.Nombre }}</option>
+          </select>
+        </div>
+        <div class="input-field col s12">
+          <label class="active" for="nombre_oferta">Descuento </label>
+          <input id="nombre_oferta" [(ngModel)]="oferta.descuento" type="text"
+            class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">Fecha Inicio </label>
+          <input [(ngModel)]="oferta.Fecha_inicio" type="date" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">Fecha Fin </label>
+          <input [(ngModel)]="oferta.Fecha_fin" type="date" class="validate">
         </div>
       </div>
-      <div style="border: .5px solid #78909c; padding: 10px;">
-        <div class="row">
-          <div class="input-field col s12">
-            <label class="active" for="nombre_oferta">Descuento </label>
-            <input id="nombre_oferta" [(ngModel)]="oferta.descuento" type="text" class="validate">
-          </div>
-          <div class="input-field col s6">
-            <label class="active">Fecha Inicio </label>
-            <input [(ngModel)]="oferta.Fecha_Inicio" type="text" class="validate">
-          </div>
-          <div class="input-field col s6">
-              <label class="active">Fecha Fin </label>
-              <input [(ngModel)]="oferta.Fecha_Fin" type="text" class="validate">
-            </div>
+      <div class="row">
+        <div class="col s6 center">
+          <input type="submit"
+            class="waves-effect btn-large brown lighten-3 modal-close"
+            (click)="ActualizarOferta()" value="Enviar">
         </div>
-        <div class="row">
-          <div class="col s6 center">
-            <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-              (click)="funcion()" value="Enviar">
-          </div>
-          <div class="col s6 center">
-            <a class="modal-action modal-close waves-effect btn-large brown lighten-3
+        <div class="col s6 center">
+          <a
+            class="modal-action modal-close waves-effect btn-large brown lighten-3
     black-text">Cancelar</a>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="modalCrearOfertas" class="modal">
-    <div class="modal-content">
-      <div class="row " style="margin-bottom: 0px !important;">
-        <div class="col s12">
-          <h5 class="center">Crear Oferta</h5>
+<div id="modalCrearOfertas" class="modal">
+  <div class="modal-content">
+    <div class="row " style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">Crear Oferta</h5>
+      </div>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_usuario">Cabaña </label>
+          <input id="nombre_usuario" [(ngModel)]="ofertaNuevo.id_cabana"
+            type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">Cabaña</label>
+          <select id="opciones" name="opciones">
+            <option *ngFor="let cabana of cabanas" [value]="ofertaNuevo.id_cabana">{{
+              cabana.Nombre }}</option>
+          </select>
+        </div>
+        <div class="input-field col s6">
+          <label class="active">Descuento</label>
+          <input [(ngModel)]="ofertaNuevo.descuento" type="text"
+            class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">Fecha Inicio </label>
+          <input [(ngModel)]="ofertaNuevo.Fecha_inicio" type="date" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">Fecha Fin </label>
+          <input [(ngModel)]="ofertaNuevo.Fecha_fin" type="date" class="validate">
         </div>
       </div>
-      <div style="border: .5px solid #78909c; padding: 10px;">
-        <div class="row">
-          <div class="input-field col s12">
-            <label class="active" for="nombre_usuario">Producto </label>
-            <input id="nombre_usuario" [(ngModel)]="ofertaNuevo.Id_promocion" type="text" class="validate">
-          </div>
-          <div class="input-field col s6">
-              <label class="active">Descuento</label>
-              <input [(ngModel)]="ofertaNuevo.descuento" type="text" class="validate">
-            </div>
-              <div class="input-field col s6">
-                <label class="active">Fecha Inicio</label>
-                <input [(ngModel)]="ofertaNuevo.Fecha_Inicio" type="text" class="validate">
-              </div>
-              <div class="input-field col s6">
-                <label class="active">Fecha Fin </label>
-                <input [(ngModel)]="ofertaNuevo.Fecha_Fin" type="text" class="validate">
-              </div>
+      <div class="row">
+        <div class="col s6 center">
+          <input type="submit"
+            class="waves-effect btn-large brown lighten-3 modal-close"
+            (click)="CrearOferta()" value="Enviar">
         </div>
-        <div class="row">
-          <div class="col s6 center">
-            <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-              (click)="funcion()" value="Enviar">
-          </div>
-          <div class="col s6 center">
-            <a class="modal-action modal-close waves-effect btn-large brown lighten-3
+        <div class="col s6 center">
+          <a
+            class="modal-action modal-close waves-effect btn-large brown lighten-3
     black-text">Cancelar</a>
-          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
