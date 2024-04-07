@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "REST API proyectoUTM",
-        "description": "<html><body>Documentacion del proyecto <b>balneario Atonaltzin</b></body></html>",
+        "title": "REST API Balneario Atonaltzin",
+        "description": "<html><body>Documentacion del servidor para el proyecto <b>Balneario Atonaltzin</b></body></html>",
         "license": {
             "name": "MIT",
             "url": "https://opensource.org/licenses/MIT"
@@ -181,6 +181,33 @@
                 }
             }
         },
+        "/api/cabanas/eliminarCabana/{id}": {
+            "delete": {
+                "tags": [
+                    "Cabanas"
+                ],
+                "summary": "Elimina una cabaña del balneario.",
+                "description": "<p>Servicio que elimina una cabaña registrada en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué cabaña se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la cabaña.",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
         "/api/reservas/Mostrar_reservaciones": {
             "get": {
                 "tags": [
@@ -247,6 +274,61 @@
                         "description": "identificador de la reservacion",
                         "type": "number",
                         "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/reservas/ValidarReserva/{fechaInicio}/{fechaFinal}": {
+            "get": {
+                "tags": ["Cobros"],
+                "summary": "Muestra un reporte de ventas existente en atonaltzin.",
+                "description": "<p>Servicio que devuelve un reporte de ventas de una fecha inicial a una fecha final de todas las cabañas.</p><p>&nbsp;</p><p><em><strong>¿Cuáles fueron las ganancias totales en Atonaltzin?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "Fecha_Cobro": "2023-07-01",
+                                        "Fecha_Final": "2023-08-01"
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Cobros"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "fechaInicial",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha inicial del periodo de ventas",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-07-01"
+                        }
+                    },
+                    {
+                        "name": "fechaFinal",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha final del periodo de ventas",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-08-01"
+                        }
                     }
                 ]
             }
@@ -881,4 +963,3 @@
             }
         }
     }
-}
