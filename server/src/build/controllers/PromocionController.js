@@ -46,7 +46,7 @@ class PromocionController {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             console.log("id: ", id);
-            const respuesta = yield database_1.default.query('SELECT * FROM promocion WHERE id_cabana = ?', [id]);
+            const respuesta = yield database_1.default.query('SELECT * FROM promocion WHERE id_promocion = ?', [id]);
             if (respuesta.length > 0) {
                 res.json(respuesta[0]);
                 return;

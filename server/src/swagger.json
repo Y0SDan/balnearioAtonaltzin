@@ -2,8 +2,8 @@
     "swagger": "2.0",
     "info": {
         "version": "1.0.0",
-        "title": "REST API proyectoUTM",
-        "description": "<html><body>Documentacion del proyecto <b>balneario Atonaltzin</b></body></html>",
+        "title": "REST API Balneario Atonaltzin",
+        "description": "<html><body>Documentacion del servidor para el proyecto <b>Balneario Atonaltzin</b></body></html>",
         "license": {
         "name": "MIT",
         "url": "https://opensource.org/licenses/MIT"
@@ -13,7 +13,7 @@
     "basePath": "",
     "tags": [
         {
-            "name": "Cabanas",
+            "name": "Cabañas",
             "description": "API para obtener información de las cabanas atonaltzin"
         },
         {
@@ -41,9 +41,49 @@
         "application/json"
     ],
     "paths":{
+        "/api/cabanas/crearcabana":{
+            "post":
+            {
+                "summary" : "Agregar una cabaña",
+                "operationId": "create",
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name" : "Cabañas",
+                        "in": "body",
+                        "description" :"Cabaña agregada",
+                        "required" : true,
+                        "schema" : {
+                            "$ref" : "#/definitions/NuevaCabana"
+                        },
+                        "example": {
+                            "nombre": "Cabaña X",
+                            "Descripcion": "Para 2 personas, cómoda y cuenta con televisión",
+                            "PrecioPorNoche": 600,
+                            "Capacidad": 2,
+                            "Ubicacion": "Carretera Teotongo sin #, Villa de Tamazulapm del progreso, Oaxaca"
+                        }
+                    }
+                ],
+
+                "tags" : ["Cabañas"],
+                
+                "responses" : {
+                    "200" :{
+                        "description" : "Insertado con exito"
+                    },
+                    "403" : {
+                        "description" : "Prohibido"
+                    }
+                }
+
+            }
+        },
         "/api/cabanas/MostrarTodasCabanas":{
             "get": {
-                "tags": ["Cabanas"],
+                "tags": ["Cabañas"],
                 "summary": "Listado de todas las cabanas que existen",
                 "description": "<p>Servicio que devuelve la información detallada de todas las cabañas que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las cabanas registradas?</strong></em></p>",
                 "responses": {
@@ -72,9 +112,9 @@
                 }
             }
         },
-        "/api/cabanas/listOne/{nombre}": {
+        "/api/cabanas/listOne/{id}": {
             "get": {
-              "tags": ["Cabanas"],
+              "tags": ["Cabañas"],
               "summary": "Informacion asociada a la cabana, si es que existe en el atonaltzin",
               "description": "<p>Servicio que devuelve la información detallada de la cabana solicitada</p><p>&nbsp;</p><p><em><strong>¿Cuál es la cabana de este nombre?</strong></em></p>",
               "responses": {
@@ -106,51 +146,18 @@
               },
               "parameters": [
                 {
-                  "name": "nombre",
+                  "name": "id",
                   "in": "path",
                   "required": true,
-                  "description": "Nombre de la cabaña",
+                  "description": "ID de la cabaña",
                   "schema": {
                     "type": "string",
-                    "example": "CabañaA"
+                    "example": "1"
                   }
                 }
               ]
             }
           },
-        "/api/cabanas/crearcabana":{
-            "post":
-            {
-                "summary" : "Agregando una cabana",
-                "operationId": "create",
-                "produces":[
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name" : "Cabanas",
-                        "in": "body",
-                        "description" :"Cabana agregada",
-                        "required" : true,
-                        "schema" : {
-                            "$ref" : "#/definitions/NuevaCabana"
-                        }
-                    }
-                ],
-
-                "tags" : ["Cabanas"],
-                
-                "responses" : {
-                    "200" :{
-                        "description" : "Insertado con exito"
-                    },
-                    "403" : {
-                        "description" : "Prohibido"
-                    }
-                }
-
-            }
-        },
         "/api/cabanas/actualizarCabana/{id}":{
             "put": {
                 "summary": "Actualizar la informaciòn de la caba de atonaltzin",
@@ -181,7 +188,7 @@
                     }
                 
                 ],
-                "tags" :["Cabanas"],
+                "tags" :["Cabañas"],
                 "responses": {
                     "200":{
                         "description": "OK"
@@ -190,6 +197,33 @@
                         "description": "Prohibido"
                     }
                 }
+            }
+        },
+        "/api/cabanas/eliminarCabana/{id}":{
+            "delete": {
+                "tags": [
+                    "Cabanas"
+                ],
+                "summary": "Elimina una cabaña del balneario.",
+                "description": "<p>Servicio que elimina una cabaña registrada en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué cabaña se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200":{
+                        "description": "OK"
+                    },
+                    "403":{
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters" :[
+                    {
+                        "name" : "id",
+                        "in" : "path",
+                        "requiered" : "true",
+                        "description" : "Id de la cabaña.",
+                        "type" : "number",
+                        "default" : "0"
+                    }
+                ]
             }
         },
         "/api/reservas/Mostrar_reservaciones":{
@@ -265,6 +299,61 @@
                     } ]
             }
         },
+        "/api/reservas/ValidarReserva/{ID_Cabana}/{fechaInicio}/{fechaFinal}": {
+            "get": {
+            "tags": ["Cobros"],
+            "summary": "Muestra un reporte de ventas existente en atonaltzin.",
+            "description": "<p>Servicio que devuelve un reporte de ventas de una fecha inicial a una fecha final de todas las cabañas.</p><p>&nbsp;</p><p><em><strong>¿Cuáles fueron las ganancias totales en Atonaltzin?</strong></em></p>",
+            "responses": {
+                "200": {
+                "description": "OK",
+                "content": {
+                    "application/json": {
+                    "example": [
+                        {
+                        "Fecha_Cobro": "2023-07-01",
+                        "Fecha_Final": "2023-08-01"
+                        }
+                    ]
+                    }
+                },
+                "schema": {
+                    "type": "array",
+                    "items": {
+                    "$ref": "#/definitions/Cobros"
+                    }
+                }
+                },
+                "403": {
+                "description": "Prohibido"
+                }
+            },
+            "parameters": [
+                {
+                "name": "fechaInicial",
+                "in": "path",
+                "required": true,
+                "description": "Fecha inicial del periodo de ventas",
+                "schema": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2023-07-01"
+                }
+                },
+                {
+                "name": "fechaFinal",
+                "in": "path",
+                "required": true,
+                "description": "Fecha final del periodo de ventas",
+                "schema": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2023-08-01"
+                }
+                }
+            ]
+            }
+        },
         "/api/reservas/addReserva/":{
             "post":
             {
@@ -277,10 +366,16 @@
                     {
                         "name" : "id",
                         "in": "body",
-                        "description" :"Empresa agregada",
+                        "description" :"Reservacion agregada",
                         "required" : true,
                         "schema" : {
                             "$ref" : "#/definitions/NuevaReservacion"
+                        },
+                        "example": {
+                            "ID_Cabana": 30,
+                            "ID_Cliente": 27,
+                            "FechaInicio": "2023-07-01",
+                            "FechaFin": "2023-07-10"
                         }
                     }
                 ],
@@ -725,26 +820,31 @@
                     "properties":{
                         "nombre" :{
                             "type": "string",
-                            "description" : "Nombre de la cabana"
+                            "description" : "Nombre de la cabana",
+                            "default": "Cabaña X"
                         },
         
                         "Descripcion" :{
                             "type": "string",
-                            "description" : "Descripcion de la cabana"
+                            "description" : "Descripcion de la cabana",
+                            "default": "Para 2 personas, cómoda y cuenta con televisión"
                         },
         
                         "PrecioPorNoche" :{
                             "type": "number",
-                            "description" : "Precio de la cabana"
+                            "description" : "Precio de la cabana",
+                            "default": "600"
                         },
         
                         "Capacidad" :{
                             "type": "number",
-                            "description" : "Capacidad de cabana"
+                            "description" : "Capacidad de cabana",
+                            "default": "2"
                         },
                         "Ubicacion" :{
                             "type": "string",
-                            "description" : "Descripcion de la ubicacion de la cabana"
+                            "description" : "Descripcion de la ubicacion de la cabana",
+                            "default": "Carretera Teotongo sin #, Villa de Tamazulapm del progreso, Oaxaca"
                         }
 
         
@@ -757,20 +857,24 @@
                         
                         "ID_Cabana" :{
                             "type": "number",
-                            "description" : "Codigo que permite identificar la cabana"
+                            "description" : "Codigo que permite identificar la cabana",
+                            "default": "30"
                         },
         
                         "ID_Cliente" :{
                             "type": "number",
-                            "description" : "Codigo que permite identificar al cliente"
+                            "description" : "Codigo que permite identificar al cliente",
+                            "default": "27"
                         },
                         "FechaInicio":{
                             "type":"string",
-                            "description":"Permite saber el inicio de fecha de reservacion"
+                            "description":"Permite saber el inicio de fecha de reservacion",
+                            "default": "2023-07-01"
                         },
                         "FechaFin":{
                             "type":"string",
-                            "description":"Permite saber el final de la fecha de reservacion"
+                            "description":"Permite saber el final de la fecha de reservacion",
+                            "default": "2023-07-10"
                         }
                     }
                 },
