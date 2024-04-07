@@ -292,7 +292,7 @@
                     } ]
             }
         },
-        "/api/reservas/ValidarReserva/{fechaInicio}/{fechaFinal}": {
+        "/api/reservas/ValidarReserva/{ID_Cabana}/{fechaInicio}/{fechaFinal}": {
             "get": {
             "tags": ["Cobros"],
             "summary": "Muestra un reporte de ventas existente en atonaltzin.",
