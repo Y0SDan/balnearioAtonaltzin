@@ -75,12 +75,6 @@ export class OfertasComponent implements OnInit {
         text: "Error en las Fechas estan vacias",
         icon: "warning"
       });
-    }else if(this.ofertaNuevo.Fecha_inicio < fechaActual.toString()){
-      Swal.fire({
-        title: "Error!",
-        text: "No se puede elegir una fecha anterior a la fecha actual",
-        icon: "warning"
-      });
     }else if(this.ofertaNuevo.Fecha_inicio > this.ofertaNuevo.Fecha_fin){
       Swal.fire({
         title: "Error!",
