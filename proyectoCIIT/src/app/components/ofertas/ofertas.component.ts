@@ -84,7 +84,7 @@ export class OfertasComponent implements OnInit {
     }else if(this.ofertaNuevo.Fecha_inicio > this.ofertaNuevo.Fecha_fin){
       Swal.fire({
         title: "Error!",
-        text: "Error en las Fechas",
+        text: "La Fecha de Inicio no puede ser mayor a la fecha fin",
         icon: "warning"
       });
     }else if(this.ofertaNuevo.Fecha_inicio == this.ofertaNuevo.Fecha_fin){
@@ -157,25 +157,47 @@ export class OfertasComponent implements OnInit {
     });
   }
   ActualizarOferta() {
-    this.ofertaService.actualizarOferta(this.oferta).subscribe(() => {
-      console.log(this.oferta.id_promocion);
-      $('#modalModificarOfertas').modal('close');
+    
+    if(this.oferta.Fecha_inicio == " " || this.oferta.Fecha_fin == " "){
       Swal.fire({
-        title: "Oferta Actualizada!",
-        text: "Tu oferta ha sido actualizada.",
-        icon: "success"
+        title: "Error!",
+        text: "Error en las Fechas estan vacias",
+        icon: "warning"
       });
-      this.cdr.detectChanges();
-      this.ofertaService.list().subscribe((resusuario: any) => {
-        this.ofertas = resusuario;
-    })
-    }, err => {
-      console.error(err);
+    }else if(this.oferta.Fecha_inicio > this.oferta.Fecha_fin){
       Swal.fire({
-        title: "Error",
-        text: "Ocurrio un error",
-        icon: "error"
+        title: "Error!",
+        text: "La Fecha de Inicio no puede ser mayor a la fecha fin",
+        icon: "warning"
       });
-    });
+    }else if(this.oferta.Fecha_inicio == this.oferta.Fecha_fin){
+      Swal.fire({
+        title: "Error!",
+        text: "Las Fechas no pueden ser las mismas",
+        icon: "warning"
+      });
+    }else{
+      this.ofertaService.actualizarOferta(this.oferta).subscribe(() => {
+        console.log(this.oferta.id_promocion);
+        $('#modalModificarOfertas').modal('close');
+        Swal.fire({
+          title: "Oferta Actualizada!",
+          text: "Tu oferta ha sido actualizada.",
+          icon: "success"
+        });
+        this.cdr.detectChanges();
+        this.ofertaService.list().subscribe((resusuario: any) => {
+          this.ofertas = resusuario;
+      })
+      }, err => {
+        console.error(err);
+        Swal.fire({
+          title: "Error",
+          text: "Ocurrio un error",
+          icon: "error"
+        });
+      });
+    }
+    
   }
 }
