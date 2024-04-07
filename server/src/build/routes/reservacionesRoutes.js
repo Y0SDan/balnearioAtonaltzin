@@ -16,6 +16,8 @@ class reservacionesRoutes {
         this.router.get('/showOne/:id', ReservacionesController_1.reservacionesController.showOne);
         this.router.delete('/eliminarReservacion/:id', ReservacionesController_1.reservacionesController.eliminarReservacion);
         this.router.put('/actualizarReservacion/:id', ReservacionesController_1.reservacionesController.actualizarReservacion);
+        this.router.get('/PrecioReserva/:id/:FechaInicio/:FechaFin', ReservacionesController_1.reservacionesController.PrecioReserva);
+        this.router.get('/mostrarPrecioReserva/:id', ReservacionesController_1.reservacionesController.mostrarPrecioReserva);
     }
 }
 const reservacionRoutes = new reservacionesRoutes();
