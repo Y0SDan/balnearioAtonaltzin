@@ -54,17 +54,6 @@
                         "required" : true,
                         "schema" : {
                             "$ref" : "#/definitions/NuevaCabana"
-                        },
-                        "example": {
-                            "nombre": "Cabaña X",
-                            "Descripcion": "Para 2 personas, cómoda y cuenta con televisión",
-                            "PrecioPorNoche": 600,
-                            "Capacidad": 2,
-                            "Ubicacion": "Carretera Teotongo sin #, Villa de Tamazulapm del progreso, Oaxaca",
-                        "description": "Cabaña agregada",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/NuevaCabana"
                         }
                     }
                 ],
