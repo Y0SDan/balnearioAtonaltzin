@@ -44,7 +44,7 @@
         "/api/cabanas/crearcabana":{
             "post":
             {
-                "summary" : "Agregando una cabaña",
+                "summary" : "Agregar una cabaña",
                 "operationId": "create",
                 "produces":[
                     "application/json"
