@@ -57,6 +57,13 @@
                         "required" : true,
                         "schema" : {
                             "$ref" : "#/definitions/NuevaCabana"
+                        },
+                        "example": {
+                            "nombre": "Cabaña X",
+                            "Descripcion": "Para 2 personas, cómoda y cuenta con televisión",
+                            "PrecioPorNoche": 600,
+                            "Capacidad": 2,
+                            "Ubicacion": "Carretera Teotongo sin #, Villa de Tamazulapm del progreso, Oaxaca"
                         }
                     }
                 ],
@@ -813,26 +820,31 @@
                     "properties":{
                         "nombre" :{
                             "type": "string",
-                            "description" : "Nombre de la cabana"
+                            "description" : "Nombre de la cabana",
+                            "default": "Cabaña X"
                         },
         
                         "Descripcion" :{
                             "type": "string",
-                            "description" : "Descripcion de la cabana"
+                            "description" : "Descripcion de la cabana",
+                            "default": "Para 2 personas, cómoda y cuenta con televisión"
                         },
         
                         "PrecioPorNoche" :{
                             "type": "number",
-                            "description" : "Precio de la cabana"
+                            "description" : "Precio de la cabana",
+                            "default": "600"
                         },
         
                         "Capacidad" :{
                             "type": "number",
-                            "description" : "Capacidad de cabana"
+                            "description" : "Capacidad de cabana",
+                            "default": "2"
                         },
                         "Ubicacion" :{
                             "type": "string",
-                            "description" : "Descripcion de la ubicacion de la cabana"
+                            "description" : "Descripcion de la ubicacion de la cabana",
+                            "default": "Carretera Teotongo sin #, Villa de Tamazulapm del progreso, Oaxaca"
                         }
 
         
