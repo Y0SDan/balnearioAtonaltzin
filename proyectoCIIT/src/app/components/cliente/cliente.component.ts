@@ -4,6 +4,7 @@ import { ClienteService } from './../../services/cliente.service';
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
 declare var $: any;
+declare var M: any;
 
 @Component({
   selector: 'app-cliente',
@@ -33,17 +34,16 @@ export class ClienteComponent implements OnInit {
     $(document).ready(function(){
       $('select').formSelect();
     });
+    M.AutoInit();
   }
 
   addCliente() {
     this.clienteNuevo = new Cliente();
-    console.log("Usuario Nuevo");
     $('#modalCrearCliente').modal();
     $("#modalCrearCliente").modal("open");
   }
 
   guardarNuevoUsuario() {
-    console.log("GuardandoUsuario");
     this.clienteService.addCliente(this.clienteNuevo).subscribe(
       (res) => {
         $('#modalCrearCliente').modal('close');
@@ -67,8 +67,6 @@ export class ClienteComponent implements OnInit {
   }
 
   eliminarUsuario(id: any) {
-    console.log("Click en eliminar Cliente");
-    console.log("Identificador del Cliente: ", id);
     Swal.fire({
       title: "¿Estás seguro?",
       text: "No es posible revertir este!",
@@ -81,11 +79,9 @@ export class ClienteComponent implements OnInit {
       if (result.isConfirmed) {
         this.clienteService.eliminarUsuario(id).subscribe(
           (resusuario: any) => {
-            console.log("resusuario: ", resusuario);
             this.clienteService.list().subscribe(
               (resusuario: any) => {
                 this.clientes = resusuario;
-                console.log(this.clientes);
               },
               err => console.error(err)
             );
@@ -103,15 +99,12 @@ export class ClienteComponent implements OnInit {
   }
 
   MostrarCliente() {
-    console.log("Mostrarclientes");
-
     this.clienteService.addCliente(this.clienteNuevo).subscribe(
       (res) => {
         $('#modalCrearCliente').modal('close');
         this.clienteService.list().subscribe(
           (resusuarios: any) => {
             this.cliente = resusuarios;
-            console.log(resusuarios);
           },
           (err: any) => {
             console.error(err);
@@ -125,7 +118,6 @@ export class ClienteComponent implements OnInit {
   actualizarCliente(idCliente: number) {
     this.clienteService.showOne(idCliente).subscribe((resusuario: any) => {
       this.cliente = resusuario;
-      console.log(this.cliente)
       $('#modalModificarCliente').modal();
       $("#modalModificarCliente").modal("open");
     }, err => console.error(err));
@@ -167,6 +159,10 @@ export class ClienteComponent implements OnInit {
     this.clienteService.list().subscribe((resReservas: any) => {
       this.clientes = resReservas;
     },err => console.error(err));
+  }
+
+  compareFn(a : any, b : any) {
+    return a === b;
   }
 
 }
