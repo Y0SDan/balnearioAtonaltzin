@@ -7,10 +7,10 @@ export class Ofertas{
 
 
     constructor() {
-        this.id_promocion = 1;
-        this.id_cabana = 1;
-        this.descuento = 1;
+        this.id_promocion = 0;
+        this.id_cabana = 2;
+        this.descuento = 15;
         this.Fecha_inicio = " ";
-        this.Fecha_fin = "  ";
+        this.Fecha_fin = " ";
     }
 }

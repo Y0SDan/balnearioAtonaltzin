@@ -23,25 +23,22 @@ export class OfertaService {
     return this.http.post(`${environment.API_URL}/clientes/login`, data);
   }
 
-  addCliente(cliente: any) {
+  AgregarOferta(cliente: any) {
     console.log("Entrando al servicio de crear Usuario");
-    return this.http.post(`${environment.API_URL}/clientes/addCliente`, cliente);
+    return this.http.post(`${environment.API_URL}/promos/addPromocion`, cliente);
   }
 
   showOne(ID_Cliente: any) {
     return this.http.get(`${environment.API_URL}/promos/showOne/${ID_Cliente}`)
   }
 
-  eliminarUsuario(id: any) {
-    return this.http.delete(`${environment.API_URL}/clientes/eliminarCliente/${id}`);
+  eliminarOferta(id: any) {
+    return this.http.delete(`${environment.API_URL}/promos/eliminarPromocion/${id}`);
   }
-  actualizarCliente(cliente: any) {
-    return this.http.put(`${environment.API_URL}/clientes/actualizarCliente/${cliente.ID_Cliente}`,
+  actualizarOferta(cliente: any) {
+    return this.http.put(`${environment.API_URL}/promos/actualizarPromocion/${cliente.id_promocion}`,
       cliente);
   }
 
-  actualizarContrasena(token: any, nuevaContrasena: any) {
-    return this.http.put(`${environment.API_URL}/clientes/actualizarContrasena`, { "correo": token, "contrasena": nuevaContrasena });
-  }
 
 }
