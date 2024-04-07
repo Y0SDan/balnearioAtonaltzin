@@ -684,6 +684,49 @@
                 ]
             }
         },
+        "/api/cobros/actualizarCobros/{id}": {
+            "put": {
+                "summary": "Actualizar la información del cobro",
+                "description": "<p>Servicio que permite editar la información de un cobro dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id del cobro",
+                        "type": "number",
+                        "default": 0
+                    },
+                    {
+                        "name": "Cobro",
+                        "in": "body",
+                        "description": "Cobro a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoCobro"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Cobros"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
         "/api/clientes/addCliente": {
             "post": {
                 "tags": [
@@ -869,7 +912,7 @@
         }
     },
     "definitions": {
-        "Cabanas": {
+        "Cabana": {
             "type": "object",
             "properties": {
                 " ID_Cabana": {
@@ -898,6 +941,12 @@
                 }
             }
         },
+        "Cabanas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Cabana"
+            }
+        },
         "NuevaCabana": {
             "type": "object",
             "properties": {
@@ -921,6 +970,37 @@
                     "type": "string",
                     "description": "Descripcion de la ubicacion de la cabana"
                 }
+            }
+        },
+        "Reservacion": {
+            "type": "object",
+            "properties": {
+                "ID_Reservacion": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la reservacion"
+                },
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la cabana"
+                },
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al cliente"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "description": "Permite saber el inicio de fecha de reservacion"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "description": "Permite saber el final de la fecha de reservacion"
+                }
+            }
+        },
+        "Reservaciones": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Reservacion"
             }
         },
         "NuevaReservacion": {
@@ -948,32 +1028,7 @@
                 }
             }
         },
-        "Reservaciones": {
-            "type": "object",
-            "properties": {
-                "ID_Reservacion": {
-                    "type": "number",
-                    "description": "Codigo que permite identificar la reservacion"
-                },
-                "ID_Cabana": {
-                    "type": "number",
-                    "description": "Codigo que permite identificar la cabana"
-                },
-                "ID_Cliente": {
-                    "type": "number",
-                    "description": "Codigo que permite identificar al cliente"
-                },
-                "FechaInicio": {
-                    "type": "string",
-                    "description": "Permite saber el inicio de fecha de reservacion"
-                },
-                "FechaFin": {
-                    "type": "string",
-                    "description": "Permite saber el final de la fecha de reservacion"
-                }
-            }
-        },
-        "Cobros": {
+        "Cobro": {
             "type": "object",
             "properties": {
                 "IdCobro": {
@@ -998,6 +1053,12 @@
                     "type": "string",
                     "description": "Permite saber el estado del cobro"
                 }
+            }
+        },
+        "Cobros": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Cobros"
             }
         },
         "NuevoCobro": {
@@ -1066,6 +1127,12 @@
                     "type": "string",
                     "description": "Tipo de usuario"
                 }
+            }
+        },
+        "Usuarios": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Usuario"
             }
         },
         "NuevoUsuario": {
