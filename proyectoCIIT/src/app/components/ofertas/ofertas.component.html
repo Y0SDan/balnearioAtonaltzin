@@ -14,13 +14,13 @@
     paginate: {
       itemsPerPage: pageSize,
       currentPage: p };let i=index" >
-        <td>{{ oferta.Id_promocion }}</td>
-        <td>{{ oferta.Id_cabana }}</td>
+        <td>{{ oferta.id_promocion }}</td>
+        <td>{{ oferta.id_cabana }}</td>
         <td>{{ oferta.descuento }}</td>
-        <td>{{ oferta.Fecha_Inicio }}</td>
-        <td>{{ oferta.Fecha_Fin }}</td>
+        <td>{{ oferta.Fecha_inicio }}</td>
+        <td>{{ oferta.Fecha_fin }}</td>
         <td>
-          <a href="javascript: void(0);" class="space" (click)="funcion()">
+          <a href="javascript: void(0);" class="space" (click)="EditarOferta(oferta.id_promocion)">
             <i class="material-icons">edit</i></a>
             <a href="javascript: void(0);" class="material-icons"
               (click)="funcion()" style="color: red;">
@@ -49,11 +49,11 @@
           </div>
           <div class="input-field col s6">
             <label class="active">Fecha Inicio </label>
-            <input [(ngModel)]="oferta.Fecha_Inicio" type="text" class="validate">
+            <input [(ngModel)]="oferta.Fecha_inicio" type="text" class="validate">
           </div>
           <div class="input-field col s6">
               <label class="active">Fecha Fin </label>
-              <input [(ngModel)]="oferta.Fecha_Fin" type="text" class="validate">
+              <input [(ngModel)]="oferta.Fecha_fin" type="text" class="validate">
             </div>
         </div>
         <div class="row">
@@ -81,7 +81,7 @@
         <div class="row">
           <div class="input-field col s12">
             <label class="active" for="nombre_usuario">Producto </label>
-            <input id="nombre_usuario" [(ngModel)]="ofertaNuevo.Id_promocion" type="text" class="validate">
+            <input id="nombre_usuario" [(ngModel)]="ofertaNuevo.id_cabana" type="text" class="validate">
           </div>
           <div class="input-field col s6">
               <label class="active">Descuento</label>
@@ -89,11 +89,11 @@
             </div>
               <div class="input-field col s6">
                 <label class="active">Fecha Inicio</label>
-                <input [(ngModel)]="ofertaNuevo.Fecha_Inicio" type="text" class="validate">
+                <input [(ngModel)]="ofertaNuevo.Fecha_inicio" type="text" class="validate">
               </div>
               <div class="input-field col s6">
                 <label class="active">Fecha Fin </label>
-                <input [(ngModel)]="ofertaNuevo.Fecha_Fin" type="text" class="validate">
+                <input [(ngModel)]="ofertaNuevo.Fecha_fin" type="text" class="validate">
               </div>
         </div>
         <div class="row">

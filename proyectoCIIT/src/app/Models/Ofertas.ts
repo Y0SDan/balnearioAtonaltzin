@@ -1,16 +1,16 @@
 export class Ofertas{
-    Id_promocion: number;
-    Id_cabana: number;
+    id_promocion: number;
+    id_cabana: number;
     descuento: number;
-    Fecha_Inicio: string;
-    Fecha_Fin: string;
+    Fecha_inicio: string;
+    Fecha_fin: string;
 
 
     constructor() {
-        this.Id_promocion = 1;
-        this.Id_cabana = 1;
+        this.id_promocion = 1;
+        this.id_cabana = 1;
         this.descuento = 1;
-        this.Fecha_Inicio = " ";
-        this.Fecha_Fin = "  ";
+        this.Fecha_inicio = " ";
+        this.Fecha_fin = "  ";
     }
 }

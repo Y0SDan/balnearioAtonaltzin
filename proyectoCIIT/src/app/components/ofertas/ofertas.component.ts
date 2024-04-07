@@ -20,6 +20,7 @@ export class OfertasComponent implements OnInit {
   constructor(private ofertaService: OfertaService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    this.recargarOfertas()
     $(document).ready(function(){
       $('.modal').modal();
     });
@@ -33,9 +34,27 @@ export class OfertasComponent implements OnInit {
     $('#modalCrearOfertas').modal();
     $("#modalCrearOfertas").modal("open");
   }
+  EditarOferta(IdOferta: number) {
+    this.ofertaService.showOne(IdOferta).subscribe((resusuario: any) => {
+      this.oferta = resusuario;
+      console.log(this.oferta)
+      $('#modalModificarOfertas').modal();
+      $("#modalModificarOfertas").modal("open");
+    }, err => console.error(err));
+  }
+
+
+  recargarOfertas() {
+    this.ofertaService.list().subscribe((resOfertas: any) => {
+      this.ofertas = resOfertas;
+      console.log(this.ofertas);
+      
+    },err => console.error(err));
+  }
 
   funcion(){
     console.log("prueba para las funciones");
     
   }
+
 }
