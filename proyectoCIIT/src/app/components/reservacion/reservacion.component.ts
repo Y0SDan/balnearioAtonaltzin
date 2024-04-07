@@ -18,6 +18,7 @@ export class ReservacionComponent implements OnInit {
   DiasReservados: number;
   TotalAPagar: number;
   PrecioPorNoche: number;
+  //hola
 
   constructor(private reservaService: ReservaService) {
     this.FechaInicio=""
