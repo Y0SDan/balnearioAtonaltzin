@@ -278,11 +278,11 @@
                 ]
             }
         },
-        "/api/reservas/ValidarReserva/{ID_Cabana}/{fechaInicio}/{fechaFinal}": {
+        "/api/reservas/ValidarReserva/{ID_Cabana}/{fechaInicio}/{fechaFin}": {
             "get": {
-                "tags": ["Cobros"],
-                "summary": "Muestra un reporte de ventas existente en atonaltzin.",
-                "description": "<p>Servicio que devuelve un reporte de ventas de una fecha inicial a una fecha final de todas las cabañas.</p><p>&nbsp;</p><p><em><strong>¿Cuáles fueron las ganancias totales en Atonaltzin?</strong></em></p>",
+                "tags": ["Reservaciones"],
+                "summary": "Verifica si el  la cabaña está disponible dentro del rango de fechas dado.",
+                "description": "<p>Servicio que verifica la disponibilidad de una cabaña dentro de un rango de fechas dado.</p><p>&nbsp;</p><p><em><strong>¿Estará diponible la cabaña en esas fechas?</strong></em></p>",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -290,6 +290,7 @@
                             "application/json": {
                                 "example": [
                                     {
+                                        "ID_Cabana": 1,
                                         "Fecha_Cobro": "2023-07-01",
                                         "Fecha_Final": "2023-08-01"
                                     }
@@ -299,7 +300,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Cobros"
+                                "$ref": "#/definitions/Reservaciones"
                             }
                         }
                     },
@@ -309,10 +310,18 @@
                 },
                 "parameters": [
                     {
-                        "name": "fechaInicial",
+                        "name": "ID_Cabana",
                         "in": "path",
                         "required": true,
-                        "description": "Fecha inicial del periodo de ventas",
+                        "description": "Id de la cabaña.",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "FechaInicio",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha inicial de la reservacion",
                         "schema": {
                             "type": "string",
                             "format": "date",
@@ -320,10 +329,10 @@
                         }
                     },
                     {
-                        "name": "fechaFinal",
+                        "name": "FechaFin",
                         "in": "path",
                         "required": true,
-                        "description": "Fecha final del periodo de ventas",
+                        "description": "Fecha final de la reservacion",
                         "schema": {
                             "type": "string",
                             "format": "date",
