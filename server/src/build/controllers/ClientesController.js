@@ -65,8 +65,8 @@ class ClientesController {
     actualizarCliente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            //console.log(req.params);
-            console.log(id);
+            const salt = yield bcryptjs_1.default.genSalt(10);
+            req.body.password1 = yield bcryptjs_1.default.hash(req.body.password1, salt);
             const resp = yield database_1.default.query("UPDATE cliente set ? WHERE ID_Cliente = ?", [req.body, id]);
             res.json(resp);
             //res.json(null);

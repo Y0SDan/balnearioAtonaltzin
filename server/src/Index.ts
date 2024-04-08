@@ -39,7 +39,6 @@ this.app.use('/api/cobros',cobrosRoutes);
 this.app.use('/api/clientes',clientesRoutes);
 this.app.use('/api/admin',administradoresRoutes);
 this.app.use('/api/promos',PromcionesRoutes);
-
 }
 start (): void
 {
