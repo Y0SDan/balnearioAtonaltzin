@@ -1187,12 +1187,25 @@
                         "examples": {
                             "application/json": [
                                 {
-                                    "id_Cobro": 1,
-                                    "MontoCobrado": "1200"
+                                  "id_promocion": 1,
+                                  "id_cabana": 1,
+                                  "descuento": 12,
+                                  "Fecha_inicio": "2024-04-05",
+                                  "Fecha_fin": "2024-04-09"
                                 },
                                 {
-                                    "id_Cobro": 2,
-                                    "MontoCobrado": "2200"
+                                  "id_promocion": 2,
+                                  "id_cabana": 1,
+                                  "descuento": 25,
+                                  "Fecha_inicio": "2024-04-02",
+                                  "Fecha_fin": "2024-04-08"
+                                },
+                                {
+                                  "id_promocion": 3,
+                                  "id_cabana": 2,
+                                  "descuento": 20,
+                                  "Fecha_inicio": "2024-04-02",
+                                  "Fecha_fin": "2024-04-06"
                                 }
                             ]
                         },
@@ -1219,8 +1232,11 @@
                         "examples": {
                             "application/json": [
                                 {
-                                    "id_Cobro": 1,
-                                    "MontoCobrado": "1200"
+                                  "id_promocion": 1,
+                                  "id_cabana": 1,
+                                  "descuento": 12,
+                                  "Fecha_inicio": "2024-04-05",
+                                  "Fecha_fin": "2024-04-09"
                                 }
                             ]
                         },
@@ -1654,7 +1670,30 @@
         "Oferta": {
             "type": "object",
             "properties": {
-                
+                "id_promocion":{
+                    "type" :"number",
+                    "description":"Id de la oferta"
+                },
+                "id_cabana" : {
+                    "type":"number",
+                    "description":"Id de la cabaña."
+                },
+                "descuento":{
+                    "type":"number",
+                    "description":"Porcewntaje de descuento"
+                },
+                "Fecha_inicio":{
+                    "type":"string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description":"Fecha de inicio de la oferta"
+                },
+                "Fecha_fin":{
+                    "type":"string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description":"Fecha de fin de la oferta"
+                }
             }
         },
         "Ofertas" : {
@@ -1666,7 +1705,26 @@
         "NuevoOferta": {
             "type": "object",
             "properties": {
-                
+                "id_cabana" : {
+                    "type":"number",
+                    "description":"Id de la cabaña."
+                },
+                "descuento":{
+                    "type":"number",
+                    "description":"Porcewntaje de descuento"
+                },
+                "Fecha_inicio":{
+                    "type":"string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description":"Fecha de inicio de la oferta"
+                },
+                "Fecha_fin":{
+                    "type":"string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description":"Fecha de fin de la oferta"
+                }
             }
         }
     }
