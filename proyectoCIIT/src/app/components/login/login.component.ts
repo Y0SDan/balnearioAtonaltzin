@@ -53,5 +53,18 @@ export class LoginComponent  {
     err => console.error(err)
     );
   }
+  redireccion(pagina:string){
+    switch (pagina) {
+      case "usuario":
+        this.router.navigate(['home/usuario'])
+        break;
+      case "olvide":
+        this.router.navigate(['home/olvide-contrasena'])
+        break;
+      default:
+        console.log("Ocurrio un error");
+        break;
+    }
+  }
 }
 
