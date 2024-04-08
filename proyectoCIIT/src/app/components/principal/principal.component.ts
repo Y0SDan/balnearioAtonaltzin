@@ -12,9 +12,6 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
   ID_Cliente: any;
 
   constructor(private router: Router) { 
-    //localStorage.setItem('TipoUsuario', "Admin");
-    //localStorage.setItem('Usuario', "correo");
-    //localStorage.setItem('Email', "correo");
   }
 
   ngOnInit(): void {
@@ -41,6 +38,31 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     localStorage.removeItem("ID_Cliente")
     location.reload();  //Se recarga la página para actualizar la barra de navegacion
     
+}
+redireccion(pagina:string){
+  switch (pagina) {
+    case "reserva":
+      this.router.navigate(['home/reserva'])
+      break;
+    case "apartado":
+      this.router.navigate(['home/apartado'])
+      break;
+    case "reservacion":
+      this.router.navigate(['home/reservacion'])
+      break;
+    case "booking":
+      this.router.navigate(['home/booking'])
+      break;
+    case "login":
+        this.router.navigate(['login'])
+        break;
+    case "usuario":
+        this.router.navigate(['home/usuario'])
+        break;
+    default:
+      console.log("Ocurrio un error");
+      break;
+  }
 }
 
 
