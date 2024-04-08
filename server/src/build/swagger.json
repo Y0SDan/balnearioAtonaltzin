@@ -27,6 +27,10 @@
         {
             "name": "Usuarios",
             "description": "API para obtener información de los usuarios"
+        },
+        {
+            "name": "Ofertas",
+            "description": "API para obtener la información de las ofertas"
         }
     ],
     "schemes": [
@@ -538,7 +542,7 @@
                 ],
                 "parameters": [
                     {
-                        "name": "cobro",
+                        "name": "Cobro",
                         "in": "body",
                         "description": "<p>Información del cobro que se va a crear.</p>",
                         "required": true,
@@ -935,6 +939,380 @@
                     }
                 }
             }
+        },
+        "/api/clientes/obtenerPagosPorCliente/{nombre}/{apellido}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtiene los pagos realizados por un cliente.",
+                "description": "<p>Obtiene un listado de pagos realizados por un cliente.</p><p>&nbsp;</p><p><em><strong>¿Cuántos pagos habrá realizado el cliente?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "Nombre_Cliente": "Ricardo",
+                                    "Apellido_Cliente": "Martinez",
+                                    "IdCobro": 108,
+                                    "IdReservacion": 90,
+                                    "MontoCobrado": 3200,
+                                    "Fecha_Cobro": "2024-03-30 17:52:32",
+                                    "Estado": "Pagado",
+                                    "ID_Reservacion": 90,
+                                    "ID_Cabana": 1,
+                                    "ID_Cliente": 48,
+                                    "FechaInicio": "2024-03-31",
+                                    "FechaFin": "2024-04-03"
+                                },
+                                {
+                                    "Nombre_Cliente": "Ricardo",
+                                    "Apellido_Cliente": "Martinez",
+                                    "IdCobro": 111,
+                                    "IdReservacion": 93,
+                                    "MontoCobrado": 74400,
+                                    "Fecha_Cobro": null,
+                                    "Estado": "Sin pagar",
+                                    "ID_Reservacion": 93,
+                                    "ID_Cabana": 3,
+                                    "ID_Cliente": 48,
+                                    "FechaInicio": "2024-03-31",
+                                    "FechaFin": "2024-04-30"
+                                },
+                                {
+                                    "Nombre_Cliente": "Ricardo",
+                                    "Apellido_Cliente": "Martinez",
+                                    "IdCobro": 112,
+                                    "IdReservacion": 94,
+                                    "MontoCobrado": 76000,
+                                    "Fecha_Cobro": null,
+                                    "Estado": "Sin pagar",
+                                    "ID_Reservacion": 94,
+                                    "ID_Cabana": 4,
+                                    "ID_Cliente": 48,
+                                    "FechaInicio": "2024-03-31",
+                                    "FechaFin": "2024-04-18"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Pagos"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "required": true,
+                        "description": "Nombre del cliente.",
+                        "type": "string",
+                        "default": "Ricardo"
+                    },
+                    {
+                        "name": "apellido",
+                        "in": "path",
+                        "required": true,
+                        "description": "Apellidos del cliente",
+                        "type": "string",
+                        "default": "Lopez Jimenez"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/obtenerClienteCorreo/{correo}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtiene un cliente por medio de su correo.",
+                "description": "<p>Obtiene la información detallada de un cliente a través de su correo.</p><p>&nbsp;</p><p><em><strong>¿El correo le pertenecerá a un cliente?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "example": {
+                            "application/json": [
+                                {
+                                    "ID_Cliente": 37,
+                                    "Nombre": "Evan",
+                                    "Apellido": "Lorga",
+                                    "Email": "lorga@gmail.com",
+                                    "Telefono": "9514567890",
+                                    "password1": "wuero",
+                                    "tipo": "seller"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Usuario"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "correo",
+                        "in": "path",
+                        "required": true,
+                        "description": "Correo electronico del cliente.",
+                        "type": "string",
+                        "default": "algo@gmail.com"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/actualizarCliente/{id}": {
+            "put": {
+                "summary": "Actualizar la información de un usuario",
+                "description": "<p>Servicio que permite editar la información de un usuario dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id del usuario",
+                        "type": "number",
+                        "default": 0
+                    },
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Usuario a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Usuarios"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/clientes/eliminarCliente/{id}": {
+            "delete": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Elimina un ususario del balneario.",
+                "description": "<p>Servicio que elimina un usuario registrado en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué usuario se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id del usuario",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/promos/addPromocion": {
+            "post": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Agrega una oferta.",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Oferta",
+                        "in": "body",
+                        "description": "<p>Información de la oferta que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoOferta"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cobro Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/promos/showPromos": {
+            "get": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Listado de todos las Ofertas que existen en atonaltzin.",
+                "description": "<p>Servicio que devuelve la información detallada de todos las ofertas que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las ofertas que existen?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_Cobro": 1,
+                                    "MontoCobrado": "1200"
+                                },
+                                {
+                                    "id_Cobro": 2,
+                                    "MontoCobrado": "2200"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Ofertas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/promos/showOne/{id}": {
+            "get": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Muestra una oferta existente en balneario.",
+                "description": "<p>Servicio que devuelve la información detallada de una oferta que existe en balneario.</p><p>&nbsp;</p><p><em><strong>¿Existe la oferta en el balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_Cobro": 1,
+                                    "MontoCobrado": "1200"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Oferta"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la oferta",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/promos/actualizarPromocion/{id}": {
+            "put": {
+                "summary": "Actualizar la información de una promoción",
+                "description": "<p>Servicio que permite editar la información de una promoción dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la promoción",
+                        "type": "number",
+                        "default": 0
+                    },
+                    {
+                        "name": "Promoción",
+                        "in": "body",
+                        "description": "Promoción a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoOferta"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Ofertas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/promos/eliminarPromocion/{id}": {
+            "delete": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Elimina una oferta del balneario.",
+                "description": "<p>Servicio que elimina una oferta registrada en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué oferta se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la oferta",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
         }
     },
     "definitions": {
@@ -1202,6 +1580,79 @@
                     "description": "Contraseña del usuario"
                 }
             }
+        },
+        "Pago": {
+            "type": "object",
+            "properties": {
+                "Nombre_Cliente": {
+                    "type": "string",
+                    "description": "Nombre del cliente."
+                },
+                "Apellido": {
+                    "type": "string",
+                    "description": "Apellidos del cliente"
+                },
+                "IdCobro": {
+                    "type": "number",
+                    "description": "Id del cobro realizado"
+                },
+                "IdReservacion": {
+                    "type": "number",
+                    "description": "Id de la reservación"
+                },
+                "MontoCobrado": {
+                    "type": "number",
+                    "description": "Monto cobrado por la reservación"
+                },
+                "Fecha_Cobro": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizó el cobro"
+                },
+                "Estado": {
+                    "type": "string",
+                    "description": "Estado del cobro"
+                },
+                "ID_Reservacion": {
+                    "type": "number",
+                    "description": "Id de la reservación"
+                },
+                " ID_Cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña."
+                },
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Id del cliente"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "description": "Fecha inicial de la reservacion"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "description": "Fecha final de la reservacion"
+                }
+            }
+        },
+        "Pagos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Pago"
+            }
+        },
+        "Oferta": {
+            "type": "object",
+            "properties": {}
+        },
+        "Ofertas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Oferta"
+            }
+        },
+        "NuevoOferta": {
+            "type": "object",
+            "properties": {}
         }
     }
 }

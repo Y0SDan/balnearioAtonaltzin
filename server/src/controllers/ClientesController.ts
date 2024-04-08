@@ -35,8 +35,8 @@ class ClientesController {
     }
     public async actualizarCliente(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        //console.log(req.params);
-        console.log(id);
+        const salt = await bcrypt.genSalt(10);
+        req.body.password1 = await bcrypt.hash(req.body.password1, salt);
         const resp = await pool.query("UPDATE cliente set ? WHERE ID_Cliente = ?", [req.body, id]);
         res.json(resp);
         //res.json(null);
