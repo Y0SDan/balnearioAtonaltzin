@@ -79,7 +79,7 @@
                 "tags": [
                     "Cabañas"
                 ],
-                "summary": "Listado de todas las cabanas que existen",
+                "summary": "Listado de todas las cabañas que existen",
                 "description": "<p>Servicio que devuelve la información detallada de todas las cabañas que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las cabanas registradas?</strong></em></p>",
                 "responses": {
                     "200": {
@@ -119,8 +119,8 @@
                 "tags": [
                     "Cabañas"
                 ],
-                "summary": "Informacion asociada a la cabana, si es que existe en el atonaltzin",
-                "description": "<p>Servicio que devuelve la información detallada de la cabana solicitada</p><p>&nbsp;</p><p><em><strong>¿Cuál es la cabana de este nombre?</strong></em></p>",
+                "summary": "Informacion asociada a la cabaña, si es que existe en el atonaltzin",
+                "description": "<p>Servicio que devuelve la información detallada de la cabaña solicitada</p><p>&nbsp;</p><p><em><strong>¿Cuál es la cabaña de este ID?</strong></em></p>",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -128,7 +128,7 @@
                             "application/json": {
                                 "example": [
                                     {
-                                        "Nombre": "CabañaA",
+                                        "Nombre": "Cabaña A",
                                         "Descripcion": "Para 4 personas, cuenta con televisión, chimenea, cafetera y frigobar",
                                         "PrecioPorNoche": 1200,
                                         "Capacidad": 4,
@@ -140,7 +140,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/Cabana"
+                                "$ref": "#/definitions/Cabanas"
                             }
                         }
                     },
@@ -164,7 +164,7 @@
         },
         "/api/cabanas/actualizarCabana/{id}": {
             "put": {
-                "summary": "Actualizar la informaciòn de la caba de atonaltzin",
+                "summary": "Actualizar la informaciòn de la cabaña",
                 "description": "<p>Servicio que permite editar la informaciòn de la cabana de balneario atonaltzin, dado el id el mismo </p><p>&nbsp;</p>",
                 "operationId": "update",
                 "consumes": [
@@ -1321,27 +1321,33 @@
             "properties": {
                 " ID_Cabana": {
                     "type": "number",
-                    "description": "Codigo que permite identificar la cabana"
+                    "description": "Codigo que permite identificar la cabana",
+                    "default": "1"
                 },
                 "nombre": {
                     "type": "string",
-                    "description": "Nombre de la cabana"
+                    "description": "Nombre de la cabana",
+                    "default": "Cabaña A"
                 },
                 "Descripcion": {
                     "type": "string",
-                    "description": "Descripcion de la cabana"
+                    "description": "Descripcion de la cabana",
+                    "default": "Para 2 personas, cómoda y cuenta con televisión"
                 },
                 "PrecioPorNoche": {
                     "type": "number",
-                    "description": "Precio de la cabana"
+                    "description": "Precio de la cabana",
+                    "default": "600"
                 },
                 "Capacidad": {
                     "type": "number",
-                    "description": "Capacidad de cabana"
+                    "description": "Capacidad de cabana",
+                    "default": "2"
                 },
                 "Ubicacion": {
                     "type": "string",
-                    "description": "Descripcion de la ubicacion de la cabana"
+                    "description": "Descripcion de la ubicacion de la cabana",
+                    "default": "Carretera Teotongo sin #, Villa de Tamazulapam del progreso, Oaxaca"
                 }
             }
         },
@@ -1356,23 +1362,28 @@
             "properties": {
                 "nombre": {
                     "type": "string",
-                    "description": "Nombre de la cabana"
+                    "description": "Nombre de la cabana",
+                    "default": "Cabaña X"
                 },
                 "Descripcion": {
                     "type": "string",
-                    "description": "Descripcion de la cabana"
+                    "description": "Descripcion de la cabana",
+                    "default": "Para 4 personas, cuenta con televisión, chimenea, cafetera y frigobar"
                 },
                 "PrecioPorNoche": {
                     "type": "number",
-                    "description": "Precio de la cabana"
+                    "description": "Precio de la cabana",
+                    "default": "1200"
                 },
                 "Capacidad": {
                     "type": "number",
-                    "description": "Capacidad de cabana"
+                    "description": "Capacidad de cabana",
+                    "default": "4"
                 },
                 "Ubicacion": {
                     "type": "string",
-                    "description": "Descripcion de la ubicacion de la cabana"
+                    "description": "Descripcion de la ubicacion de la cabana",
+                    "default": "Carretera Teotongo sin #, Villa de Tamazulapam del progreso, Oaxaca"
                 }
             }
         },
