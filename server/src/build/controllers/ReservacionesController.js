@@ -54,13 +54,18 @@ class ReservacionesController {
         return __awaiter(this, void 0, void 0, function* () {
             const { ID_Cabana, ID_Cliente, FechaInicio, FechaFin } = req.body;
             try {
+                // Drop del disparador si existe
+                if (new Date(FechaInicio) >= new Date(FechaFin) || new Date(FechaInicio).getTime() === new Date(FechaFin).getTime()) {
+                    res.status(400).json({ error: true, message: 'Error: Las fechas de la reservacion no son válidas' });
+                    return;
+                }
                 // Insertar la reserva
                 const result = yield database_1.default.query("INSERT INTO reservaciones (ID_Cabana, ID_Cliente, FechaInicio, FechaFin) VALUES (?, ?, ?, ?)", [ID_Cabana, ID_Cliente, FechaInicio, FechaFin]);
                 const ID_reservacion = result.insertId;
                 // Consultar el monto total a cobrar
                 const respCobro = yield database_1.default.query(`
                 SELECT 
-                    (DATEDIFF(r.FechaFin, r.FechaInicio) + 1) * c.PrecioPorNoche AS monto_total
+                    (DATEDIFF(r.FechaFin, r.FechaInicio)) * c.PrecioPorNoche AS monto_total
                 FROM 
                     reservaciones r
                 JOIN 
@@ -84,6 +89,7 @@ class ReservacionesController {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("YA ESTAMOS AQUI");
             const respuesta = yield database_1.default.query('SELECT * FROM reservaciones');
+            console.log(respuesta);
             res.json(respuesta);
         });
     }
@@ -118,20 +124,21 @@ class ReservacionesController {
     }
     PrecioReserva(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { idCabana, fechaInicio, fechaFin } = req.params;
-            if (!idCabana || !fechaInicio || !fechaFin) {
+            const { id, FechaInicio, FechaFin } = req.params;
+            console.log(id);
+            if (!id || !FechaInicio || !FechaFin) {
                 res.status(400).json({ message: 'Se requieren los parámetros idCabana, fechaInicio y fechaFin' });
                 return;
             }
             const sqlQuery = `
-                INSERT INTO cobros (IdReservacion, MontoCobrado)
-                SELECT r.ID_Reservacion, c.PrecioPorNoche * DATEDIFF(?, ?) AS total_a_pagar
-                FROM reservaciones r
-                JOIN cabana c ON r.ID_Cabana = c.ID_Cabana
-                WHERE r.ID_Cabana = ?;`;
+        INSERT INTO cobros (IdReservacion, MontoCobrado)
+        SELECT r.ID_Reservacion, c.PrecioPorNoche * DATEDIFF(?, ?) AS total_a_pagar
+        FROM reservaciones r
+        JOIN cabana c ON r.ID_Cabana = c.ID_Cabana
+        WHERE r.ID_Cabana = ?;`;
             try {
-                const resp = yield database_1.default.query(sqlQuery, [fechaFin, fechaInicio, idCabana]);
-                console.log(resp);
+                const resp = yield database_1.default.query(sqlQuery, [FechaFin, FechaInicio, id]);
+                console.log("Respuesta: ", resp);
                 res.json(resp);
             }
             catch (error) {
@@ -146,6 +153,42 @@ class ReservacionesController {
             const respuesta = yield database_1.default.query('SELECT * FROM reservaciones WHERE ID_Cliente = ?', [id]);
             console.log(respuesta);
             res.json(respuesta);
+        });
+    }
+    mostrarPrecioReserva(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            if (!id) {
+                res.status(400).json({ message: 'Se requiere el parámetro idReservacion' });
+                return;
+            }
+            const sqlQuery = `
+        SELECT 
+            r.ID_Reservacion,
+            r.ID_Cabana,
+            c.Nombre AS NombreCabana,
+            r.FechaInicio,
+            r.FechaFin,
+            c.PrecioPorNoche,
+            DATEDIFF(r.FechaFin, r.FechaInicio) AS DiasReservados,
+            (DATEDIFF(r.FechaFin, r.FechaInicio) + 1) * c.PrecioPorNoche AS TotalAPagar
+        FROM 
+            reservaciones r
+        JOIN
+            cabana c ON r.ID_Cabana = c.ID_Cabana
+        WHERE
+            r.ID_Cabana = ?;`;
+            try {
+                const resp = yield database_1.default.query(sqlQuery, [id]);
+                console.log("id: ", id);
+                const result = resp[0];
+                console.log(result);
+                res.json(result);
+            }
+            catch (error) {
+                console.error(error);
+                res.status(500).json({ message: 'Error al realizar la consulta' });
+            }
         });
     }
 }

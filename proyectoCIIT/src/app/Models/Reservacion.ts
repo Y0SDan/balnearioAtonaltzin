@@ -4,6 +4,9 @@ export class Reservacion{
     ID_Cliente: number;
     FechaInicio: string;
     FechaFin: string;
+    DiasReservados: number; // Nueva propiedad
+    TotalAPagar: number; // Nueva propiedad
+    PrecioPorNoche: number;
 
 
     constructor() {
@@ -12,5 +15,8 @@ export class Reservacion{
         this. ID_Cliente = parseInt(localStorage.getItem('ID_Cliente') ?? '-1');;
         this.FechaInicio = '';
         this.FechaFin = '';
+        this.DiasReservados = 0; // Inicializar la propiedad
+        this.TotalAPagar = 0; // Inicializar la propiedad
+        this.PrecioPorNoche=0;
     }
 }

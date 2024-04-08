@@ -30,22 +30,32 @@ export class UsuarioComponent implements OnInit {
     $('#modalCrearCliente').modal();
     $("#modalCrearCliente").modal("open");
   }
-  guardarNuevoUsuario(){
-    console.log("GuardandoUsuario")
-    this.clienteService.addCliente(this.clienteNuevo).subscribe((res) => {
-      $('#modalCrearCliente').modal('close');
-      this.clienteService.list().subscribe((resusuario: any) => {
-        this.clientes = resusuario;
-    }, err => console.error(err));
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        text: 'Plan Actualizado'
-    })
-}, err => console.error(err));
+  guardarNuevoUsuario() {
+  console.log("GuardandoUsuario");
 
-  
-  }     
+  this.clienteService.addCliente(this.clienteNuevo).subscribe((res) => {
+    $('#modalCrearCliente').modal('close');
+    this.clienteService.list().subscribe((resusuario: any) => {
+      this.clientes = resusuario;
+      console.log(resusuario);
+      
+    }, err => console.error(err));
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      text: 'Cuenta registrada'
+    });
+  }, err => {
+    console.error(err);
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      text: 'Error al registrar la cuenta, el correo que intentas utilizar ya fue registrado'
+    });
+  });
+}
+     
 
   eliminarUsuario(id : any){
     console.log("Click en eliminar Cliente");

@@ -4,16 +4,29 @@ import bcrypt from 'bcryptjs';
 
 class ClientesController {
     public async addCliente(req: Request, res: Response): Promise<void> {
-        console.log(req.body)
-        const salt = await bcrypt.genSalt(10);
-        console.log(salt);
-        req.body.password1 = await bcrypt.hash(req.body.password1, salt);
-        const resp = await pool.query("INSERT INTO cliente set ?", [req.body]);
-        console.log(resp);
-        res.json(resp);
+        // Verificar si el correo electrónico ya existe
+        const existingClient = await pool.query("SELECT * FROM cliente WHERE Email = ?", [req.body.Email]);
 
-        //res.json(null);
+        //console.log("correo cliente: ",existingClient[0].Email);
+        
+        if (existingClient.length > 0 && existingClient[0].Email) {
+            
+            res.status(400).json({ message: 'El correo electrónico ya está registrado' });
+            console.log("La contraseña ya esta registrada");
+            
+            return;
+        }else {
+    
+        // Si el correo electrónico no existe, continuar con la inserción
+        const salt = await bcrypt.genSalt(10);
+        req.body.password1 = await bcrypt.hash(req.body.password1, salt);
+        const resp = await pool.query("INSERT INTO cliente SET ?", [req.body]);
+        //console.log(resp);
+        const result = resp[0];
+        res.json(resp);
     }
+    }
+    
     public async showCliente(req: Request, res: Response): Promise<void> {
         console.log("YA ESTAMOS AQUI");
         const respuesta = await pool.query('SELECT * FROM cliente');
