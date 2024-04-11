@@ -71,19 +71,26 @@ export class ReservacionAdminComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, bórralo!'
+      confirmButtonText: 'Sí, quiero eliminarlo!'
     }).then((result) => {
       if (result.isConfirmed) {
         // Aquí va el código para eliminar la reservación
             // Aquí puedes llamar a tu servicio para eliminar la reservación
     this.reservaService.eliminarReservacion(id).subscribe(res => {
       // Aquí puedes manejar la respuesta, por ejemplo, recargar las reservaciones
-      $('#modal1').modal('open');
+      Swal.fire({
+        title: "¡Eliminado!",
+        text: "Tu cobro ha sido eliminado.",
+        icon: "success"
+      });
+      this.recargarReservaciones(); 
+      //$('#modal1').modal('open');
     }, error => {
       // Aquí puedes manejar los errores
     });
       }
     })
+    
   }
 
   recargarReservaciones() {

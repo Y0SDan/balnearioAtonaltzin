@@ -79,20 +79,38 @@ export class CobrosComponent implements OnInit {
     }, err => console.error(err));
   }
 
-guardarActualizarCobro() {
-  console.log("Id de cobro a actualizar:", this.cobro.IdCobro); // Verifica que IdCobro tenga un valor válido
-  this.cobroService.actualizarCobro(this.cobro).subscribe(() => {
-    $('#modalModificarCobro').modal('close');
-    this.showAlert('Cobro actualizado correctamente', 'success');
-    //this.cdr.detectChanges();
-    this.cobroService.list().subscribe((resusuario: any) => {
-      this.cobros = resusuario;
-  })
-  }, err => {
-    console.error(err);
-    this.showAlert('Error al actualizar el pago', 'error');
-  });
-}
+  guardarActualizarCobro() {
+    console.log("Id de cobro a actualizar:", this.cobro.IdCobro); // Verifica que IdCobro tenga un valor válido
+    //Para obtener y guaradar la fecha actual al momento de dar el click
+    let fechaActual = new Date();
+    let dia = fechaActual.getDate().toString().padStart(2, '0');
+    let mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // Los meses en JavaScript empiezan desde 0 (Enero) hasta 11 (Diciembre), por eso se suma 1.
+    let anio = fechaActual.getFullYear();
+    let hora = fechaActual.getHours().toString().padStart(2, '0');
+    let minuto = fechaActual.getMinutes().toString().padStart(2, '0');
+    let segundo = fechaActual.getSeconds().toString().padStart(2, '0');
+  
+    let fecha = `${anio}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
+    this.cobro.Fecha_Cobro = fecha; //Le asignamos la fecha y hora actual a nuestro campo donde va
+    this.cobro.Estado = "Pagado"  //Actualizamos su estado a pagado
+  
+    this.cobroService.actualizarCobro(this.cobro).subscribe(() => {
+      $('#modalModificarCobro').modal('close');
+      this.showAlert('Cobro actualizado correctamente', 'success');
+      //this.cdr.detectChanges();
+      this.cobroService.list().subscribe((resusuario: any) => {
+        this.cobros = resusuario;
+      })
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        text: 'Cobro realizado'
+      })
+      }, err => {
+        console.error(err);
+        this.showAlert('Error al actualizar el pago', 'error');
+    });
+  }
 
   guardarNuevoCobro(){
     this.nuevoCobro.Fecha_Cobro = this.Fecha_Cobro;
