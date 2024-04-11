@@ -3,6 +3,7 @@ import { Cliente } from 'src/app/Models/Cliente';
 import { ClienteService } from './../../services/cliente.service';
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 declare var $: any;
 declare var M: any;
 
@@ -17,6 +18,7 @@ export class ClienteComponent implements OnInit {
   clienteNuevo: Cliente = new Cliente();
   pageSize = 5;
   p = 1;
+  liga:string=environment.API_URL_IMAGENES + "/build";
 
   constructor(private clienteService: ClienteService, private cdr: ChangeDetectorRef) {}
 
@@ -122,6 +124,13 @@ export class ClienteComponent implements OnInit {
       $("#modalModificarCliente").modal("open");
     }, err => console.error(err));
   }
+  CambiarImagen(idCliente: number) {
+    this.clienteService.showOne(idCliente).subscribe((resusuario: any) => {
+      this.cliente = resusuario;
+      $('#modalAgregarImagen').modal();
+      $("#modalAgregarImagen").modal("open");
+    }, err => console.error(err));
+  }
   showAlert(message: string, type: 'success' | 'error' | 'warning' = 'success') {
     Swal.fire({
       position: 'center',
@@ -142,6 +151,10 @@ export class ClienteComponent implements OnInit {
       console.error(err);
       this.showAlert('Error al actualizar el cliente', 'error');
     });
+  }
+  cargandoImagen(Archivo:any){
+    console.log(Archivo.item[0]);
+    
   }
 
   submitForm() {

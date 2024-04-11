@@ -11,6 +11,7 @@ class Server {
         this.app = (0, express_1.default)();
         this.config();
         this.routes();
+        this.app.use(express_1.default.static(__dirname + "/imgenes"));
     }
     config() {
         this.app.use(express_1.default.urlencoded({ limit: '50mb', parameterLimit: 100000, extended: false }));
