@@ -42,22 +42,22 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
 redireccion(pagina:string){
   switch (pagina) {
     case "reserva":
-      this.router.navigate(['home/reserva'])
+      this.router.navigateByUrl('home/reserva');
       break;
     case "apartado":
-      this.router.navigate(['home/apartado'])
+      this.router.navigateByUrl('home/apartado')
       break;
     case "reservacion":
-      this.router.navigate(['home/reservacion'])
+      this.router.navigateByUrl('home/reservacion')
       break;
     case "booking":
-      this.router.navigate(['home/booking'])
+      this.router.navigateByUrl('home/booking')
       break;
     case "login":
-        this.router.navigate(['login'])
+        this.router.navigateByUrl('login')
         break;
     case "usuario":
-        this.router.navigate(['home/usuario'])
+        this.router.navigateByUrl('home/usuario')
         break;
     default:
       console.log("Ocurrio un error");

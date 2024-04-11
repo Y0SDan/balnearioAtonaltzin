@@ -15,19 +15,19 @@ export class AdminComponent implements OnInit {
   redireccion(pagina:string){
     switch (pagina) {
       case "cliente":
-        this.router.navigate(['home/cliente'])
+        this.router.navigateByUrl('home/cliente')
         break;
       case "cabana":
-        this.router.navigate(['home/cabana'])
+        this.router.navigateByUrl('home/cabana')
         break;
       case "reservacion":
-        this.router.navigate(['home/reservacionAdmin'])
+        this.router.navigateByUrl('home/reservacionAdmin')
         break;
       case "cobros":
-        this.router.navigate(['home/cobros'])
+        this.router.navigateByUrl('home/cobros')
         break;
       case "ofertas":
-        this.router.navigate(['home/ofertas'])
+        this.router.navigateByUrl('home/ofertas')
         break;
       default:
         console.log("Ocurrio un error");
