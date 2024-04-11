@@ -1,6 +1,9 @@
 <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="addCliente()">
   <i class="material-icons left">add</i> Crear usuario
 </a>
+
+<div><img src="{{liga}}/prueba.jpg" class="center" style="width: 100px;" alt="{{liga}}"></div>
+
 <table class="default" *ngIf="clientes != undefined && clientes.length > 0">
   <tr>
     <th>Nombre</th>
@@ -21,6 +24,9 @@
     <td>
       <a href="javascript: void(0);" class="space" (click)="actualizarCliente(cliente.ID_Cliente)">
         <i class="material-icons">edit</i></a>
+      <a href="javascript: void(0);" class="material-icons" (click)="CambiarImagen(cliente.ID_Cliente)"
+        style="color: rgb(49, 111, 226);">
+        <i class="material-icons">imagen</i></a>
       <a href="javascript: void(0);" class="material-icons" (click)="eliminarUsuario(cliente.ID_Cliente)"
         style="color: red;">
         <i class="material-icons">delete_forever</i></a>
@@ -130,6 +136,32 @@
       <div class="row">
         <div class="col s6 center">
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close" (click)="guardarNuevoUsuario()" value="Enviar">
+        </div>
+        <div class="col s6 center">
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modalAgregarImagen" class="modal">
+  <div class="modal-content">
+    <div class="row" style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">Agregar Imagen</h5>
+      </div>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_cliente">Imagenes </label>
+          <input type="file" (change)="cargandoImagen($event.target)" multiple>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6 center">
+          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+             value="Enviar">
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
