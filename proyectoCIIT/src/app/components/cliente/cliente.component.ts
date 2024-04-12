@@ -168,6 +168,9 @@ export class ClienteComponent implements OnInit {
     this.clienteService.list().subscribe((resReservas: any) => {
       this.clientes = resReservas;
     },err => console.error(err));
+    this.liga=environment.API_URL_IMAGENES;
+    console.log(this.liga + "   recarga");
+    
   } 
 
   compareFn(a : any, b : any) {
@@ -192,21 +195,32 @@ export class ClienteComponent implements OnInit {
     let imgPromise = this.getFileBlob(this.fileToUpload);
     imgPromise.then(blob => {
       console.log("convirtiendo imagen")
-  
-      this.imagenesService.guardarImagen(this.cliente.ID_Cliente, "usuarios", blob).subscribe(
+      this.imagenesService.guardarImagen(this.cliente.ID_Cliente, "clientes", blob).subscribe(
         (res: any) => {
           this.imgUsuario = blob;
-          console.log("Usuario id: ", this.cliente.ID_Cliente);
+          console.log("Cliente id: ", this.cliente.ID_Cliente);
           // Actualizar la variable 'liga' después de cargar la imagen
-          this.liga = environment.API_URL_IMAGENES + "/usuarios/" + this.cliente.ID_Cliente + ".jpg";
+          this.liga = environment.API_URL_IMAGENES + "/clientes/" + this.cliente.ID_Cliente + ".jpg";
           console.log(this.cliente.ID_Cliente);
           console.log(this.liga);
           this.clienteService.list().subscribe((resUsuarios: any) => {
             this.cliente = resUsuarios;
           }, err => console.error(err));
+          this.liga=environment.API_URL_IMAGENES;
         },
         err => console.error(err));
     });
+    this.cliente.foto=1;
+    console.log("Antes Foto = "+this.cliente.foto);
+    this.clienteService.actualizarCliente(this.cliente).subscribe(() => {
+      this.cliente.foto=0;
+      console.log("Despues Foto = "+this.cliente.foto);
+      
+    }, err => {
+      console.error(err);
+    });
+
+    this.recargarUsuario();
   }
 
   getFileBlob(file: any) {
