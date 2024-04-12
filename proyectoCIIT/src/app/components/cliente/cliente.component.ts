@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/Models/Cliente';
 import { ClienteService } from './../../services/cliente.service';
+import { ImagenesService } from './../../services/imagenes.service';
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
@@ -18,9 +19,15 @@ export class ClienteComponent implements OnInit {
   clienteNuevo: Cliente = new Cliente();
   pageSize = 5;
   p = 1;
-  liga:string=environment.API_URL_IMAGENES + "/build";
+  liga='';
+  imgUsuario: any;
+  fileToUpload: any;
 
-  constructor(private clienteService: ClienteService, private cdr: ChangeDetectorRef) {}
+  constructor(private clienteService: ClienteService,private imagenesService: ImagenesService, private cdr: ChangeDetectorRef) {
+    this.imgUsuario = null;
+    this.fileToUpload = null;
+    this.liga = environment.API_URL_IMAGENES;
+  }
 
   ngOnInit(): void {
     this.clienteService.list().subscribe(
@@ -124,13 +131,7 @@ export class ClienteComponent implements OnInit {
       $("#modalModificarCliente").modal("open");
     }, err => console.error(err));
   }
-  CambiarImagen(idCliente: number) {
-    this.clienteService.showOne(idCliente).subscribe((resusuario: any) => {
-      this.cliente = resusuario;
-      $('#modalAgregarImagen').modal();
-      $("#modalAgregarImagen").modal("open");
-    }, err => console.error(err));
-  }
+  
   showAlert(message: string, type: 'success' | 'error' | 'warning' = 'success') {
     Swal.fire({
       position: 'center',
@@ -152,15 +153,10 @@ export class ClienteComponent implements OnInit {
       this.showAlert('Error al actualizar el cliente', 'error');
     });
   }
-  cargandoImagen(Archivo:any){
-    console.log(Archivo.item[0]);
-    
-  }
 
   submitForm() {
     // Ejecuta la función para guardar el nuevo usuario
     this.guardarNuevoUsuario();
-
     // Redirige a la página principal
     window.location.href = '/principal';
   }
@@ -178,4 +174,52 @@ export class ClienteComponent implements OnInit {
     return a === b;
   }
 
+  seleccionarCliente(cliente: Cliente) {
+    this.cliente = cliente;
+    this.liga = environment.API_URL_IMAGENES + "/clientes/" + this.cliente.ID_Cliente + ".jpg";
+  }
+  MostrarImagen(idCliente: number) {
+    this.clienteService.showOne(idCliente).subscribe((resCliente: any) => {
+      this.cliente = resCliente;
+      $('#modalAgregarImagen').modal();
+      $("#modalAgregarImagen").modal("open");
+    }, err => console.error(err));
+  }
+  cargandoImagen(archivo: any) {
+    this.imgUsuario = null;
+    this.liga = environment.API_URL_IMAGENES;
+    this.fileToUpload = archivo.files.item(0);
+    let imgPromise = this.getFileBlob(this.fileToUpload);
+    imgPromise.then(blob => {
+      console.log("convirtiendo imagen")
+  
+      this.imagenesService.guardarImagen(this.cliente.ID_Cliente, "usuarios", blob).subscribe(
+        (res: any) => {
+          this.imgUsuario = blob;
+          console.log("Usuario id: ", this.cliente.ID_Cliente);
+          // Actualizar la variable 'liga' después de cargar la imagen
+          this.liga = environment.API_URL_IMAGENES + "/usuarios/" + this.cliente.ID_Cliente + ".jpg";
+          console.log(this.cliente.ID_Cliente);
+          console.log(this.liga);
+          this.clienteService.list().subscribe((resUsuarios: any) => {
+            this.cliente = resUsuarios;
+          }, err => console.error(err));
+        },
+        err => console.error(err));
+    });
+  }
+
+  getFileBlob(file: any) {
+    var reader = new FileReader();
+    return new Promise(function (resolve, reject) { //Espera a que se cargue la img
+      reader.onload = (function (thefile) {
+        return function (e) {
+          // console.log(e.target?.result)
+          resolve(e.target?.result);
+        };
+  
+      })(file);
+      reader.readAsDataURL(file);
+    });
+  }
 }
