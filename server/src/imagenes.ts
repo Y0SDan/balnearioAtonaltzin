@@ -1,15 +1,21 @@
-import express, { Application } from 'express';
+import express, { Application, json } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import pool from "./database";
+import dontev from 'dotenv';
+import pool from './database';
+import fs from 'fs';
+
 class Server {
     public app: Application;
+
     constructor() {
+        dontev.config();
         this.app = express();
         this.config();
         this.routes();
-        this.app.use(express.static(__dirname + "/imgenes"));
+        this.app.use(express.static(__dirname+"/imagenes"));
     }
+
     config(): void {
         this.app.use(express.urlencoded({ limit: '50mb', parameterLimit: 100000, extended: false }));
         this.app.use(express.json({ limit: '50mb' }));
@@ -18,15 +24,34 @@ class Server {
         this.app.use(cors());
         this.app.use(express.urlencoded({ extended: false }));
     }
+
     routes(): void {
-    
-       
-    }
-    start() {
-        this.app.listen(this.app.get('port'), () => {
-            console.log(`Listening on port ${this.app.get('port')}`);
+        this.app.post('/uploadImagen', (req, res) => {
+            //console.log(req.body);
+            
+            //console.log("upload imageeee", req.body.id);
+            const file = req.body.src;
+            const name = req.body.tipo;
+            const id = req.body.id;
+            const binaryData =
+                Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""),
+                    'base64').toString('binary');
+            fs.writeFile(`${__dirname}/imagenes/` + name + '/' + id + '.jpg', binaryData,
+                "binary", (err) => {
+                    //console.log(err);
+                });
+            //console.log(res);
+            res.json({ fileName: id + '.jpg' });
         });
     }
+
+    start() {
+        this.app.listen(this.app.get('port'), () => {
+            console.log('Server on port', this.app.get('port'));
+        });
+    }
+
 }
+
 const server = new Server();
 server.start();

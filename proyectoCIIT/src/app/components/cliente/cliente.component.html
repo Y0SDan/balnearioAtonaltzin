@@ -2,10 +2,11 @@
   <i class="material-icons left">add</i> Crear usuario
 </a>
 
-<div><img src="{{liga}}/prueba.jpg" class="center" style="width: 100px;" alt="{{liga}}"></div>
+<div><img src="{{liga}}/cliente.jpg" class="center" style="width: 200px;" alt="{{liga}}"></div>
 
 <table class="default" *ngIf="clientes != undefined && clientes.length > 0">
   <tr>
+    <th>Foto</th>
     <th>Nombre</th>
     <th>Apellido</th>
     <th>Email</th>
@@ -16,6 +17,8 @@
     paginate: {
       itemsPerPage: pageSize,
       currentPage: p };let i=index">
+    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}/cliente/1.jpg"></td>
+    <td *ngIf="cliente.foto == 0"><img width="64" src="{{liga}}/clientes/0.jpg" alt="{{liga}}/cliente/0.jpg"></td>
     <td>{{ cliente.Nombre }}</td>
     <td>{{ cliente.Apellido }}</td>
     <td>{{ cliente.Email }}</td>
@@ -24,7 +27,7 @@
     <td>
       <a href="javascript: void(0);" class="space" (click)="actualizarCliente(cliente.ID_Cliente)">
         <i class="material-icons">edit</i></a>
-      <a href="javascript: void(0);" class="material-icons" (click)="CambiarImagen(cliente.ID_Cliente)"
+      <a href="javascript: void(0);" class="material-icons" (click)="MostrarImagen(cliente.ID_Cliente)"
         style="color: rgb(49, 111, 226);">
         <i class="material-icons">imagen</i></a>
       <a href="javascript: void(0);" class="material-icons" (click)="eliminarUsuario(cliente.ID_Cliente)"
