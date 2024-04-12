@@ -17,8 +17,8 @@
     paginate: {
       itemsPerPage: pageSize,
       currentPage: p };let i=index">
-    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}/cliente/1.jpg"></td>
-    <td *ngIf="cliente.foto == 0"><img width="64" src="{{liga}}/clientes/0.jpg" alt="{{liga}}/cliente/0.jpg"></td>
+    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}"></td>
+    <td *ngIf="cliente.foto == 0"><img width="64" src="{{liga}}/clientes/0.jpg" alt="{{liga}}"></td>
     <td>{{ cliente.Nombre }}</td>
     <td>{{ cliente.Apellido }}</td>
     <td>{{ cliente.Email }}</td>
@@ -163,8 +163,7 @@
       </div>
       <div class="row">
         <div class="col s6 center">
-          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-             value="Enviar">
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text" (click)="recargarUsuario()">Enviar</a>
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
