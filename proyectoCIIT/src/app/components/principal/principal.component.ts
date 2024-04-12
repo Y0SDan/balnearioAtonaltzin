@@ -36,6 +36,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     localStorage.removeItem("Tipo_Usuario")
     localStorage.removeItem("Email")
     localStorage.removeItem("ID_Cliente")
+    this.router.navigateByUrl('/principal');
     location.reload();  //Se recarga la página para actualizar la barra de navegacion
     
 }
@@ -59,9 +60,13 @@ redireccion(pagina:string){
     case "usuario":
         this.router.navigateByUrl('home/usuario')
         break;
+    case "principal":
+        this.router.navigateByUrl('/principal')
+        break;
     default:
       console.log("Ocurrio un error");
       break;
+    
   }
 }
 
