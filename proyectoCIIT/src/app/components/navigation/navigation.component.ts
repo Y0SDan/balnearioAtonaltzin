@@ -8,6 +8,7 @@ declare var $: any;
 })
 export class NavigationComponent implements OnInit {
   tipo:string
+  ID_Cliente: any;
   
   constructor(private router: Router) { 
    this.tipo=String(localStorage.getItem('Tipo_Usuario'))
@@ -15,13 +16,18 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.ID_Cliente = localStorage.getItem('ID_Cliente');
     $(".dropdown-trigger").dropdown();
+    
   }
+  ngAfterViewInit(): void {   //Esto esta para que la condición *ngIf="ID_Cliente == undefined" no afecte al dropdown
+    $('.dropdown-trigger').dropdown();
+  } 
   logout(){
     localStorage.removeItem("Tipo_Usuario")
     localStorage.removeItem("Email")
     localStorage.removeItem("ID_Cliente")
-    this.router.navigate(['principal'])
+    this.router.navigateByUrl('/principal')
   }
 
 }
