@@ -91,16 +91,14 @@
                                     "Nombre": "Cabaña A",
                                     "Descripcion": "Para 2 personas, cómoda y cuenta con televisión",
                                     "PrecioPorNoche": 600,
-                                    "Capacidad": 2,
-                                    "Ubicacion": "Carretera Teotongo sin #, Villa de Tamazulapam del progreso, Oaxaca"
+                                    "Capacidad": 2
                                 },
                                 {
                                     "ID_Cabana": 2,
                                     "Nombre": "Cabaña B",
                                     "Descripcion": "Para 4 personas, cómoda y cuenta con televisión",
                                     "PrecioPorNoche": 600,
-                                    "Capacidad": 2,
-                                    "Ubicacion": "Carretera Teotongo sin #, Villa de Tamazulapam del progreso, Oaxaca"
+                                    "Capacidad": 2
                                 }
                             ]
                         },
@@ -131,8 +129,7 @@
                                         "Nombre": "Cabaña A",
                                         "Descripcion": "Para 4 personas, cuenta con televisión, chimenea, cafetera y frigobar",
                                         "PrecioPorNoche": 1200,
-                                        "Capacidad": 4,
-                                        "Ubicacion": "Carretera Teotongo sin #, Villa de Tamazulapam del progreso, Oaxaca"
+                                        "Capacidad": 4
                                     }
                                 ]
                             }
@@ -178,7 +175,7 @@
                         "name": "id",
                         "in": "path",
                         "required": true,
-                        "description": "identificador de la cabana",
+                        "description": "Identificador de la cabana",
                         "type": "number",
                         "default": "2"
                     },
@@ -1359,11 +1356,6 @@
                     "type": "number",
                     "description": "Capacidad de cabana",
                     "default": "2"
-                },
-                "Ubicacion": {
-                    "type": "string",
-                    "description": "Descripcion de la ubicacion de la cabana",
-                    "default": "Carretera Teotongo sin #, Villa de Tamazulapam del progreso, Oaxaca"
                 }
             }
         },
@@ -1395,11 +1387,6 @@
                     "type": "number",
                     "description": "Capacidad de cabana",
                     "default": "4"
-                },
-                "Ubicacion": {
-                    "type": "string",
-                    "description": "Descripcion de la ubicacion de la cabana",
-                    "default": "Carretera Teotongo sin #, Villa de Tamazulapam del progreso, Oaxaca"
                 }
             }
         },
