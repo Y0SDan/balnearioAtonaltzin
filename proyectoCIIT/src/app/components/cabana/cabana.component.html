@@ -31,6 +31,7 @@
       <tr>
           <th>Nombre</th>
           <th>Descripcion</th>
+          <th>Description</th>
           <th>Precio por noche</th>
           <th>Capacidad</th>
       </tr>
@@ -40,6 +41,7 @@
           currentPage: p };let i=index">
             <td>{{ cabana.Nombre }}</td>
             <td>{{ cabana.Descripcion }}</td>
+            <td>{{ cabana.Description }}</td>
             <td>{{ cabana.PrecioPorNoche }}</td>
             <td>{{ cabana.Capacidad }}</td>
             <td>
@@ -77,6 +79,10 @@
           <input [(ngModel)]="cabana.Descripcion" type="text" class="validate">
         </div>
         <div class="input-field col s6">
+          <label class="active">Description </label>
+          <input [(ngModel)]="cabana.Description" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
             <label class="active">PrecioPorNoche </label>
             <input [(ngModel)]="cabana.PrecioPorNoche" type="text" class="validate">
           </div>
@@ -84,10 +90,6 @@
             <label class="active">Capacidad </label>
             <input [(ngModel)]="cabana.Capacidad" type="text" class="validate">
           </div>
-         <!--<div class="input-field col s6">
-            <label class="active">Ubicacion </label>
-            <input [(ngModel)]="cabana.Ubicacion" type="text" class="validate">
-          </div>-->
       </div>
       <div class="row">
         <div class="col s6 center">
@@ -119,6 +121,10 @@
         <div class="input-field col s6">
             <label class="active">Descripcion </label>
             <input [(ngModel)]="cabanaNueva.Descripcion" type="text" class="validate">
+          </div>
+          <div class="input-field col s6">
+            <label class="active">Description </label>
+            <input [(ngModel)]="cabanaNueva.Description" type="text" class="validate">
           </div>
           <div class="input-field col s6">
               <label class="active">PrecioPorNoche </label>
