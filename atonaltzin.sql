@@ -56,15 +56,15 @@ CREATE TABLE IF NOT EXISTS `cabana` (
   `Descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `PrecioPorNoche` decimal(10,2) DEFAULT NULL,
   `Capacidad` int DEFAULT NULL,
-  `foto` int NOT NULL,
+  `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`ID_Cabana`),
   UNIQUE KEY `UQ_NombreCabana` (`Nombre`)
+  `foto` int NOT NULL,
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cabana`
 --
-
 INSERT INTO `cabana` (`ID_Cabana`, `Nombre`, `Descripcion`, `PrecioPorNoche`, `Capacidad`, `foto`) VALUES
 (1, 'Cabana A', 'Para 2 personas, cómoda y cuenta con televisión', '800.00', 2, 1),
 (2, 'Cabaña Z', 'Para 4 personas, cuenta con television, chimenea, cafetera y frigobar', '1600.00', 4, 1),
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 
 INSERT INTO `cliente` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Telefono`, `password1`, `tipo`, `foto`) VALUES
 (27, 'Diego', 'Ramses', 'lorga_77@hotmail.com', '2345670987', '123', 'administrador', 1),
-(37, 'Evan', 'Lorga', 'lorga@gmail.com', '9514567890', 'wuero', 'seller', 0),
+(37, 'Evan', 'Lorga', 'lorga@gmail.com', '9514567890', 'wuero', 'seller', 1),
 (38, 'Diego Ramses ', 'Lorga Luz', 'ramseslorga@gmail.com', '9515451324', 'Reptilia', 'seller', 1),
 (42, 'Marcos', 'Martinez', 'marcos@gmail.com', '9876543210', '$2a$10$k63QEvPjeJ0AE9C5mkasve.RqURa1PMQnxAKzri99d8KhNZEiGBL6', 'seller', 1),
 (45, 'Gizelle', 'Ramirez', 'gizelle@gmail.com', '9876543212', '$2a$10$K3jloKecgDaaUUfcE9w6EeNefjfUsqAe1HZkTn6nnb6/zocvpeNpO', 'administrador', 1),
@@ -121,24 +121,28 @@ CREATE TABLE IF NOT EXISTS `cobros` (
   `Estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`IdCobro`),
   KEY `IdReservacion` (`IdReservacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cobros`
 --
 
 INSERT INTO `cobros` (`IdCobro`, `IdReservacion`, `MontoCobrado`, `Fecha_Cobro`, `Estado`) VALUES
-(1, 1, '600', '2024-05-19', 'pagado'),
-(2, 2, '1200', '2023-08-15', 'pagado'),
-(3, 3, '1800', '2023-09-10', 'pagado'),
-(94, 75, '4000', '2024-03-19', 'pagado'),
-(95, 76, '2400', '2024-03-20', 'pagado'),
-(99, 80, '1600', '2024-03-21', 'pagado'),
-(105, 85, '2400', '2024-03-31 23:10:31', 'Pagado'),
-(106, 86, '4000', '2024-03-31 23:10:40', 'Pagado'),
-(107, 87, '4000', '2024-03-31 23:10:47', 'Pagado'),
-(108, 88, '3200', '2024-03-31 23:17:58', 'Pagado'),
-(109, 89, '3200', '2024-04-01 10:35:27', 'Pagado');
+(1, 1, 600, '2024-05-19', 'pagado'),
+(2, 2, 1200, '2023-08-15', 'pagado'),
+(3, 3, 1800, '2023-09-10', 'pagado'),
+(94, 75, 4000, '2024-03-19', 'pagado'),
+(95, 76, 2400, '2024-03-20', 'pagado'),
+(99, 80, 1600, '2024-03-21', 'pagado'),
+(105, 85, 2400, '2024-03-31 23:10:31', 'Pagado'),
+(106, 86, 4000, '2024-03-31 23:10:40', 'Pagado'),
+(107, 87, 4000, '2024-03-31 23:10:47', 'Pagado'),
+(108, 88, 3200, '2024-03-31 23:17:58', 'Pagado'),
+(109, 89, 3200, '2024-04-01 10:35:27', 'Pagado'),
+(130, 110, 1600, NULL, 'Sin pagar'),
+(131, 111, 3200, NULL, 'Sin pagar'),
+(132, 112, 12000, NULL, 'Sin pagar'),
+(133, 113, 1000, NULL, 'Sin pagar');
 
 -- --------------------------------------------------------
 
@@ -189,8 +193,6 @@ INSERT INTO `imagenes` (`IdImagen`, `IdCabana`, `NombreImagen`, `DescripcionCaba
 (26, 19, 'Cabaña T2', 'Para 14 personas, cómoda, cuenta con televisión, cocina, fogata e internet', 'C:/Users/Ramses/Downloads/Cabanas/CabanaT2.jpg');
 
 -- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `imagenescabanas`
 --
 
@@ -213,7 +215,6 @@ INSERT INTO `imagenescabanas` (`id`, `ID_Cabana`) VALUES
 
 -- --------------------------------------------------------
 
---
 -- Estructura de tabla para la tabla `promocion`
 --
 
@@ -270,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `reservaciones` (
   PRIMARY KEY (`ID_Reservacion`),
   KEY `ID_Cabaña` (`ID_Cabana`),
   KEY `ID_Cliente` (`ID_Cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reservaciones`
@@ -296,7 +297,12 @@ INSERT INTO `reservaciones` (`ID_Reservacion`, `ID_Cabana`, `ID_Cliente`, `Fecha
 (91, 1, 48, '2024-03-04', '2024-03-06'),
 (92, 2, 48, '2024-03-05', '2024-03-07'),
 (93, 2, 48, '2024-03-06', '2024-03-07'),
-(94, 1, 48, '2024-03-05', '2024-03-08');
+(94, 1, 48, '2024-03-05', '2024-03-08'),
+(110, 2, 48, '2024-04-29', '2024-04-30'),
+(111, 2, 48, '2025-02-01', '2025-02-03'),
+(112, 4, 48, '2024-04-15', '2024-04-18'),
+(113, 30, 48, '2024-06-01', '2024-06-03');
+
 
 --
 -- Restricciones para tablas volcadas

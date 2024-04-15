@@ -31,6 +31,8 @@ export class NavigationComponent implements OnInit {
     localStorage.removeItem("Tipo_Usuario")
     localStorage.removeItem("Email")
     localStorage.removeItem("ID_Cliente")
+    localStorage.removeItem("Cabana")
+
     this.router.navigateByUrl('/principal')
   }
   redireccion(pagina:string){

@@ -28,8 +28,10 @@
 
     <table class="default" *ngIf="cabanas !== undefined && cabanas.length > 0">
       <tr>
+          <th>Fotos</th>
           <th>{{'Nombre' | translate}}</th>
           <th>{{'Descripcion' | translate}}</th>
+          <th>Description</th>
           <th>{{'Precio por noche' | translate}}</th>
           <th>{{'Capacidad' | translate}}</th>
       </tr>
@@ -37,8 +39,11 @@
         paginate: {
           itemsPerPage: pageSize,
           currentPage: p };let i=index">
+            <td><a href="javascript: void(0);" class="space" (click)="mostrarImagenes(cabana.ID_Cabana)">
+              <i class="material-icons">photo_library</i></a></td>
             <td>{{ cabana.Nombre }}</td>
             <td>{{ cabana.Descripcion }}</td>
+            <td>{{ cabana.Description }}</td>
             <td>{{ cabana.PrecioPorNoche }}</td>
             <td>{{ cabana.Capacidad }}</td>
             <td>
@@ -79,7 +84,12 @@
           <input [(ngModel)]="cabana.Descripcion" type="text" class="validate">
         </div>
         <div class="input-field col s6">
+          <label class="active">Description </label>
+          <input [(ngModel)]="cabana.Description" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
             <label class="active">{{"Precio por noche" | translate}}</label>
+
             <input [(ngModel)]="cabana.PrecioPorNoche" type="text" class="validate">
           </div>
           <div class="input-field col s6">
@@ -116,6 +126,11 @@
         <div class="input-field col s6">
             <label class="active">{{'Descripcion' | translate}} </label>
             <input [(ngModel)]="cabanaNueva.Descripcion" type="text" class="validate">
+          </div>
+          <div class="input-field col s6">
+
+            <label class="active">Description </label>
+            <input [(ngModel)]="cabanaNueva.Description" type="text" class="validate">
           </div>
           <div class="input-field col s6">
               <label class="active">{{"Precio por noche" | translate}}</label>
