@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-04-2024 a las 19:36:45
+-- Tiempo de generación: 15-04-2024 a las 01:16:14
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `cabana` (
   `foto` int NOT NULL,
   PRIMARY KEY (`ID_Cabana`),
   UNIQUE KEY `UQ_NombreCabana` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cabana`
@@ -187,6 +187,29 @@ INSERT INTO `imagenes` (`IdImagen`, `IdCabana`, `NombreImagen`, `DescripcionCaba
 (23, 4, 'CabanaD5.jpg', 'Para 10 personas, cuenta con television, chimenea, cafetera y frigobar', 'C:/Users/Ramses/Downloads/Cabanas/CabanaD5.jpg'),
 (24, 4, 'CabanaD6.jpg', 'Para 10 personas, cuenta con television, chimenea, cafetera y frigobar', 'C:/Users/Ramses/Downloads/Cabanas/CabanaD6.jpg'),
 (26, 19, 'Cabaña T2', 'Para 14 personas, cómoda, cuenta con televisión, cocina, fogata e internet', 'C:/Users/Ramses/Downloads/Cabanas/CabanaT2.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `imagenescabanas`
+--
+
+DROP TABLE IF EXISTS `imagenescabanas`;
+CREATE TABLE IF NOT EXISTS `imagenescabanas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ID_Cabana` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `imagenescabanas`
+--
+
+INSERT INTO `imagenescabanas` (`id`, `ID_Cabana`) VALUES
+(2, 2),
+(1, 1),
+(3, 3),
+(4, 4);
 
 -- --------------------------------------------------------
 

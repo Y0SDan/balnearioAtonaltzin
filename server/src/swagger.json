@@ -31,6 +31,10 @@
         {
             "name": "Ofertas",
             "description": "API para obtener la información de las ofertas"
+        },
+        {
+            "name": "Imagenes-Cabañas",
+            "description": "API para obtener la relación de una imagen con una cabaña"
         }
     ],
     "schemes": [
@@ -962,8 +966,8 @@
                                     "ID_Cliente": 48,
                                     "FechaInicio": "2024-03-31",
                                     "FechaFin": "2024-04-03"
-                                  },
-                                  {
+                                },
+                                {
                                     "Nombre_Cliente": "Ricardo",
                                     "Apellido_Cliente": "Martinez",
                                     "IdCobro": 111,
@@ -976,8 +980,8 @@
                                     "ID_Cliente": 48,
                                     "FechaInicio": "2024-03-31",
                                     "FechaFin": "2024-04-30"
-                                  },
-                                  {
+                                },
+                                {
                                     "Nombre_Cliente": "Ricardo",
                                     "Apellido_Cliente": "Martinez",
                                     "IdCobro": 112,
@@ -990,7 +994,7 @@
                                     "ID_Cliente": 48,
                                     "FechaInicio": "2024-03-31",
                                     "FechaFin": "2024-04-18"
-                                  }
+                                }
                             ]
                         },
                         "schema": {
@@ -1184,25 +1188,25 @@
                         "examples": {
                             "application/json": [
                                 {
-                                  "id_promocion": 1,
-                                  "id_cabana": 1,
-                                  "descuento": 12,
-                                  "Fecha_inicio": "2024-04-05",
-                                  "Fecha_fin": "2024-04-09"
+                                    "id_promocion": 1,
+                                    "id_cabana": 1,
+                                    "descuento": 12,
+                                    "Fecha_inicio": "2024-04-05",
+                                    "Fecha_fin": "2024-04-09"
                                 },
                                 {
-                                  "id_promocion": 2,
-                                  "id_cabana": 1,
-                                  "descuento": 25,
-                                  "Fecha_inicio": "2024-04-02",
-                                  "Fecha_fin": "2024-04-08"
+                                    "id_promocion": 2,
+                                    "id_cabana": 1,
+                                    "descuento": 25,
+                                    "Fecha_inicio": "2024-04-02",
+                                    "Fecha_fin": "2024-04-08"
                                 },
                                 {
-                                  "id_promocion": 3,
-                                  "id_cabana": 2,
-                                  "descuento": 20,
-                                  "Fecha_inicio": "2024-04-02",
-                                  "Fecha_fin": "2024-04-06"
+                                    "id_promocion": 3,
+                                    "id_cabana": 2,
+                                    "descuento": 20,
+                                    "Fecha_inicio": "2024-04-02",
+                                    "Fecha_fin": "2024-04-06"
                                 }
                             ]
                         },
@@ -1229,11 +1233,11 @@
                         "examples": {
                             "application/json": [
                                 {
-                                  "id_promocion": 1,
-                                  "id_cabana": 1,
-                                  "descuento": 12,
-                                  "Fecha_inicio": "2024-04-05",
-                                  "Fecha_fin": "2024-04-09"
+                                    "id_promocion": 1,
+                                    "id_cabana": 1,
+                                    "descuento": 12,
+                                    "Fecha_inicio": "2024-04-05",
+                                    "Fecha_fin": "2024-04-09"
                                 }
                             ]
                         },
@@ -1326,6 +1330,104 @@
                     }
                 ]
             }
+        },
+        "/api/imagenescabanas/crearImagenCabana": {
+            "post": {
+                "summary": "Agregar una imagen a una cabaña",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Imagen-Cabana",
+                        "in": "body",
+                        "description": "Imagen-Cabana agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaImagenCabana"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/imagenescabanas/MostrarImagenesPorCabana/{ID_Cabana}": {
+            "get": {
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "summary": "Muestra las relaciones existentes entre una cabaña y las imagenes",
+                "description": "<p>Servicio que devuelve el id de todas las imagenes que están relacionadas con una cabaña.</p><p>&nbsp;</p><p><em><strong>¿Existen imagenes relacionadas con la cabaña?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1
+                                },
+                                {
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Oferta"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ID_Cabana",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la cabaña",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/imagenescabanas/eliminarImagenCabana/{id}": {
+            "delete": {
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "summary": "Elimina una relacion imagen-cabaña.",
+                "description": "<p>Servicio que elimina una orelación imagen-cabaña registrada.</p><p>&nbsp;</p><p><em><strong>¿Qué relación imagen-cabaña se eliminará?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la relacion",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
         }
     },
     "definitions": {
@@ -1359,10 +1461,10 @@
                 }
             }
         },
-        "Cabanas" : {
-            "type" : "array",
-            "items" : {
-                "$ref" : "#/definitions/Cabana"
+        "Cabanas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Cabana"
             }
         },
         "NuevaCabana": {
@@ -1415,10 +1517,10 @@
                 }
             }
         },
-        "Reservaciones" : {
-            "type" : "array",
-            "items" : {
-                "$ref" : "#/definitions/Reservacion"
+        "Reservaciones": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Reservacion"
             }
         },
         "NuevaReservacion": {
@@ -1473,10 +1575,10 @@
                 }
             }
         },
-        "Cobros" : {
-            "type" : "array",
-            "items" : {
-                "$ref" : "#/definitions/Cobros"
+        "Cobros": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Cobros"
             }
         },
         "NuevoCobro": {
@@ -1547,10 +1649,10 @@
                 }
             }
         },
-        "Usuarios" : {
-            "type" : "array",
-            "items" : {
-                "$ref" : "#/definitions/Usuario"
+        "Usuarios": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Usuario"
             }
         },
         "NuevoUsuario": {
@@ -1596,121 +1698,147 @@
             }
         },
         "Pago": {
-            "type" : "object",
-            "properties" : {
-                "Nombre_Cliente" : {
-                    "type" : "string",
-                    "description" : "Nombre del cliente."
-                },
-                "Apellido" : {
+            "type": "object",
+            "properties": {
+                "Nombre_Cliente": {
                     "type": "string",
-                    "description" : "Apellidos del cliente"
+                    "description": "Nombre del cliente."
                 },
-                "IdCobro" : {
-                    "type" : "number",
-                    "description" : "Id del cobro realizado"
+                "Apellido": {
+                    "type": "string",
+                    "description": "Apellidos del cliente"
                 },
-                "IdReservacion" : {
-                    "type" : "number",
-                    "description" : "Id de la reservación"
+                "IdCobro": {
+                    "type": "number",
+                    "description": "Id del cobro realizado"
                 },
-                "MontoCobrado" : {
-                    "type" : "number",
-                    "description" : "Monto cobrado por la reservación"
+                "IdReservacion": {
+                    "type": "number",
+                    "description": "Id de la reservación"
                 },
-                "Fecha_Cobro" : {
-                    "type" : "string",
-                    "description" : "Fecha en la que se realizó el cobro"
+                "MontoCobrado": {
+                    "type": "number",
+                    "description": "Monto cobrado por la reservación"
                 },
-                "Estado" : {
-                    "type" : "string",
-                    "description" : "Estado del cobro"
+                "Fecha_Cobro": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizó el cobro"
                 },
-                "ID_Reservacion" : {
-                    "type" : "number",
-                    "description" : "Id de la reservación"
+                "Estado": {
+                    "type": "string",
+                    "description": "Estado del cobro"
                 },
-                " ID_Cabana" : {
-                    "type" : "number",
-                    "description" : "Id de la cabaña."
+                "ID_Reservacion": {
+                    "type": "number",
+                    "description": "Id de la reservación"
                 },
-                "ID_Cliente" : {
-                    "type":"number",
-                    "description":"Id del cliente"
+                " ID_Cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña."
                 },
-                "FechaInicio":{
-                    "type":"string",
-                    "description":"Fecha inicial de la reservacion"
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Id del cliente"
                 },
-                "FechaFin":{
-                    "type":"string",
-                    "description":"Fecha final de la reservacion"
+                "FechaInicio": {
+                    "type": "string",
+                    "description": "Fecha inicial de la reservacion"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "description": "Fecha final de la reservacion"
                 }
             }
         },
-        "Pagos" : {
-            "type" : "array",
-            "items" : {
-                "$ref" : "#/definitions/Pago"
+        "Pagos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Pago"
             }
         },
         "Oferta": {
             "type": "object",
             "properties": {
-                "id_promocion":{
-                    "type" :"number",
-                    "description":"Id de la oferta"
+                "id_promocion": {
+                    "type": "number",
+                    "description": "Id de la oferta"
                 },
-                "id_cabana" : {
-                    "type":"number",
-                    "description":"Id de la cabaña."
+                "id_cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña."
                 },
-                "descuento":{
-                    "type":"number",
-                    "description":"Porcewntaje de descuento"
+                "descuento": {
+                    "type": "number",
+                    "description": "Porcewntaje de descuento"
                 },
-                "Fecha_inicio":{
-                    "type":"string",
+                "Fecha_inicio": {
+                    "type": "string",
                     "format": "date",
                     "example": "AAAA-MM-DD",
-                    "description":"Fecha de inicio de la oferta"
+                    "description": "Fecha de inicio de la oferta"
                 },
-                "Fecha_fin":{
-                    "type":"string",
+                "Fecha_fin": {
+                    "type": "string",
                     "format": "date",
                     "example": "AAAA-MM-DD",
-                    "description":"Fecha de fin de la oferta"
+                    "description": "Fecha de fin de la oferta"
                 }
             }
         },
-        "Ofertas" : {
-            "type" : "array",
-            "items" : {
-                "$ref" : "#/definitions/Oferta"
+        "Ofertas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Oferta"
             }
         },
         "NuevoOferta": {
             "type": "object",
             "properties": {
-                "id_cabana" : {
-                    "type":"number",
-                    "description":"Id de la cabaña."
+                "id_cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña."
                 },
-                "descuento":{
-                    "type":"number",
-                    "description":"Porcewntaje de descuento"
+                "descuento": {
+                    "type": "number",
+                    "description": "Porcewntaje de descuento"
                 },
-                "Fecha_inicio":{
-                    "type":"string",
+                "Fecha_inicio": {
+                    "type": "string",
                     "format": "date",
                     "example": "AAAA-MM-DD",
-                    "description":"Fecha de inicio de la oferta"
+                    "description": "Fecha de inicio de la oferta"
                 },
-                "Fecha_fin":{
-                    "type":"string",
+                "Fecha_fin": {
+                    "type": "string",
                     "format": "date",
                     "example": "AAAA-MM-DD",
-                    "description":"Fecha de fin de la oferta"
+                    "description": "Fecha de fin de la oferta"
+                }
+            }
+        },
+        "ImagenCabana": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "Id de la imagen",
+                    "default": "0"
+                }
+            }
+        },
+        "ImagenesCabana": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ImagenCabana"
+            }
+        },
+        "NuevaImagenCabana": {
+            "type": "object",
+            "properties": {
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña",
+                    "default": "0"
                 }
             }
         }

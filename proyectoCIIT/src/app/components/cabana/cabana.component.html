@@ -28,7 +28,7 @@
 
   <table class="default" *ngIf="cabanas !== undefined && cabanas.length > 0">
     <tr>
-      <th>Foto</th>
+      <th>Fotos</th>
       <th>Nombre</th>
       <th>Descripcion</th>
       <th>Precio por noche</th>
@@ -38,17 +38,15 @@
         paginate: {
           itemsPerPage: pageSize,
           currentPage: p };let i=index">
-      <td>
-        <img *ngIf="cabana.foto == 1" width="64" src="{{liga}}/cabanas/{{cabana.ID_Cabana}}.jpg" alt="{{liga}}/cabanas/1.jpg">
-        <img *ngIf="cabana.foto == 0" width="64" src="{{liga}}/cabanas/0.jpg" alt="{{liga}}/cabanas/1.jpg">
-      </td>
+      <td><a href="javascript: void(0);" class="space" (click)="mostrarImagenes(cabana.ID_Cabana)">
+        <i class="material-icons">photo_library</i></a></td>
       <td>{{ cabana.Nombre }}</td>
       <td>{{ cabana.Descripcion }}</td>
       <td>{{ cabana.PrecioPorNoche }}</td>
       <td>{{ cabana.Capacidad }}</td>
       <td><a href="javascript: void(0);" class="space" (click)="actualizarCabana(cabana.ID_Cabana)">
           <i class="material-icons">edit</i></a></td>
-      <td><a href="javascript: void(0);" class="material-icons" (click)="MostrarImagen(cabana.ID_Cabana)"
+      <td><a href="javascript: void(0);" class="material-icons" (click)="addImagen(cabana.ID_Cabana)"
           style="color: rgb(49, 111, 226);">
           <i class="material-icons">imagen</i></a></td>
       <td><a href="javascript: void(0);" class="material-icons" (click)="eliminarCabana(cabana.ID_Cabana)"
@@ -174,6 +172,28 @@
       </div>
     </div>
   </div>
+
+  <!--Modal para Mostrar Imagenes-->
+  <div id="modalmostrarImagenes" class="modal">
+    <div class="modal-content">
+      <div class="row" style="margin-bottom: 0px !important;">
+        <div class="col s12">
+          <h5 class="center">Imagenes de la cabaña</h5>
+        </div>
+      </div>
+      <div style="border: .5px solid #78909c; padding: 10px;">
+        <table class="default" *ngIf="cabana.foto == 1 && imagenescabana !== undefined && imagenescabana.length > 0">
+          <tr *ngFor="let imagen of imagenescabana">
+            <td>
+              <img class="center-image" *ngIf="cabana.foto == 1" width="512" src="{{liga}}/cabanas/{{imagen.ID_Cabana}}_{{imagen.id}}.jpg" alt="Imagen de la cabaña">
+            </td>
+          </tr>
+        </table>
+        <img class="center-image" *ngIf="cabana.foto == 0" width="512" src="{{liga}}/cabanas/0.jpg" alt="No hay imagen de la cabaña">             
+      </div>
+    </div>
+  </div>
+  
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

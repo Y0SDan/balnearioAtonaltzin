@@ -31,6 +31,10 @@
         {
             "name": "Ofertas",
             "description": "API para obtener la información de las ofertas"
+        },
+        {
+            "name": "Imagenes-Cabañas",
+            "description": "API para obtener la relación de una imagen con una cabaña"
         }
     ],
     "schemes": [
@@ -1326,6 +1330,104 @@
                     }
                 ]
             }
+        },
+        "/api/imagenescabanas/crearImagenCabana": {
+            "post": {
+                "summary": "Agregar una imagen a una cabaña",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Imagen-Cabana",
+                        "in": "body",
+                        "description": "Imagen-Cabana agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaImagenCabana"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/imagenescabanas/MostrarImagenesPorCabana/{ID_Cabana}": {
+            "get": {
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "summary": "Muestra las relaciones existentes entre una cabaña y las imagenes",
+                "description": "<p>Servicio que devuelve el id de todas las imagenes que están relacionadas con una cabaña.</p><p>&nbsp;</p><p><em><strong>¿Existen imagenes relacionadas con la cabaña?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1
+                                },
+                                {
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Oferta"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ID_Cabana",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la cabaña",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/imagenescabanas/eliminarImagenCabana/{id}": {
+            "delete": {
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "summary": "Elimina una relacion imagen-cabaña.",
+                "description": "<p>Servicio que elimina una orelación imagen-cabaña registrada.</p><p>&nbsp;</p><p><em><strong>¿Qué relación imagen-cabaña se eliminará?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la relacion",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
         }
     },
     "definitions": {
@@ -1711,6 +1813,32 @@
                     "format": "date",
                     "example": "AAAA-MM-DD",
                     "description": "Fecha de fin de la oferta"
+                }
+            }
+        },
+        "ImagenCabana": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "Id de la imagen",
+                    "default": "0"
+                }
+            }
+        },
+        "ImagenesCabana": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ImagenCabana"
+            }
+        },
+        "NuevaImagenCabana": {
+            "type": "object",
+            "properties": {
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña",
+                    "default": "0"
                 }
             }
         }

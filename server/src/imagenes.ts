@@ -38,9 +38,23 @@ class Server {
                     'base64').toString('binary');
             fs.writeFile(`${__dirname}/imagenes/` + name + '/' + id + '.jpg', binaryData,
                 "binary", (err) => {
-                    //console.log(err);
+                    console.log(err);
                 });
             //console.log(res);
+            res.json({ fileName: id + '.jpg' });
+        });
+        this.app.post('/uploadImagenCabana', (req, res) => {
+            const file = req.body.src;
+            const name = req.body.tipo;
+            const id = req.body.id;
+            const idImagen = req.body.idImagen
+            const binaryData =
+                Buffer.from(file.replace(/^data:image\/[a-z]+;base64,/, ""),
+                    'base64').toString('binary');
+            fs.writeFile(`${__dirname}/imagenes/` + name + '/' + id + '_' + idImagen + '.jpg', binaryData,
+                "binary", (err) => {
+                    console.log(err);
+                });
             res.json({ fileName: id + '.jpg' });
         });
     }
