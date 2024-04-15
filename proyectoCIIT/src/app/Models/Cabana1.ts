@@ -5,6 +5,7 @@ export class Cabana1{
     Description:string;
     PrecioPorNoche: number;
     Capacidad: number;
+    foto : number;
 
     constructor() {
         this. ID_Cabana = 0;
@@ -12,6 +13,7 @@ export class Cabana1{
         this.Descripcion = '';
         this.Description = '';
         this.PrecioPorNoche = 0;
-        this.Capacidad = 2;
+        this.Capacidad = 0;
+        this.foto = 0;
     }
 }

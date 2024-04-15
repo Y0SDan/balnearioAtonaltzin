@@ -11,6 +11,7 @@ import administradoresRoutes from './routes/administradoresRoutes';
 import swagger_ui_express from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 import PromcionesRoutes from './routes/PromcionesRoutes';
+import imagenesCabanasRoutes from './routes/imagenesCabanasRoutes';
 class Server
 {
 public app: Application;
@@ -39,7 +40,7 @@ this.app.use('/api/cobros',cobrosRoutes);
 this.app.use('/api/clientes',clientesRoutes);
 this.app.use('/api/admin',administradoresRoutes);
 this.app.use('/api/promos',PromcionesRoutes);
-
+this.app.use('/api/imagenesCabanas', imagenesCabanasRoutes);
 }
 start (): void
 {

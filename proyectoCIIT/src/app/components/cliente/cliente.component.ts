@@ -43,7 +43,6 @@ export class ClienteComponent implements OnInit {
     $(document).ready(function(){
       $('select').formSelect();
     });
-    M.AutoInit();
   }
 
   addCliente() {
@@ -65,7 +64,7 @@ export class ClienteComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          text: 'Plan Actualizado'
+          text: 'Nuevo usuario agregado'
         });
       },
       err => {
@@ -77,8 +76,8 @@ export class ClienteComponent implements OnInit {
 
   eliminarUsuario(id: any) {
     Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No es posible revertir este!",
+      title: "¿Estás seguro de eliminar este usuario?",
+      text:  "¡No es posible revertir esta acción!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -136,7 +135,7 @@ export class ClienteComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: type,
-      text: message
+      text: "Usuario actualizado"
     });
   }
 
@@ -180,6 +179,7 @@ export class ClienteComponent implements OnInit {
   seleccionarCliente(cliente: Cliente) {
     this.cliente = cliente;
     this.liga = environment.API_URL_IMAGENES + "/clientes/" + this.cliente.ID_Cliente + ".jpg";
+    console.log(this.liga)
   }
   MostrarImagen(idCliente: number) {
     this.clienteService.showOne(idCliente).subscribe((resCliente: any) => {
@@ -192,6 +192,10 @@ export class ClienteComponent implements OnInit {
     this.imgUsuario = null;
     this.liga = environment.API_URL_IMAGENES;
     this.fileToUpload = archivo.files.item(0);
+    console.log("Cargando imagen");
+    
+  }
+  guardarImagen() {
     let imgPromise = this.getFileBlob(this.fileToUpload);
     imgPromise.then(blob => {
       console.log("convirtiendo imagen")
@@ -219,10 +223,14 @@ export class ClienteComponent implements OnInit {
     }, err => {
       console.error(err);
     });
-
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      text: 'Imagen actualizada'
+    });
     this.recargarUsuario();
+    
   }
-
   getFileBlob(file: any) {
     var reader = new FileReader();
     return new Promise(function (resolve, reject) { //Espera a que se cargue la img

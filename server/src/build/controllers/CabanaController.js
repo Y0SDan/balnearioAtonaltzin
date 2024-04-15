@@ -26,7 +26,6 @@ class CabanaController {
     }
     mostrar_todas_cabanas(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("YA ESTAMOS AQUI");
             const respuesta = yield database_1.default.query('SELECT * FROM cabana');
             res.json(respuesta);
         });
@@ -52,11 +51,9 @@ class CabanaController {
     actualizarCabana(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            //console.log(req.params);
             console.log(id);
             const resp = yield database_1.default.query("UPDATE cabana set ? WHERE ID_Cabana = ?", [req.body, id]);
             res.json(resp);
-            //res.json(null);
         });
     }
 }

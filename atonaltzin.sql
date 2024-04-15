@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 14-04-2024 a las 20:01:29
--- Versión del servidor: 8.2.0
--- Versión de PHP: 8.2.13
+-- Tiempo de generación: 15-04-2024 a las 01:16:14
+-- Versión del servidor: 8.0.31
+-- Versión de PHP: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -59,18 +59,17 @@ CREATE TABLE IF NOT EXISTS `cabana` (
   `Description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   PRIMARY KEY (`ID_Cabana`),
   UNIQUE KEY `UQ_NombreCabana` (`Nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `foto` int NOT NULL,
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cabana`
 --
-
-INSERT INTO `cabana` (`ID_Cabana`, `Nombre`, `Descripcion`, `PrecioPorNoche`, `Capacidad`, `Description`) VALUES
-(1, 'Cabana A', 'Para 2 personas, cómoda y cuenta con televisión', 800.00, 2, '0'),
-(2, 'Cabaña Z', 'Para 4 personas, cuenta con television, chimenea, cafetera y frigobar', 1600.00, 4, '0'),
-(3, 'Cabaña C', 'Para 6 personas, cuenta con television, chimenea, cafetera y frigobar', 2400.00, 6, '0'),
-(4, 'Cabaña D', 'Para 10 personas, cuenta con television, chimenea, cafetera y frigobar', 4000.00, 10, '0'),
-(30, 'Cabaña E', 'Cabaña de prueba ', 500.00, 2, '');
+INSERT INTO `cabana` (`ID_Cabana`, `Nombre`, `Descripcion`, `PrecioPorNoche`, `Capacidad`, `foto`) VALUES
+(1, 'Cabana A', 'Para 2 personas, cómoda y cuenta con televisión', '800.00', 2, 1),
+(2, 'Cabaña Z', 'Para 4 personas, cuenta con television, chimenea, cafetera y frigobar', '1600.00', 4, 1),
+(3, 'Cabaña C', 'Para 6 personas, cuenta con television, chimenea, cafetera y frigobar', '2400.00', 6, 1),
+(4, 'Cabaña D', 'Para 10 personas, cuenta con television, chimenea, cafetera y frigobar', '4000.00', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -194,8 +193,28 @@ INSERT INTO `imagenes` (`IdImagen`, `IdCabana`, `NombreImagen`, `DescripcionCaba
 (26, 19, 'Cabaña T2', 'Para 14 personas, cómoda, cuenta con televisión, cocina, fogata e internet', 'C:/Users/Ramses/Downloads/Cabanas/CabanaT2.jpg');
 
 -- --------------------------------------------------------
+-- Estructura de tabla para la tabla `imagenescabanas`
+--
+
+DROP TABLE IF EXISTS `imagenescabanas`;
+CREATE TABLE IF NOT EXISTS `imagenescabanas` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ID_Cabana` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
+-- Volcado de datos para la tabla `imagenescabanas`
+--
+
+INSERT INTO `imagenescabanas` (`id`, `ID_Cabana`) VALUES
+(2, 2),
+(1, 1),
+(3, 3),
+(4, 4);
+
+-- --------------------------------------------------------
+
 -- Estructura de tabla para la tabla `promocion`
 --
 
@@ -283,6 +302,7 @@ INSERT INTO `reservaciones` (`ID_Reservacion`, `ID_Cabana`, `ID_Cliente`, `Fecha
 (111, 2, 48, '2025-02-01', '2025-02-03'),
 (112, 4, 48, '2024-04-15', '2024-04-18'),
 (113, 30, 48, '2024-06-01', '2024-06-03');
+
 
 --
 -- Restricciones para tablas volcadas

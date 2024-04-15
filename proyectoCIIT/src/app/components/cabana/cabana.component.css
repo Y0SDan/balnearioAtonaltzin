@@ -13,3 +13,11 @@
     background-color: rgb(252, 252, 252) !important; /* Color de fondo rojo */
     color: white !important; /* Color de texto blanco */
 }
+
+/* Para centrar las imagenes */
+.center-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }

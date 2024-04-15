@@ -16,6 +16,7 @@ const administradoresRoutes_1 = __importDefault(require("./routes/administradore
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_json_1 = __importDefault(require("./swagger.json"));
 const PromcionesRoutes_1 = __importDefault(require("./routes/PromcionesRoutes"));
+const imagenesCabanasRoutes_1 = __importDefault(require("./routes/imagenesCabanasRoutes"));
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -39,6 +40,7 @@ class Server {
         this.app.use('/api/clientes', clientesRoutes_1.default);
         this.app.use('/api/admin', administradoresRoutes_1.default);
         this.app.use('/api/promos', PromcionesRoutes_1.default);
+        this.app.use('/api/imagenesCabanas', imagenesCabanasRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
