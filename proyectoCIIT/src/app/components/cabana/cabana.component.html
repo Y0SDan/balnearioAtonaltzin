@@ -44,6 +44,9 @@
             <td>
               <td><a href="javascript: void(0);" class="space" (click)="actualizarCabana(cabana.ID_Cabana)">
                 <i class="material-icons">edit</i></a></td>
+                <td><a href="javascript: void(0);" class="material-icons" (click)="addImagen(cabana.ID_Cabana)"
+                  style="color: rgb(49, 111, 226);">
+                  <i class="material-icons">imagen</i></a></td>        
                 <td><a href="javascript: void(0);" class="material-icons"
                   (click)="eliminarCabana(cabana.ID_Cabana)" style="color: red;">
                   <i class="material-icons">delete_forever</i></a></td>
@@ -157,7 +160,7 @@
       <div style="border: .5px solid #78909c; padding: 10px;">
         <div class="row">
           <div class="input-field col s12">
-            <label class="active" for="nombre_cliente">Imagenes </label>
+            <label class="active" for="nombre_cliente">{{'Imagenes'|translate}} </label>
             <input type="file" (change)="cargandoImagen($event.target)" multiple>
           </div>
         </div>
@@ -179,7 +182,7 @@
     <div class="modal-content">
       <div class="row" style="margin-bottom: 0px !important;">
         <div class="col s12">
-          <h5 class="center">Imagenes de la cabaña</h5>
+          <h5 class="center">{{'Imagenes de la cabaña'|translate}}</h5>
         </div>
       </div>
       <div style="border: .5px solid #78909c; padding: 10px;">
@@ -198,6 +201,4 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
 
-</html>
