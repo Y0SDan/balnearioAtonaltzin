@@ -12,14 +12,26 @@
         Atonaltzin</a>
     </li>
     <ul id="nav-mobile" class="right hide-one-med-and-down" *ngIf="ID_Cliente == undefined">
+      <li><a class="dropdown-trigger" data-target="dropdown3">{{"Idioma" | translate}}<i
+        class="material-icons right">arrow_drop_down</i></a></li>
       <li><a id="user-icon" class="dropdown-trigger btn"
           data-target="dropdown1"><i
             class="material-icons">account_circle</i></a></li>
+            <ul id='dropdown1' class='dropdown-content'>
+              <li><a  (click)="redireccion('login')">{{'Iniciar sesion' | translate}}</a></li>
+              <li><a  (click)="redireccion('usuario')">{{'Registrarse' | translate}}</a></li>
+            </ul>
           </ul>
     <ul id="nav-mobile" class="right hide-one-med-and-down" *ngIf="ID_Cliente != undefined">
-      <li><a id="user-icon"  class="btn blue lighten-2" (click)="logout()"><i
+      <li><a class="dropdown-trigger" data-target="dropdown3">{{"Idioma" | translate}}<i
+        class="material-icons right">arrow_drop_down</i></a></li>
+      <li><a id="user-icon"  class="btn white lighten-2" (click)="logout()"><i
             class="material-icons">exit_to_app</i></a></li>
     </ul>
+    <ul id="dropdown3" class="dropdown-content idioma-nav">
+      <li (click)="setIdioma(1)"><a>English</a></li>
+      <li (click)="setIdioma(2)"><a>Español</a></li>
+      </ul>
   <script type="text/javascript"
     src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript"
@@ -45,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var instances = M.Dropdown.init(elems, options);
 });
 </script>
+
     
   </div>
   

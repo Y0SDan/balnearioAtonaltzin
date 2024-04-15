@@ -66,6 +66,15 @@ export class CabanaComponent implements OnInit {
         this.showAlert('Something went wrong!', 'error');
       }
     );
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      text: 'Cabaña agragada'
+    });
+  },
+  err => {
+    console.error(err);
+    this.showAlert('Something went wrong!', 'error');
   }
   actualizarCabana(Nombre: any) {
     this.cabanaService.listOne(Nombre).subscribe((resusuario: any) => {
@@ -94,33 +103,33 @@ export class CabanaComponent implements OnInit {
       this.showAlert('Error al actualizar el cliente', 'error');
     });
   }
-  eliminarCabana(id: any) {
-    console.log("Click en eliminar esta cabaña");
-    console.log("Identificador del Cliente: ", id);
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No es posible revertir este!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, quiero eliminarlo!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.cabanaService.eliminarCabana(id).subscribe((resusuario: any) => {
-          console.log("resusuario: ", resusuario);
-          this.cabanaService.list().subscribe((resusuario: any) => {
-            this.cabanas = resusuario;
-            //console.log(resusuario);
-            console.log(this.cabanas)
-          },
-            err => console.error(err)
-          );
-        },
-          err => console.error(err)
-        );
-
-
+eliminarCabana(id : any){
+  console.log("Click en eliminar esta cabaña");
+  console.log("Identificador del Cliente: ",id);
+  Swal.fire({
+    title: " ¿Estás seguro de eliminar esta cabaña?",
+    text:  "¡No es posible revertir esta acción!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, quiero eliminarlo!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.cabanaService.eliminarCabana(id).subscribe((resusuario: any) =>
+      {
+       console.log("resusuario: ", resusuario);
+       this.cabanaService.list().subscribe((resusuario: any) =>
+       {
+         this.cabanas = resusuario;  
+         //console.log(resusuario);
+         console.log(this.cabanas)
+       },
+       err => console.error(err)
+       );
+      },
+      err => console.error(err)
+      );
         Swal.fire({
           title: "Eliminado!",
           text: "Tu archivo ha sido eliminado.",

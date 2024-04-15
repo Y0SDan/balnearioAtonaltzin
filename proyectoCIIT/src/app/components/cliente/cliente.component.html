@@ -6,12 +6,12 @@
 
 <table class="default" *ngIf="clientes != undefined && clientes.length > 0">
   <tr>
-    <th>Foto</th>
-    <th>Nombre</th>
-    <th>Apellido</th>
-    <th>Email</th>
-    <th>Telefono</th>
-    <th>Tipo</th>
+    <th>{{"Foto"| translate}}</th>
+    <th>{{"Nombre"| translate}}</th>
+    <th>{{"Apellido"| translate}}</th>
+    <th>{{"Correo"| translate}}</th>
+    <th>{{"Telefono"| translate}}</th>
+    <th>{{"Tipo"| translate}}</th>
   </tr>
   <tr *ngFor="let cliente of clientes |
     paginate: {
@@ -45,45 +45,45 @@
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Actualizar usuario</h5>
+        <h5 class="center">{{"Actualizar usuario" | translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div class="input-field col s12">
-          <label class="active" for="nombre_cliente">Nombre </label>
+          <label class="active" for="nombre_cliente">{{"Nombre"| translate}} </label>
           <input id="nombre_cliente" [(ngModel)]="cliente.Nombre" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Apellido </label>
+          <label class="active">{{"Apellido"| translate}}</label>
           <input [(ngModel)]="cliente.Apellido" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Email </label>
+          <label class="active">{{"Correo" | translate}} </label>
           <input [(ngModel)]="cliente.Email" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Telefono </label>
+          <label class="active">{{"Telefono"| translate}} </label>
           <input [(ngModel)]="cliente.Telefono" type="text" class="validate">
         </div>
         <div class="col s12">
-          <p>Tipo:</p>
+          <p>{{"Tipo:"| translate}}</p>
           <p>
             <label>
               <input name="tipo" type="radio" [(ngModel)]="cliente.tipo" value="administrador" />
-              <span>Administrador</span>
+              <span>{{"Administrador" | translate}}</span>
             </label>
           </p>
           <p>
             <label>
               <input name="tipo" type="radio" [(ngModel)]="cliente.tipo" value="seller" />
-              <span>Seller</span>
+              <span>{{"Vendedor" | translate}}</span>
             </label>
           </p>
           <p>
             <label>
               <input name="tipo" type="radio" [(ngModel)]="cliente.tipo" value="usuario" />
-              <span>Usuario</span>
+              <span>{{"Usuario" | translate}}</span>
             </label>
           </p>
         </div>
@@ -105,35 +105,35 @@
   <div class="modal-content">
     <div class="row " style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Crear usuario</h5>
+        <h5 class="center">{{"Crear usuario" | translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div class="input-field col s12">
-          <label class="active" for="nombre_usuario">Nombre </label>
+          <label class="active" for="nombre_usuario">{{"Nombre"| translate}}</label>
           <input id="nombre_usuario" [(ngModel)]="clienteNuevo.Nombre" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Apellido </label>
+          <label class="active">{{"Apellido"| translate}}</label>
           <input [(ngModel)]="clienteNuevo.Apellido" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Email </label>
+          <label class="active">{{"Correo"| translate}}</label>
           <input [(ngModel)]="clienteNuevo.Email" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">Telefono </label>
+          <label class="active">{{"Telefono"| translate}}</label>
           <input [(ngModel)]="clienteNuevo.Telefono" type="text" class="validate">
         </div>
         <div class="input-field col s12">
           <select [(ngModel)]="clienteNuevo.tipo" [compareWith]="compareFn">
-            <option value="" disabled selected>Elige el tipo de usuario</option>
-            <option value="administrador">Administrador</option>
-            <option value="seller">Seller</option>
-            <option value="usuario">Usuario</option>
+            <option value="" disabled selected>{{"Elige el tipo de usuario" | translate}}</option>
+            <option value="administrador">{{"Administrador" | translate}}</option>
+            <option value="seller">{{"Vendedor" | translate}}</option>
+            <option value="usuario">{{"Usuario" | translate}}</option>
           </select>
-          <label class="active">Tipo</label>
+          <label class="active">{{"Type" | translate}}</label>
         </div>
       </div>
       <div class="row">
@@ -141,7 +141,7 @@
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close" (click)="guardarNuevoUsuario()" value="Enviar">
         </div>
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" | translate}}</a>
         </div>
       </div>
     </div>

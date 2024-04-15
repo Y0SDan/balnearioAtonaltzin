@@ -22,71 +22,65 @@
 </head>
 
 <body>
-  <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="crearcabana()">
-    <i class="material-icons left">add</i> Crear Cabaña
-  </a>
+    <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="crearcabana()">
+        <i class="material-icons left">add</i> {{'Crear cabaña' | translate}}
+    </a>
 
-  <table class="default" *ngIf="cabanas !== undefined && cabanas.length > 0">
-    <tr>
-      <th>Fotos</th>
-      <th>Nombre</th>
-      <th>Descripcion</th>
-      <th>Precio por noche</th>
-      <th>Capacidad</th>
-    </tr>
-    <tr *ngFor="let cabana of cabanas |
+    <table class="default" *ngIf="cabanas !== undefined && cabanas.length > 0">
+      <tr>
+          <th>{{'Nombre' | translate}}</th>
+          <th>{{'Descripcion' | translate}}</th>
+          <th>{{'Precio por noche' | translate}}</th>
+          <th>{{'Capacidad' | translate}}</th>
+      </tr>
+        <tr *ngFor="let cabana of cabanas |
         paginate: {
           itemsPerPage: pageSize,
           currentPage: p };let i=index">
-      <td><a href="javascript: void(0);" class="space" (click)="mostrarImagenes(cabana.ID_Cabana)">
-        <i class="material-icons">photo_library</i></a></td>
-      <td>{{ cabana.Nombre }}</td>
-      <td>{{ cabana.Descripcion }}</td>
-      <td>{{ cabana.PrecioPorNoche }}</td>
-      <td>{{ cabana.Capacidad }}</td>
-      <td><a href="javascript: void(0);" class="space" (click)="actualizarCabana(cabana.ID_Cabana)">
-          <i class="material-icons">edit</i></a></td>
-      <td><a href="javascript: void(0);" class="material-icons" (click)="addImagen(cabana.ID_Cabana)"
-          style="color: rgb(49, 111, 226);">
-          <i class="material-icons">imagen</i></a></td>
-      <td><a href="javascript: void(0);" class="material-icons" (click)="eliminarCabana(cabana.ID_Cabana)"
-          style="color: red;">
-          <i class="material-icons">delete_forever</i></a></td>
-    </tr>
-  </table>
-  <div class="blue-text text-darken-2">
-    <pagination-controls class="col s6" (pageChange)="p = ($event)" previousLabel="Anterior" nextLabel="Siguiente">
-    </pagination-controls>
-  </div>
-
-  <!--Modal para Modificar Cabaña-->
-  <div id="modalModificarCabana" class="modal">
-    <div class="modal-content">
-      <div class="row" style="margin-bottom: 0px !important;">
-        <div class="col s12">
-          <h5 class="center">Actualizar cabana</h5>
-        </div>
+            <td>{{ cabana.Nombre }}</td>
+            <td>{{ cabana.Descripcion }}</td>
+            <td>{{ cabana.PrecioPorNoche }}</td>
+            <td>{{ cabana.Capacidad }}</td>
+            <td>
+              <td><a href="javascript: void(0);" class="space" (click)="actualizarCabana(cabana.ID_Cabana)">
+                <i class="material-icons">edit</i></a></td>
+                <td><a href="javascript: void(0);" class="material-icons"
+                  (click)="eliminarCabana(cabana.ID_Cabana)" style="color: red;">
+                  <i class="material-icons">delete_forever</i></a></td>
+        </tr>
+    </table>
+    <div class="blue-text text-darken-2">
+      <pagination-controls class="col s6" (pageChange)="p = ($event)"
+      previousLabel="Anterior" nextLabel="Siguiente">
+      </pagination-controls>
+    </div>
+<div id="modalModificarCabana" class="modal">
+  <div class="modal-content">
+    <div class="row" style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">{{'Actualizar cabaña' |translate}}</h5>
       </div>
-      <div style="border: .5px solid #78909c; padding: 10px;">
-        <div class="row">
-          <div class="input-field col s12">
-            <label class="active" for="nombre_usuario">Nombre </label>
-            <input id="nombre_cabana" [(ngModel)]="cabana.Nombre" type="text" class="validate">
-          </div>
-          <div class="input-field col s12">
-            <label class="active">ID Cabana </label>
-            <input [(ngModel)]="cabana.ID_Cabana" type="text" class="validate">
-          </div>
-          <div class="input-field col s6">
-            <label class="active">Descripcion </label>
-            <input [(ngModel)]="cabana.Descripcion" type="text" class="validate">
-          </div>
-          <div class="input-field col s6">
-            <label class="active">PrecioPorNoche </label>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_usuario">{{'Nombre' | translate}}</label>
+          <input id="nombre_cabana" [(ngModel)]="cabana.Nombre" type="text" class="validate">
+        </div>
+        <div class="input-field col s12">
+          <label class="active">{{'ID Cabana' | translate}} </label>
+          <input [(ngModel)]="cabana.ID_Cabana" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">{{'Descripcion' | translate}} </label>
+          <input [(ngModel)]="cabana.Descripcion" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+            <label class="active">{{"Precio por noche" | translate}}</label>
             <input [(ngModel)]="cabana.PrecioPorNoche" type="text" class="validate">
           </div>
           <div class="input-field col s6">
-            <label class="active">Capacidad </label>
+            <label class="active">{{'Capacidad' | translate}} </label>
             <input [(ngModel)]="cabana.Capacidad" type="text" class="validate">
           </div>
         </div>
@@ -103,33 +97,40 @@
       </div>
     </div>
   </div>
-
-  <!--Modal para Crear Cabaña-->
-  <div id="modalCrearCabana" class="modal">
-    <div class="modal-content">
-      <div class="row" style="margin-bottom: 0px !important;">
-        <div class="col s12">
-          <h5 class="center">Crear Cabana</h5>
-        </div>
+<div id="modalCrearCabana" class="modal">
+  <div class="modal-content">
+    <div class="row" style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">{{'Crear cabaña' | translate}}</h5>
       </div>
-      <div style="border: .5px solid #78909c; padding: 10px;">
-        <div class="row">
-          <div class="input-field col s12">
-            <label class="active" for="nombre_usuario">Nombre </label>
-            <input id="nombre_usuario" [(ngModel)]="cabanaNueva.Nombre" type="text" class="validate">
-          </div>
-          <div class="input-field col s6">
-            <label class="active">Descripcion </label>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_usuario">{{'Nombre' | translate}} </label>
+          <input id="nombre_usuario" [(ngModel)]="cabanaNueva.Nombre" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+            <label class="active">{{'Descripcion' | translate}} </label>
             <input [(ngModel)]="cabanaNueva.Descripcion" type="text" class="validate">
           </div>
           <div class="input-field col s6">
-            <label class="active">PrecioPorNoche </label>
-            <input [(ngModel)]="cabanaNueva.PrecioPorNoche" type="text" class="validate">
-          </div>
-          <div class="input-field col s6">
-            <label class="active">Capacidad </label>
-            <input [(ngModel)]="cabanaNueva.Capacidad" type="text" class="validate">
-          </div>
+              <label class="active">{{"Precio por noche" | translate}}</label>
+              <input [(ngModel)]="cabanaNueva.PrecioPorNoche" type="text" class="validate">
+            </div>
+            <div class="input-field col s6">
+              <label class="active">{{'Capacidad' | translate}} </label>
+              <input [(ngModel)]="cabanaNueva.Capacidad" type="text" class="validate">
+            </div>
+            <!--<div class="input-field col s6">
+              <label class="active">Ubicacion </label>
+              <input [(ngModel)]="cabanaNueva.Ubicacion" type="text" class="validate">
+            </div>-->
+      </div>
+      <div class="row">
+        <div class="col s6 center">
+          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+            (click)="guardarNuevaCabana()" value="Enviar">
         </div>
         <div class="row">
           <div class="col s6 center">
