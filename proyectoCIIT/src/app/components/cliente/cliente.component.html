@@ -2,7 +2,7 @@
   <i class="material-icons left">add</i> Crear usuario
 </a>
 
-<div><img src="{{liga}}/cliente.jpg" class="center" style="width: 200px;" alt="{{liga}}"></div>
+<!--<div><img src="{{liga}}/cliente.jpg" class="center" style="width: 200px;" alt="{{liga}}"></div>-->
 
 <table class="default" *ngIf="clientes != undefined && clientes.length > 0">
   <tr>
@@ -163,7 +163,7 @@
       </div>
       <div class="row">
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text" (click)="recargarUsuario()">Enviar</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text" (click)="guardarImagen()">Enviar</a>
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
