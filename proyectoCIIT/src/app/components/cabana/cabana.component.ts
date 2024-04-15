@@ -43,7 +43,7 @@ guardarNuevaCabana(){
     Swal.fire({
       position: 'center',
       icon: 'success',
-      text: 'Plan Actualizado'
+      text: 'Cabaña agragada'
     });
   },
   err => {
@@ -83,8 +83,8 @@ eliminarCabana(id : any){
   console.log("Click en eliminar esta cabaña");
   console.log("Identificador del Cliente: ",id);
   Swal.fire({
-    title: "¿Estás seguro?",
-    text: "No es posible revertir este!",
+    title: " ¿Estás seguro de eliminar esta cabaña?",
+    text:  "¡No es posible revertir esta acción!",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -136,15 +136,6 @@ MostrarCliente() {
     }
   );
 }
-
-submitForm() {
-  // Ejecuta la función para guardar el nuevo usuario
-  this.guardarNuevaCabana();
-
-  // Redirige a la página principal
-  window.location.href = '/principal';
-}
-
 metodoPrueba() {
   console.log(this.cabanaNueva);
 }

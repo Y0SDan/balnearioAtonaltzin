@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from "@ngx-translate/core";
 declare var $: any;
 
 @Component({
@@ -11,7 +12,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
 
   ID_Cliente: any;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private translate: TranslateService) { 
   }
 
   ngOnInit(): void {
@@ -22,6 +23,7 @@ export class PrincipalComponent implements OnInit, AfterViewInit {
     $(document).ready(function(){
       $('.slider').slider();
     });
+    $(document).ready(function () { $(".dropdown-trigger").dropdown(); });
   }
 
   ngAfterViewInit(): void {   //Esto esta para que la condición *ngIf="ID_Cliente == undefined" no afecte al dropdown
@@ -68,6 +70,12 @@ redireccion(pagina:string){
       break;
     
   }
+}
+setIdioma(idioma: any) {
+  if (idioma == 1)
+    this.translate.use("en");
+  if (idioma == 2)
+    this.translate.use("es");
 }
 
 

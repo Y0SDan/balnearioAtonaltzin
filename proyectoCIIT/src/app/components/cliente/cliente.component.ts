@@ -65,7 +65,7 @@ export class ClienteComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          text: 'Plan Actualizado'
+          text: 'Nuevo usuario agregado'
         });
       },
       err => {
@@ -77,8 +77,8 @@ export class ClienteComponent implements OnInit {
 
   eliminarUsuario(id: any) {
     Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No es posible revertir este!",
+      title: "¿Estás seguro de eliminar este usuario?",
+      text:  "¡No es posible revertir esta acción!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -136,7 +136,7 @@ export class ClienteComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: type,
-      text: message
+      text: "Usuario actualizado"
     });
   }
 
