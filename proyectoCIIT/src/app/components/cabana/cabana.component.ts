@@ -58,7 +58,7 @@ export class CabanaComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        text: 'Plan Actualizado'
+        text: 'Cabaña agragada'
       });
     },
       err => {
@@ -66,16 +66,8 @@ export class CabanaComponent implements OnInit {
         this.showAlert('Something went wrong!', 'error');
       }
     );
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      text: 'Cabaña agragada'
-    });
-  },
-  err => {
-    console.error(err);
-    this.showAlert('Something went wrong!', 'error');
   }
+
   actualizarCabana(Nombre: any) {
     this.cabanaService.listOne(Nombre).subscribe((resusuario: any) => {
       this.cabana = resusuario;
@@ -159,13 +151,6 @@ eliminarCabana(id : any){
     );
   }
 
-  submitForm() {
-    // Ejecuta la función para guardar el nuevo usuario
-    this.guardarNuevaCabana();
-
-    // Redirige a la página principal
-    window.location.href = '/principal';
-  }
 
   metodoPrueba() {
     console.log(this.cabanaNueva);
@@ -208,6 +193,9 @@ eliminarCabana(id : any){
     err => {
         console.error(err);
     });
+}
+guardarImagen(){
+  
 }
 
   /*
