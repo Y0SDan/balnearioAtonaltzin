@@ -1,25 +1,24 @@
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection">
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Slider</title>
-    <style>
-        /* Estilo adicional */
-        .btn-border {
-            border: 2px solid #2196F3;
-          /* Cambiar el color de fondo de la paginación */
-        }
-        /* Cambiar el color de fondo de la paginación */
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" media="screen,projection">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slider</title>
+  <style>
+    /* Estilo adicional */
+    .btn-border {
+      border: 2px solid #2196F3;
+      /* Cambiar el color de fondo de la paginación */
+    }
 
-
-    </style>
+    /* Cambiar el color de fondo de la paginación */
+  </style>
 </head>
 
 <body>
@@ -84,25 +83,20 @@
             <label class="active">{{'Capacidad' | translate}} </label>
             <input [(ngModel)]="cabana.Capacidad" type="text" class="validate">
           </div>
-         <!--<div class="input-field col s6">
-            <label class="active">Ubicacion </label>
-            <input [(ngModel)]="cabana.Ubicacion" type="text" class="validate">
-          </div>-->
-      </div>
-      <div class="row">
-        <div class="col s6 center">
-          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardarActualizarCabana()" value="Enviar">
         </div>
-        <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3
+        <div class="row">
+          <div class="col s6 center">
+            <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+              (click)="guardarActualizarCabana()" value="Enviar">
+          </div>
+          <div class="col s6 center">
+            <a class="modal-action modal-close waves-effect btn-large brown lighten-3
   black-text">Cancelar</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
 <div id="modalCrearCabana" class="modal">
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
@@ -138,15 +132,72 @@
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
             (click)="guardarNuevaCabana()" value="Enviar">
         </div>
-        <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3
+        <div class="row">
+          <div class="col s6 center">
+            <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+              (click)="guardarNuevaCabana()" value="Enviar">
+          </div>
+          <div class="col s6 center">
+            <a class="modal-action modal-close waves-effect btn-large brown lighten-3
   black-text">Cancelar</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <!--Modal para Agregar Imagen-->
+  <div id="modalAgregarImagen" class="modal">
+    <div class="modal-content">
+      <div class="row" style="margin-bottom: 0px !important;">
+        <div class="col s12">
+          <h5 class="center">Agregar Imagen</h5>
+        </div>
+      </div>
+      <div style="border: .5px solid #78909c; padding: 10px;">
+        <div class="row">
+          <div class="input-field col s12">
+            <label class="active" for="nombre_cliente">Imagenes </label>
+            <input type="file" (change)="cargandoImagen($event.target)" multiple>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s6 center">
+            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text"
+              (click)="guardarActualizarCabana()">Enviar</a>
+          </div>
+          <div class="col s6 center">
+            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal para Mostrar Imagenes-->
+  <div id="modalmostrarImagenes" class="modal">
+    <div class="modal-content">
+      <div class="row" style="margin-bottom: 0px !important;">
+        <div class="col s12">
+          <h5 class="center">Imagenes de la cabaña</h5>
+        </div>
+      </div>
+      <div style="border: .5px solid #78909c; padding: 10px;">
+        <table class="default" *ngIf="cabana.foto == 1 && imagenescabana !== undefined && imagenescabana.length > 0">
+          <tr *ngFor="let imagen of imagenescabana">
+            <td>
+              <img class="center-image" *ngIf="cabana.foto == 1" width="512" src="{{liga}}/cabanas/{{imagen.ID_Cabana}}_{{imagen.id}}.jpg" alt="Imagen de la cabaña">
+            </td>
+          </tr>
+        </table>
+        <img class="center-image" *ngIf="cabana.foto == 0" width="512" src="{{liga}}/cabanas/0.jpg" alt="No hay imagen de la cabaña">             
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
+
 </html>

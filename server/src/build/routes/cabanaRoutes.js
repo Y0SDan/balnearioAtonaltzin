@@ -8,7 +8,6 @@ class cabanaRoutes {
         this.config();
     }
     config() {
-        //this.router.get('/mostrarTodosUsuarios/',(req,res) => res.send('probando usuarios'));
         this.router.post('/crearcabana/', CabanaController_1.cabanaController.createCabana);
         this.router.get('/MostrarTodasCabanas/', CabanaController_1.cabanaController.mostrar_todas_cabanas);
         this.router.get('/listOne/:id', CabanaController_1.cabanaController.listOne);
