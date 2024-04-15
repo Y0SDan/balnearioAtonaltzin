@@ -43,7 +43,6 @@ export class ClienteComponent implements OnInit {
     $(document).ready(function(){
       $('select').formSelect();
     });
-    M.AutoInit();
   }
 
   addCliente() {
