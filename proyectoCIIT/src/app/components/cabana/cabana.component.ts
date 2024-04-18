@@ -92,7 +92,6 @@ export class CabanaComponent implements OnInit {
       );
     }
   }
-
   actualizarCabana(Nombre: any) {
     this.cabanaService.listOne(Nombre).subscribe((resusuario: any) => {
       this.cabana = resusuario;
@@ -220,6 +219,13 @@ export class CabanaComponent implements OnInit {
     );
   }
 
+  submitForm() {
+    // Ejecuta la función para guardar el nuevo usuario
+    this.guardarNuevaCabana();
+
+    // Redirige a la página principal
+    window.location.href = '/principal';
+  }
 
   metodoPrueba() {
     console.log(this.cabanaNueva);
@@ -261,11 +267,9 @@ export class CabanaComponent implements OnInit {
     },
       err => {
         console.error(err);
-      });
-  }
-  guardarImagen() {
+    });
+}
 
-  }
 
   /*
   this.cabanaService.actualizarCabana(this.cabana).subscribe(() => {

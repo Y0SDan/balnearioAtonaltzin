@@ -27,20 +27,8 @@ import { OfertasComponent } from './components/ofertas/ofertas.component';
 const routes: Routes = [
     {
         path: "",
-        redirectTo: "/principal",
+        redirectTo: "/home/principal",
         pathMatch: "full"
-    },
-    {
-        path: 'principal',
-        component: PrincipalComponent,
-    },
-    {
-        path: 'navigation',
-        component: NavigationComponent
-    },
-    {
-        path: 'footer',
-        component: FooterComponent
     },
     {
         path: 'login',
@@ -50,14 +38,9 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent,
         children: [
-
             {
-                path: 'navigation',
-                component: NavigationComponent
-            },
-            {
-                path: 'footer',
-                component: FooterComponent
+                path: 'principal',
+                component: PrincipalComponent,
             },
             {
                 path: 'cliente',
@@ -66,9 +49,6 @@ const routes: Routes = [
             {
                 path: 'admin',
                 component: AdminComponent,
-                children: [
-                    
-                ]
             },
             {
                 path: 'reserva',

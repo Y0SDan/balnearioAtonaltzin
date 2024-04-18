@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from "@ngx-translate/core";
 import { CambioIdiomaService } from '../../services/cambio-idioma.service';
 declare var $: any;
+
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
@@ -79,5 +80,4 @@ redireccion(pagina: string){
 
   }
 }
-
 }

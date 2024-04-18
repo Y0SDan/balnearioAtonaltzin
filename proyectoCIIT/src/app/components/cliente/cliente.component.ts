@@ -87,8 +87,8 @@ export class ClienteComponent implements OnInit {
   eliminarUsuario(id: any) {
     if(this.idioma ==2){
     Swal.fire({
-      title: "¿Estás seguro de eliminar este usuario?",
-      text:  "¡No es posible revertir esta acción!",
+      title: "¿Estás seguro?",
+      text: "No es posible revertir este!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -178,7 +178,7 @@ export class ClienteComponent implements OnInit {
     Swal.fire({
       position: 'center',
       icon: type,
-      text: "Usuario actualizado"
+      text: message
     });
   }else{
     Swal.fire({

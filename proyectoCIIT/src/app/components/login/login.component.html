@@ -1,4 +1,3 @@
-<app-navigation></app-navigation>
 <!DOCTYPE html>
 <html>
 
@@ -21,29 +20,29 @@
             <div class="input-field col s12">
               <i class="material-icons prefix">mail_outline</i>
               <input class="validate" type="email" [(ngModel)]="cliente.Email" [ngModelOptions]="{standalone: true}">
-              <label class="active" for="email">{{"Correo" | translate}}</label>
+              <label class="active" for="email">Email</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="material-icons prefix">lock_outline</i>
               <input id="password" type="password" name="password" [(ngModel)]="cliente.password1"  autocomplete="off">
-              <label class="active" for="password">{{'Contraseña' | translate}}</label>
+              <label class="active" for="password">Password</label>
             </div>
           </div>
           <div class="row center-align">
             <div class="input-field col s12">
                 <button (click)="logueo()" class="btn waves-effect waves-light black" type="submit" name="action">
-                    <i class="material-icons left">send</i>{{'Ingresar' | translate}}
+                    <i class="material-icons left">send</i>Login
                 </button>
             </div>
         </div>
           <div class="row">
             <div class="input-field col s6">
-              <p class="margin medium-small"><a (click)="redireccion('usuario')">{{"Registrate"|translate}}</a></p>
+              <p class="margin medium-small"><a (click)="redireccion('usuario')">Register Now!</a></p>
             </div>
             <div class="input-field col s6">
-              <p class="margin right-align medium-small"><a  (click)="redireccion('olvide')">{{"¿Olvidaste tu contraseña?" | translate}}</a></p>
+              <p class="margin right-align medium-small"><a  (click)="redireccion('olvide')">Forgot Password?</a></p>
             </div>
           </div>
         </form>
@@ -52,4 +51,3 @@
   </div>
 </body>
 </html>
-<app-footer></app-footer>

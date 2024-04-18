@@ -18,16 +18,12 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 class ClientesController {
     addCliente(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            // Verificar si el correo electrónico está vacío
-            if (!req.body.Email || req.body.Email.trim() === '') {
-                res.status(400).json({ message: 'El correo electrónico es requerido' });
-                return;
-            }
             // Verificar si el correo electrónico ya existe
             const existingClient = yield database_1.default.query("SELECT * FROM cliente WHERE Email = ?", [req.body.Email]);
+            //console.log("correo cliente: ",existingClient[0].Email);
             if (existingClient.length > 0 && existingClient[0].Email) {
                 res.status(400).json({ message: 'El correo electrónico ya está registrado' });
-                console.log("El correo electrónico ya está registrado");
+                console.log("La contraseña ya esta registrada");
                 return;
             }
             else {
@@ -35,6 +31,8 @@ class ClientesController {
                 const salt = yield bcryptjs_1.default.genSalt(10);
                 req.body.password1 = yield bcryptjs_1.default.hash(req.body.password1, salt);
                 const resp = yield database_1.default.query("INSERT INTO cliente SET ?", [req.body]);
+                //console.log(resp);
+                const result = resp[0];
                 res.json(resp);
             }
         });

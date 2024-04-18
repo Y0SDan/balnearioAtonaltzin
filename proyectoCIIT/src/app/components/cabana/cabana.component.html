@@ -22,10 +22,9 @@
 </head>
 
 <body>
-    <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="crearcabana()">
-        <i class="material-icons left">add</i> {{'Crear cabaña' | translate}}
-    </a>
-
+  <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="crearcabana()">
+    <i class="material-icons left">add</i> Crear Cabaña
+  </a>
     <table class="default" *ngIf="cabanas !== undefined && cabanas.length > 0">
       <tr>
           <th>{{"Fotos"| translate}}</th>
@@ -89,10 +88,34 @@
         <div class="input-field col s6">
             <label class="active">{{"Precio por noche" | translate}}</label>
 
+  <!--Modal para Modificar Cabaña-->
+  <div id="modalModificarCabana" class="modal">
+    <div class="modal-content">
+      <div class="row" style="margin-bottom: 0px !important;">
+        <div class="col s12">
+          <h5 class="center">Actualizar cabana</h5>
+        </div>
+      </div>
+      <div style="border: .5px solid #78909c; padding: 10px;">
+        <div class="row">
+          <div class="input-field col s12">
+            <label class="active" for="nombre_usuario">Nombre </label>
+            <input id="nombre_cabana" [(ngModel)]="cabana.Nombre" type="text" class="validate">
+          </div>
+          <div class="input-field col s12">
+            <label class="active">ID Cabana </label>
+            <input [(ngModel)]="cabana.ID_Cabana" type="text" class="validate">
+          </div>
+          <div class="input-field col s6">
+            <label class="active">Descripcion </label>
+            <input [(ngModel)]="cabana.Descripcion" type="text" class="validate">
+          </div>
+          <div class="input-field col s6">
+            <label class="active">PrecioPorNoche </label>
             <input [(ngModel)]="cabana.PrecioPorNoche" type="text" class="validate">
           </div>
           <div class="input-field col s6">
-            <label class="active">{{'Capacidad' | translate}} </label>
+            <label class="active">Capacidad </label>
             <input [(ngModel)]="cabana.Capacidad" type="text" class="validate">
           </div>
         </div>
@@ -109,27 +132,28 @@
       </div>
     </div>
   </div>
-<div id="modalCrearCabana" class="modal">
-  <div class="modal-content">
-    <div class="row" style="margin-bottom: 0px !important;">
-      <div class="col s12">
-        <h5 class="center">{{'Crear cabaña' | translate}}</h5>
-      </div>
-    </div>
-    <div style="border: .5px solid #78909c; padding: 10px;">
-      <div class="row">
-        <div class="input-field col s12">
-          <label class="active" for="nombre_usuario">{{'Nombre' | translate}} </label>
-          <input id="nombre_usuario" [(ngModel)]="cabanaNueva.Nombre" type="text" class="validate">
+
+  <!--Modal para Crear Cabaña-->
+  <div id="modalCrearCabana" class="modal">
+    <div class="modal-content">
+      <div class="row" style="margin-bottom: 0px !important;">
+        <div class="col s12">
+          <h5 class="center">Crear Cabana</h5>
         </div>
-        <div class="input-field col s6">
-            <label class="active">{{'Descripcion' | translate}} </label>
+      </div>
+      <div style="border: .5px solid #78909c; padding: 10px;">
+        <div class="row">
+          <div class="input-field col s12">
+            <label class="active" for="nombre_usuario">Nombre </label>
+            <input id="nombre_usuario" [(ngModel)]="cabanaNueva.Nombre" type="text" class="validate">
+          </div>
+          <div class="input-field col s6">
+            <label class="active">Descripcion </label>
             <input [(ngModel)]="cabanaNueva.Descripcion" type="text" class="validate">
           </div>
           <div class="input-field col s6">
-
-            <label class="active">Description </label>
-            <input [(ngModel)]="cabanaNueva.Description" type="text" class="validate">
+            <label class="active">PrecioPorNoche </label>
+            <input [(ngModel)]="cabanaNueva.PrecioPorNoche" type="text" class="validate">
           </div>
           <div class="input-field col s6">
               <label class="active">{{"Precio por noche" | translate}}</label>
@@ -144,6 +168,7 @@
               <input [(ngModel)]="cabanaNueva.Ubicacion" type="text" class="validate">
             </div>-->
       </div>
+
         <div class="row">
           <div class="col s6 center">
             <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
@@ -169,7 +194,7 @@
       <div style="border: .5px solid #78909c; padding: 10px;">
         <div class="row">
           <div class="input-field col s12">
-            <label class="active" for="nombre_cliente">{{'Imagenes'|translate}} </label>
+            <label class="active" for="nombre_cliente">Imagenes </label>
             <input type="file" (change)="cargandoImagen($event.target)" multiple>
           </div>
         </div>
@@ -191,7 +216,7 @@
     <div class="modal-content">
       <div class="row" style="margin-bottom: 0px !important;">
         <div class="col s12">
-          <h5 class="center">{{'Imagenes de la cabaña'|translate}}</h5>
+          <h5 class="center">Imagenes de la cabaña</h5>
         </div>
       </div>
       <div style="border: .5px solid #78909c; padding: 10px;">
@@ -210,4 +235,6 @@
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
 
+</html>

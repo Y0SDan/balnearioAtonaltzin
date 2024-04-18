@@ -19,7 +19,6 @@
     "Reservacion":"Reservacion",
     "Cobros":"Cobros",
     "Usuario":"Usuario",
-    "Ofertas":"Ofertas",
     "Fecha de inicio":"Fecha de inicio",
     "Fecha final":"Fecha final",
     "Enviar":"Enviar",
@@ -100,8 +99,4 @@
     "Crear usuario":"Crear usuario",
     "Agregar Imagen":"Agregar Imagen",
     "Imagenes":"Imagenes"
-
-
-
-
 }

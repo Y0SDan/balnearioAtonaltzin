@@ -14,16 +14,15 @@
     "Contraseña":"Password",
     "Teléfono":"Phone",
     "Aceptar":"Accept",
+    "Balneario Atonaltzin":"Atonaltzin Spa",
     "Cabaña":"Cabin",
     "Reservacion":"Reservation",
-    "Cobros":"Charges",
+    "Cobros":"Collections",
     "Usuario":"User",
-    "Ofertas":"Offers",
     "Fecha de inicio":"Start Date",
     "Fecha final":"Final date",
     "Enviar":"Send to",
     "Reserva":"Reservation",
-    "Reservar":"Reservation",
     "Restablecer Contraseña":"Reset Password",
     "Nueva Contraseña":"New Password",
     "Confirmar Contraseña":"Confirm Password",
@@ -101,6 +100,5 @@
     "Crear usuario":"Create user",
     "Agregar Imagen":"Add Picture",
     "Imagenes":"Pictures"
-
 
 }

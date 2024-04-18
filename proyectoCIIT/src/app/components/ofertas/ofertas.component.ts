@@ -119,8 +119,8 @@ export class OfertasComponent implements OnInit {
     console.log("Click en eliminar oferta");
     console.log("Identificador del oferta: ", id);
     Swal.fire({
-      title: "¿Estás seguro de eliminar esta oferta?",
-      text: "¡No es posible revertir esta acción!",
+      title: "¿Estás seguro?",
+      text: "No es posible revertir esto!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -144,7 +144,7 @@ export class OfertasComponent implements OnInit {
 
         Swal.fire({
           title: "Eliminado!",
-          text: "Tu oferta ha sido eliminada",
+          text: "Tu oferta ha sido eliminada.",
           icon: "success"
         });
       }
@@ -176,7 +176,7 @@ export class OfertasComponent implements OnInit {
         $('#modalModificarOfertas').modal('close');
         Swal.fire({
           title: "Oferta Actualizada!",
-          text: "Tu oferta ha sido actualizada",
+          text: "Tu oferta ha sido actualizada.",
           icon: "success"
         });
         this.cdr.detectChanges();
