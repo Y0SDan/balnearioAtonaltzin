@@ -28,6 +28,7 @@ import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide
 import { OfertasComponent } from './components/ofertas/ofertas.component';
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { CambioIdiomaService } from './services/cambio-idioma.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -72,7 +73,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }),
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [CambioIdiomaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

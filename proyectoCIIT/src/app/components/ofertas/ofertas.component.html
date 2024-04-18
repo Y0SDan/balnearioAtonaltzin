@@ -91,22 +91,21 @@
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div>
-          <label for="">{{'Cabañas' | translate}}/label>
+          <label for="">{{'Cabañas' | translate}}</label>
           <select [(ngModel)]="oferta.id_cabana" *ngIf="cabanas != undefined" class="browser-default">
             <option *ngFor="let cabana of cabanas" [value]="cabana.ID_Cabana">{{cabana.Nombre}}</option>
           </select>
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Descuento %' | translate}}/label>
-          <input [(ngModel)]="ofertaNuevo.descuento" type="text"
-            class="validate">
+          <label class="active">{{'Descuento %' | translate}}</label>
+          <input id="nombre_oferta" [(ngModel)]="ofertaNuevo.descuento" type="text" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Fecha Inicio' | translate}} </label>
+          <label class="active">{{'Fecha Inicio' | translate}}</label>
           <input [(ngModel)]="ofertaNuevo.Fecha_inicio" type="date" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Fecha Fin'| translate}}</label>
+          <label class="active">{{'Fecha Fin' | translate}}</label>
           <input [(ngModel)]="ofertaNuevo.Fecha_fin" type="date" class="validate">
         </div>
       </div>

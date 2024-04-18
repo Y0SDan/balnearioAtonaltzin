@@ -28,10 +28,9 @@
 
     <table class="default" *ngIf="cabanas !== undefined && cabanas.length > 0">
       <tr>
-          <th>Fotos</th>
+          <th>{{"Fotos"| translate}}</th>
           <th>{{'Nombre' | translate}}</th>
           <th>{{'Descripcion' | translate}}</th>
-          <th>Description</th>
           <th>{{'Precio por noche' | translate}}</th>
           <th>{{'Capacidad' | translate}}</th>
       </tr>
@@ -59,7 +58,7 @@
     </table>
     <div class="blue-text text-darken-2">
       <pagination-controls class="col s6" (pageChange)="p = ($event)"
-      previousLabel="Anterior" nextLabel="Siguiente">
+      previousLabel="{{'Anterior' | translate}}" nextLabel="{{'Siguiente' | translate}} ">
       </pagination-controls>
     </div>
 <div id="modalModificarCabana" class="modal">
@@ -100,11 +99,11 @@
         <div class="row">
           <div class="col s6 center">
             <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-              (click)="guardarActualizarCabana()" value="Enviar">
+              (click)="guardarActualizarCabana()" value="{{'Enviar'|translate}}">
           </div>
           <div class="col s6 center">
             <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-  black-text">Cancelar</a>
+  black-text">{{"Cancelar" |translate}}</a>
           </div>
         </div>
       </div>
@@ -145,19 +144,14 @@
               <input [(ngModel)]="cabanaNueva.Ubicacion" type="text" class="validate">
             </div>-->
       </div>
-      <div class="row">
-        <div class="col s6 center">
-          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardarNuevaCabana()" value="Enviar">
-        </div>
         <div class="row">
           <div class="col s6 center">
             <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-              (click)="guardarNuevaCabana()" value="Enviar">
+              (click)="guardarNuevaCabana()" value="{{'Enviar'|translate}}">
           </div>
           <div class="col s6 center">
             <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-  black-text">Cancelar</a>
+  black-text">{{"Cancelar" |translate}}</a>
           </div>
         </div>
       </div>
@@ -169,7 +163,7 @@
     <div class="modal-content">
       <div class="row" style="margin-bottom: 0px !important;">
         <div class="col s12">
-          <h5 class="center">Agregar Imagen</h5>
+          <h5 class="center">{{'Agregar Imagen'| translate}}</h5>
         </div>
       </div>
       <div style="border: .5px solid #78909c; padding: 10px;">
@@ -182,10 +176,10 @@
         <div class="row">
           <div class="col s6 center">
             <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text"
-              (click)="guardarActualizarCabana()">Enviar</a>
+              (click)="guardarActualizarCabana()">{{"Enviar" | translate}}</a>
           </div>
           <div class="col s6 center">
-            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+            <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar"|translate}}</a>
           </div>
         </div>
       </div>

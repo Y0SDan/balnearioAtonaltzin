@@ -96,7 +96,11 @@
     "Hubo un problema al enviar el correo electrónico":"There was a problem sending the e-mail",
     "No te encuentras registrado en el sistema o el correo que proporcionaste es incorrecto":"You are not registered in the system or the e-mail address you provided is incorrect",
     "Hubo un problema al verificar el correo":"There was a problem verifying the mail",
-    "Id Cabaña": "Id Cabin"
+    "Id Cabaña": "Id Cabin",
+    "Fotos":"Pictures",
+    "Crear usuario":"Create user",
+    "Agregar Imagen":"Add Picture",
+    "Imagenes":"Pictures"
 
 
 }
