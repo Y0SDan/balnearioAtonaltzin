@@ -162,4 +162,11 @@ showAlert(message: string, type: 'success' | 'error' | 'warning' = 'success') {
     },
   };
 }
+submitForm() {
+  // Ejecuta la función para guardar el nuevo usuario
+  this.guardarNuevaReserva();
+
+  // Redirige a la página principal
+  window.location.href = '/principal';
+}
 }

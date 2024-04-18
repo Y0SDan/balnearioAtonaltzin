@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Cliente } from 'src/app/Models/Cliente';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,7 +38,7 @@ export class LoginComponent  {
           console.log("tiene que ir a principal");
         localStorage.setItem('ID_Cliente', resusuario.id_cliente);
           console.log('ID_Cliente:', resusuario.id_cliente);
-          this.router.navigateByUrl('/principal');
+          this.router.navigateByUrl('home/principal');
         } else if (resusuario.tipo_usuario === 'administrador') {
           this.router.navigateByUrl('home/admin');
         } else if (resusuario.tipo_usuario === 'seller') {
@@ -56,10 +56,10 @@ export class LoginComponent  {
   redireccion(pagina:string){
     switch (pagina) {
       case "usuario":
-        this.router.navigate(['home/usuario'])
+        this.router.navigateByUrl('home/usuario')
         break;
       case "olvide":
-        this.router.navigate(['home/olvide-contrasena'])
+        this.router.navigateByUrl('home/olvide-contrasena')
         break;
       default:
         console.log("Ocurrio un error");

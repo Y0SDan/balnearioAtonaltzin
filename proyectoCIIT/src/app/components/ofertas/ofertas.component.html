@@ -1,15 +1,15 @@
 <a href="javascript:void(0);" class="waves-effect btn btn-border"
   (click)="AgregarOferta()">
-  <i class="material-icons left">add</i> {{'Crear Ofertas' |translate}}
+  <i class="material-icons left">add</i> Crear Ofertas
 </a>
 
 <table class="default" *ngIf="ofertas != undefined && ofertas.length > 0">
   <tr>
-    <th>{{'Id Oferta' | translate}}</th>
-    <th>{{'Id Producto' | translate}}</th>
-    <th>{{'Descuento' | translate}}</th>
-    <th>{{'Fecha Inicio' | translate}}</th>
-    <th>{{'Fecha Fin' | translate}}</th>
+    <th>Id Oferta</th>
+    <th>Id Producto</th>
+    <th>Descuento</th>
+    <th>Fecha Inicio</th>
+    <th>Fecha Fin</th>
   </tr>
   <tr *ngFor="let oferta of ofertas |
     paginate: {
@@ -40,28 +40,28 @@
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">{{'Actualizar Oferta' | translate}}</h5>
+        <h5 class="center">Actualizar Oferta</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div>
-          <label for="">{{'Cabañas' | translate}}</label>
+          <label for="">Cabañas</label>
           <select [(ngModel)]="oferta.id_cabana" *ngIf="cabanas != undefined" class="browser-default">
             <option *ngFor="let cabana of cabanas" [value]="cabana.ID_Cabana">{{cabana.Nombre}}</option>
           </select>
         </div>
         <div class="input-field col s12">
-          <label class="active" for="nombre_oferta">{{'Descuento %' | translate}}</label>
+          <label class="active" for="nombre_oferta">Descuento %</label>
           <input id="nombre_oferta" [(ngModel)]="oferta.descuento" type="text"
             class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Fecha Inicio' | translate}}</label>
+          <label class="active">Fecha Inicio </label>
           <input [(ngModel)]="oferta.Fecha_inicio" type="date" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Fecha Fin' | translate}}</label>
+          <label class="active">Fecha Fin </label>
           <input [(ngModel)]="oferta.Fecha_fin" type="date" class="validate">
         </div>
       </div>
@@ -85,28 +85,28 @@
   <div class="modal-content">
     <div class="row " style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">{{'Crear Oferta' | translate}}</h5>
+        <h5 class="center">Crear Oferta</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div>
-          <label for="">{{'Cabañas' | translate}}/label>
+          <label for="">Cabañas</label>
           <select [(ngModel)]="oferta.id_cabana" *ngIf="cabanas != undefined" class="browser-default">
             <option *ngFor="let cabana of cabanas" [value]="cabana.ID_Cabana">{{cabana.Nombre}}</option>
           </select>
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Descuento %' | translate}}/label>
+          <label class="active">Descuento %</label>
           <input [(ngModel)]="ofertaNuevo.descuento" type="text"
             class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Fecha Inicio' | translate}} </label>
+          <label class="active">Fecha Inicio </label>
           <input [(ngModel)]="ofertaNuevo.Fecha_inicio" type="date" class="validate">
         </div>
         <div class="input-field col s6">
-          <label class="active">{{'Fecha Fin'| translate}}</label>
+          <label class="active">Fecha Fin </label>
           <input [(ngModel)]="ofertaNuevo.Fecha_fin" type="date" class="validate">
         </div>
       </div>

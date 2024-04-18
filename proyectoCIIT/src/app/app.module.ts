@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule aquí
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PrincipalComponent } from './components/principal/principal.component';
@@ -26,13 +25,7 @@ import { ReservacionUsuarioComponent } from './components/reservacion-usuario/re
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide-contrasena.component';
 import { OfertasComponent } from './components/ofertas/ofertas.component';
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, "./assets/traducciones/", ".json");
-  }
 
 @NgModule({
   declarations: [
@@ -56,21 +49,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     SellerComponent,
     ReservacionUsuarioComponent,
     OlvideContrasenaComponent,
-    OfertasComponent,
+    OfertasComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, // Agrega FormsModule aquí
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-      provide: TranslateLoader,
-      useFactory: HttpLoaderFactory,
-      deps: [HttpClient],
-      },
-      }),
     NgxPaginationModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

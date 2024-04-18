@@ -31,40 +31,30 @@ export class UsuarioComponent implements OnInit {
     $("#modalCrearCliente").modal("open");
   }
   guardarNuevoUsuario() {
-    console.log("GuardandoUsuario");
-  
-    if (!this.clienteNuevo.Email || this.clienteNuevo.Email.trim() === '') {
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        text: 'El correo electrónico es requerido'
-      });
-      return;
-    }
-  
-    this.clienteService.addCliente(this.clienteNuevo).subscribe((res) => {
-      $('#modalCrearCliente').modal('close');
-      this.clienteService.list().subscribe((resusuario: any) => {
-        this.clientes = resusuario;
-        console.log(resusuario);
-  
-      }, err => console.error(err));
-  
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        text: 'Cuenta registrada'
-      });
-    }, err => {
-      console.error(err);
-      Swal.fire({
-        position: 'center',
-        icon: 'error',
-        text: 'Error al registrar la cuenta, el correo que intentas utilizar ya fue registrado'
-      });
+  console.log("GuardandoUsuario");
+
+  this.clienteService.addCliente(this.clienteNuevo).subscribe((res) => {
+    $('#modalCrearCliente').modal('close');
+    this.clienteService.list().subscribe((resusuario: any) => {
+      this.clientes = resusuario;
+      console.log(resusuario);
+      
+    }, err => console.error(err));
+
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      text: 'Cuenta registrada'
     });
-  }
-  
+  }, err => {
+    console.error(err);
+    Swal.fire({
+      position: 'center',
+      icon: 'error',
+      text: 'Error al registrar la cuenta, el correo que intentas utilizar ya fue registrado'
+    });
+  });
+}
      
 
   eliminarUsuario(id : any){
