@@ -1,5 +1,5 @@
 <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="addCliente()">
-  <i class="material-icons left">add</i> Crear usuario
+  <i class="material-icons left">add</i> {{"Crear usuario" | translate}}
 </a>
 
 <!--<div><img src="{{liga}}/cliente.jpg" class="center" style="width: 200px;" alt="{{liga}}"></div>-->
@@ -91,10 +91,10 @@
       <div class="row">
         <div class="col s6 center">
           <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
-            (click)="guardarActualizarCliente()" value="Enviar">
+            (click)="guardarActualizarCliente()" value="{{'Enviar' | translate}}">
         </div>
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" |translate}}</a>
         </div>
       </div>
     </div>
@@ -138,7 +138,7 @@
       </div>
       <div class="row">
         <div class="col s6 center">
-          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close" (click)="guardarNuevoUsuario()" value="Enviar">
+          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close" (click)="guardarNuevoUsuario()" value="{{'Enviar'|translate}}">
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
@@ -151,22 +151,22 @@
   <div class="modal-content">
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
-        <h5 class="center">Agregar Imagen</h5>
+        <h5 class="center">{{'Agregar Imagen' | translate}}</h5>
       </div>
     </div>
     <div style="border: .5px solid #78909c; padding: 10px;">
       <div class="row">
         <div class="input-field col s12">
-          <label class="active" for="nombre_cliente">Imagenes </label>
+          <label class="active" for="nombre_cliente">{{'Imagenes' | translate}} </label>
           <input type="file" (change)="cargandoImagen($event.target)" multiple>
         </div>
       </div>
       <div class="row">
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text" (click)="guardarImagen()">Enviar</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text" (click)="guardarImagen()">{{'Enviar'|translate}}</a>
         </div>
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" |translate}}</a>
         </div>
       </div>
     </div>

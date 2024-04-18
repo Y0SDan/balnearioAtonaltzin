@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reservacion2 } from 'src/app/Models/Reservacion2';
 import { ReservaService } from './../../services/reserva.service';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -18,13 +19,15 @@ export class ApartadoComponent implements OnInit {
   DiasReservados: number;
   TotalAPagar: number;
   PrecioPorNoche: number;
+  idioma: any;
 
-  constructor(private reservaService: ReservaService) {
+  constructor(private reservaService: ReservaService, private cambioIdiomaService: CambioIdiomaService) {
     this.FechaInicio=""
 this.FechaFin=""
 this.DiasReservados = 0;
     this.TotalAPagar = 0;
     this.PrecioPorNoche=0;
+    this.idioma = 1;
    }
 
   ngOnInit(): void {
@@ -95,6 +98,7 @@ guardarNuevaReserva(){
   this.nuevaReserva.FechaFin = this.FechaFin;
   
   // Aquí se llama al servicio que verifica la disponibilidad
+  if(this.idioma == 2){
   this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
     .subscribe((res: any) => {
       console.log(res.resultado);
@@ -136,7 +140,50 @@ guardarNuevaReserva(){
         }, err => console.error(err));
       }
   }, err => console.error(err));
-}
+}else{
+    this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
+      .subscribe((res: any) => {
+        console.log(res.resultado);
+        console.log("ID_CABANA: ",this.nuevaReserva.ID_Cabana, "Fecha inicio: ",this.nuevaReserva.FechaInicio, "Fecha Fin: ",this.nuevaReserva.FechaFin)
+        if (res.resultado === 1) {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            text: "The cabin is not available in the selected date range"
+          });
+        } else {
+          if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
+            // Las fechas no son válidas, muestra un mensaje de error
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              text: "Reservation dates are not valid"
+            });
+            return;
+          }
+          // Si la cabaña está disponible, se agrega la reserva
+          this.reservaService.addReserva(this.nuevaReserva).subscribe((res) => {
+            $('#modalCrearReservacion').modal('close');
+            this.reservaService.list().subscribe(
+              (resusuarios: any) => {
+                this.reserva = resusuarios;
+                console.log(resusuarios);
+              },
+              (err: any) => {
+                console.error(err);
+                this.showAlert('Something went wrong!', 'error');
+              }
+            );
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              text: "Reservation completed"
+            });
+          }, err => console.error(err));
+        }
+    }, err => console.error(err));
+}}
+
 
 updateFechaInicio(event: any) {
   this.nuevaReserva.FechaInicio = event.target.value;

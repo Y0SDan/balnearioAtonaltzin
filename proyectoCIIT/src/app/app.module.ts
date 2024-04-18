@@ -25,6 +25,9 @@ import { ReservacionUsuarioComponent } from './components/reservacion-usuario/re
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide-contrasena.component';
 import { OfertasComponent } from './components/ofertas/ofertas.component';
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { CambioIdiomaService } from './services/cambio-idioma.service';
 
 
 @NgModule({
@@ -59,7 +62,7 @@ import { OfertasComponent } from './components/ofertas/ofertas.component';
     NgxPaginationModule,
     
   ],
-  providers: [],
+  providers: [CambioIdiomaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
