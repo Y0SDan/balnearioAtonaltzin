@@ -1,9 +1,0 @@
-.image-container {
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-.image-container img {
-    width: 100%;
-    height: auto;
-}
