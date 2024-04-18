@@ -1,0 +1,72 @@
+/* Agrega estos estilos para cambiar la anchura y el color de la barra */
+
+.custom-nav {
+    background-color: #FDFEFE; /* Cambia #3498db al color que desees */
+    height: 100px; /* Ajusta la altura según tus preferencias */
+    padding-top: 5px; /* Puedes ajustar este valor según sea necesario */
+  }
+  
+  .brand-logo {
+    font-size: 24px; /* Ajusta el tamaño de la fuente según tus preferencias */
+  }
+  
+  #nav-mobile li a {
+    font-size: 16px; /* Ajusta el tamaño de la fuente según tus preferencias */
+    color: #17202A; /* Cambia #ffffff al color que desees para el texto del enlace */
+  }
+  .brand-logo img {
+      width: 140px; /* Ajusta el ancho según tus preferencias */
+      height: auto; /* La propiedad height:auto mantiene la proporción de la imagen */
+    }
+  
+    .help-link {
+      color: #ff0000; /* Cambia #ff0000 al color que desees para el texto "Ayuda" */
+    }
+    
+    .help-icon {
+      color: #000000; /* Cambia #00ff00 al color que desees para el icono de ayuda */
+    }
+  /* Estilos para centrar el texto verticalmente en la barra de navegación */
+  .center-text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Asegura que ocupa toda la altura */
+    }
+    /* Estilos para cambiar el color del texto en el medio */
+  .nav-text {
+      color: #000000; /* Cambia #ff0000 al color que desees para el texto */
+    }
+    
+    #nav-mobile {
+      margin-top: -80px; /* Ajusta según sea necesario para subir el menú */
+    }
+    #user-icon i {
+      color: black;
+  }
+    /* Estilo para el botón */
+    .btn {
+        background-color: white; /* Cambia el color de fondo a azul */
+        color: white; /* Cambia el color del texto a blanco */
+        padding: 25px 30px; /* Aumenta el padding para hacer el botón más grande */
+        border-radius: 20px; /* Da una forma redondeada al botón */
+        font-size: 16px; /* Aumenta el tamaño del texto */
+        display: inline-flex; /* Añade flex para alinear contenido */
+        align-items: center; /* Centra verticalmente */
+        justify-content: center; /* Centra horizontalmente */
+    }
+    .dropdown-content {
+      min-width: 200px; /* Establece el ancho mínimo del menú desplegable */
+      border-radius: 10px; /* Hace los bordes del menú desplegable redondeados */
+  }
+
+  /* Estilo para los elementos de lista dentro del menú desplegable */
+  .dropdown-content li {
+      padding: 10px; /* Añade espaciado interno a los elementos de lista */
+      border-radius: 10px; /* Hace los bordes de los elementos de lista redondeados */
+  }
+
+  .carousel-item img {
+    width: 80%; /* Establece el ancho de la imagen al 100% del contenedor */
+    height: auto; /* Ajusta automáticamente la altura para mantener la proporción */
+}

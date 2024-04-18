@@ -1,0 +1,21 @@
+<!-- Listado de reservaciones por usuario -->
+<table class="default" *ngIf="reservaciones !== undefined">
+    <tr>
+       <!-- <th>ID Cabaña</th>-->
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+    </tr>
+    <tr *ngFor="let reservacion of reservaciones |
+    paginate: {
+      itemsPerPage: pageSize,
+      currentPage: p };let i=index" >
+        <!--<td>{{ reservacion.ID_Cabana }}</td> -->       <!-- Cambiar por el nombre de la cabaña -->
+        <td>{{ reservacion.FechaInicio | date:'shortDate' }}</td>
+        <td>{{ reservacion.FechaFin | date:'shortDate' }}</td>
+    </tr>
+</table>
+<div class="blue-text text-darken-2">
+    <pagination-controls class="col s6" (pageChange)="p = ($event)"
+    previousLabel="Anterior" nextLabel="Siguiente">
+    </pagination-controls>
+  </div>

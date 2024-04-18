@@ -1,0 +1,71 @@
+<table class="default" *ngIf="cobros != undefined && cobros.length > 0">
+    <tr>
+        <th>IdCobro</th>
+        <th>IdReservacion</th>
+        <th>Monto a cobrar</th>
+        <th>Fecha de cobro</th>
+        <th>Estado</th>
+    </tr>
+    <tr *ngFor="let cobro of cobros|
+    paginate: {
+      itemsPerPage: pageSize,
+      currentPage: p };let i=index" >
+        <td>{{ cobro.IdCobro }}</td>
+        <td>{{ cobro.IdReservacion }}</td>
+        <td>{{ cobro.MontoCobrado }}</td>
+        <td>{{ cobro.Fecha_Cobro }}</td>
+        <td>{{ cobro.Estado }}</td>
+        <td>
+          <a href="javascript: void(0);" class="space" (click)="actualizarCobro(cobro.IdCobro)">
+            <i class="material-icons">attach_money</i></a>
+            <a href="javascript: void(0);" class="material-icons"
+              (click)="eliminarCobro(cobro.IdCobro)" style="color: red;">
+              <i class="material-icons">delete_forever</i></a>
+            </td>
+    </tr>
+</table>
+<div class="blue-text text-darken-2">
+  <pagination-controls class="col s6" (pageChange)="p = ($event)"
+  previousLabel="Anterior" nextLabel="Siguiente">
+  </pagination-controls>
+</div>
+
+<div id="modalModificarCobro" class="modal">
+    <div class="modal-content">
+      <div class="row" style="margin-bottom: 0px !important;">
+        <div class="col s12">
+          <h5 class="center">Actualizar Cobro</h5>
+        </div>
+      </div>
+      <div style="border: .5px solid #78909c; padding: 10px;">
+        <div class="row">
+          <div class="input-field col s6">
+            <label class="active">Id Reservacion </label>
+            <input [(ngModel)]="cobro.IdReservacion" type="text" class="validate" disabled>
+          </div>
+          <div class="input-field col s6">
+              <label class="active">Monto cobrado </label>
+              <input [(ngModel)]="cobro.MontoCobrado" type="text" class="validate" disabled>
+            </div>
+            <div class="input-field col s6">
+              <label class="active">Fecha de cobro </label>
+              <input [(ngModel)]="cobro.Fecha_Cobro" type="text" class="validate" disabled>
+            </div>
+            <div class="input-field col s6">
+              <label class="active">Estado </label>
+              <input [(ngModel)]=" cobro.Estado" type="text" class="validate" disabled>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col s6 center">
+            <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+              (click)="guardarActualizarCobro()" [disabled]="cobro.Estado != 'Sin pagar'" value="Realizar cobro">
+          </div>
+          <div class="col s6 center">
+            <a class="modal-action modal-close waves-effect btn-large brown lighten-3
+    black-text">Cancelar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

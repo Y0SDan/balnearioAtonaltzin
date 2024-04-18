@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Cabañas</title>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Your custom CSS -->
+    <link type="text/css" rel="stylesheet" href="css/custom.css" media="screen,projection" />
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="center-align">Registro Cabañas</h1>
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="nombre" type="text" class="validate">
+                    <label for="nombre">Nombre de la Cabaña</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <textarea id="descripcion" class="materialize-textarea"></textarea>
+                    <label for="descripcion">Descripción</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="precio_por_noche" type="number" class="validate">
+                    <label for="precio_por_noche">Precio por Noche</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="capacidad" type="number" class="validate">
+                    <label for="capacidad">Capacidad</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="ubicacion" type="text" class="validate">
+                    <label for="ubicacion">Ubicación</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <button class="btn waves-effect waves-light teal lighten-2" type="submit" name="action">
+                        Enviar
+                        <i class="material-icons right">check</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>
