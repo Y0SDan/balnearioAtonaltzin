@@ -39,7 +39,9 @@
           itemsPerPage: pageSize,
           currentPage: p };let i=index">
       <td><a href="javascript: void(0);" class="space" (click)="mostrarImagenes(cabana.ID_Cabana)">
-        <i class="material-icons">photo_library</i></a></td>
+          <img *ngIf="cabana.foto == 0" width="128" src="{{liga}}/cabanas/0.jpg" alt="No hay imagen de la cabaña">
+          <img *ngIf="cabana.foto == 1" width="128" src="{{liga}}/cabanas/{{ imgColumnas[cabana.ID_Cabana] }}.jpg" alt="Imagen de la cabaña">
+        </a></td>
       <td>{{ cabana.Nombre }}</td>
       <td>{{ cabana.Descripcion }}</td>
       <td>{{ cabana.PrecioPorNoche }}</td>
@@ -163,7 +165,7 @@
         <div class="row">
           <div class="col s6 center">
             <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text"
-              (click)="guardarActualizarCabana()">Enviar</a>
+              (click)="guardarActualizarCabanaImg()">Enviar</a>
           </div>
           <div class="col s6 center">
             <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
@@ -185,15 +187,17 @@
         <table class="default" *ngIf="cabana.foto == 1 && imagenescabana !== undefined && imagenescabana.length > 0">
           <tr *ngFor="let imagen of imagenescabana">
             <td>
-              <img class="center-image" *ngIf="cabana.foto == 1" width="512" src="{{liga}}/cabanas/{{imagen.ID_Cabana}}_{{imagen.id}}.jpg" alt="Imagen de la cabaña">
+              <img class="center-image" *ngIf="cabana.foto == 1" width="512" src="{{liga}}/cabanas/{{imagen.id}}.jpg"
+                alt="Imagen de la cabaña">
             </td>
           </tr>
         </table>
-        <img class="center-image" *ngIf="cabana.foto == 0" width="512" src="{{liga}}/cabanas/0.jpg" alt="No hay imagen de la cabaña">             
+        <img class="center-image" *ngIf="cabana.foto == 0" width="512" src="{{liga}}/cabanas/0.jpg"
+          alt="No hay imagen de la cabaña">
       </div>
     </div>
   </div>
-  
+
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script type="text/javascript"
     src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

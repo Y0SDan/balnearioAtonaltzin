@@ -28,6 +28,7 @@ export class CabanaComponent implements OnInit {
   idImg = 0;
   imagencabana: ImagenCabana = new ImagenCabana();
   imagenescabana: ImagenCabana[] = [];
+  imgColumnas: { [idCabana: number]: number } = {};
 
   constructor(private cabanaService: CabanaService, private imagenesService: ImagenesService, private imagenescabanasService: ImagenescabanasService) {
     this.imgCabana = null;
@@ -37,6 +38,9 @@ export class CabanaComponent implements OnInit {
   ngOnInit(): void {
     this.cabanaService.list().subscribe((resusuario: any) => {
       this.cabanas = resusuario;
+      this.cabanas.forEach(cabana => {
+        this.obtenerImagen(cabana.ID_Cabana);
+      });
     }, err => console.error(err));
   }
   crearcabana() {
@@ -172,34 +176,33 @@ export class CabanaComponent implements OnInit {
 
   cargandoImagen(archivo: any) {
     this.imagenescabanasService.crearImagenCabana({ ID_Cabana: this.cabana.ID_Cabana }).subscribe((res: any) => {
-        this.idImg = res.insertId;
-        console.log("idImg: ", this.idImg);
+      this.idImg = res.insertId;
 
-        // Se movio el codigo acá para que respete el valor de idImg en ves de ir abajo
-        this.imgCabana = null;
-        this.liga = environment.API_URL_IMAGENES;
-        this.fileToUpload = archivo.files.item(0);
-        let imgPromise = this.getFileBlob(this.fileToUpload);
-        imgPromise.then(blob => {
-            this.imagenesService.guardarImagenCabana(this.cabana.ID_Cabana, this.idImg, "cabanas", blob).subscribe(
-                (res: any) => {
-                    this.imgCabana = blob;
-                    // Actualizar la variable 'liga' después de cargar la imagen
-                    this.liga = environment.API_URL_IMAGENES + "/cabanas/" + this.cabana.ID_Cabana + "_" + this.idImg + ".jpg";
-                    this.cabanaService.list().subscribe((resCabanas: any) => {
-                        this.cabanas = resCabanas;
-                    }, err => console.error(err));
-                    this.liga = environment.API_URL_IMAGENES;
-                },
-                err => console.error(err));
-        });
-        //en lugar de acá
-        this.cabana.foto = 1;
+      // Se movio el codigo acá para que respete el valor de idImg en ves de ir abajo
+      this.imgCabana = null;
+      this.liga = environment.API_URL_IMAGENES;
+      this.fileToUpload = archivo.files.item(0);
+      let imgPromise = this.getFileBlob(this.fileToUpload);
+      imgPromise.then(blob => {
+        this.imagenesService.guardarImagen(this.idImg, "cabanas", blob).subscribe(
+          (res: any) => {
+            this.imgCabana = blob;
+            // Actualizar la variable 'liga' después de cargar la imagen
+            this.liga = environment.API_URL_IMAGENES + "/cabanas/" + this.idImg + ".jpg";
+            this.cabanaService.list().subscribe((resCabanas: any) => {
+              this.cabanas = resCabanas;
+            }, err => console.error(err));
+            this.liga = environment.API_URL_IMAGENES;
+          },
+          err => console.error(err));
+      });
+      //en lugar de acá
+      this.cabana.foto = 1;
     },
-    err => {
+      err => {
         console.error(err);
-    });
-}
+      });
+  }
 
   /*
   this.cabanaService.actualizarCabana(this.cabana).subscribe(() => {
@@ -234,7 +237,7 @@ export class CabanaComponent implements OnInit {
       console.error(err);
       this.showAlert('Error al actualizar el cliente', 'error');
     });
-    //location.reload();  //Se actualiza la pagina para el caso en el que se actualice la imagen de una cabaña
+    location.reload();  //Se actualiza la pagina para el caso en el que se actualice la imagen de una cabaña
   }
 
   mostrarImagenes(idCabana: any) {
@@ -246,7 +249,21 @@ export class CabanaComponent implements OnInit {
       $('#modalmostrarImagenes').modal();
       $("#modalmostrarImagenes").modal("open");
     }, err => console.error(err));
-    
   }
+
+  obtenerImagen(idCabana: any) {
+    this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
+      this.cabana = resusuario;
+      this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
+        this.imagenescabana = res;
+        // Para ver que imagenescabana no esté vacío
+        if (this.imagenescabana.length > 0) {
+          // Use Math.max con map para obtener el id más grande
+          this.imgColumnas[idCabana] = Math.max(...this.imagenescabana.map(imagen => imagen.id)); // ... es operador de propagación o spread operator se utiliza para expandir elementos iterables, como un array, en lugares donde se esperan cero o más argumentos (para llamadas a funciones) o elementos (para arrays literales)
+        }
+      }, err => console.error(err));
+    }, err => console.error(err));
+  }
+
 
 }
