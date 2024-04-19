@@ -301,6 +301,7 @@ else{
     });
   }
     this.recargarUsuario();
+    window.location.reload(); //para recargar la pagina despues de agregar la imagen
     
   }
   getFileBlob(file: any) {
