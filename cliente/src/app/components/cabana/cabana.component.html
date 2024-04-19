@@ -41,7 +41,8 @@
             <td><a href="javascript: void(0);" class="space" (click)="mostrarImagenes(cabana.ID_Cabana)">
               <i class="material-icons">photo_library</i></a></td>
             <td>{{ cabana.Nombre }}</td>
-            <td>{{ cabana.Descripcion }}</td>
+            <td *ngIf="idioma == 2">{{ cabana.Descripcion }}{{ idioma}}</td>
+            <td *ngIf="idioma == 1">{{ cabana.Description }} {{ idioma}}</td>
             <td>{{ cabana.PrecioPorNoche }}</td>
             <td>{{ cabana.Capacidad }}</td>
             <td>
