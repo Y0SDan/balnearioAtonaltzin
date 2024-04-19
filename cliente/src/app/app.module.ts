@@ -25,6 +25,7 @@ import { ReservacionUsuarioComponent } from './components/reservacion-usuario/re
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OlvideContrasenaComponent } from './components/olvide-contrasena/olvide-contrasena.component';
 import { OfertasComponent } from './components/ofertas/ofertas.component';
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common'; // Importa LocationStrategy y HashLocationStrategy aquí para que funcione el enrutamiento
 
 
 @NgModule({
@@ -59,7 +60,9 @@ import { OfertasComponent } from './components/ofertas/ofertas.component';
     NgxPaginationModule,
     
   ],
-  providers: [],
+  providers: [
+    {provide : LocationStrategy , useClass: HashLocationStrategy}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
