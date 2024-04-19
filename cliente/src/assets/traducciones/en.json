@@ -1,5 +1,5 @@
 {
-    "Actualizar Cobro":"Update Collection",
+    "Actualizar Cobro":"Update Payment",
     "IdReservacion":"IdReservation",
     "MontoCobrado":"AmountCollected",
     "Fecha_Cobro":"Collection_Date",
@@ -101,6 +101,14 @@
     "Agregar Imagen":"Add Picture",
     "Imagenes":"Pictures",
     "Reservar":"RESERVE",
-    "Ofertas":"Offers"
+    "Ofertas":"Offers",
+    "Id Cobro": "Id Payment",
+    "Id Reservacion": "Reservation Id",
+    "Monto a cobrar":"Amount to pay",
+    "Fecha de cobro":"Payment date",
+    "Crear Cobro": "Create Payment",
+    "¿Estás seguro de eliminar este cobro?": "Are you sure to remove this payment?",
+    "Mas links":"More links"
+
 
 }

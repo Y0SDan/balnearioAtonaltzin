@@ -99,5 +99,14 @@
     "Crear usuario":"Crear usuario",
     "Agregar Imagen":"Agregar Imagen",
     "Imagenes":"Imagenes",
-    "Reservar":"Reservar"
+    "Reservar":"Reservar",
+    "Ofertas":"Ofertas",
+    "Id Cobro": "Id Cobro",
+    "Id Reservacion": "Id Reservacion",
+    "Monto a cobrar":"Monto a cobrar",
+    "Fecha de cobro":"Fecha de cobro",
+    "Crear Cobro": "Crear Cobro",
+    "¿Estás seguro de eliminar este cobro?": "¿Estás seguro de eliminar este cobro?",
+    "Mas links":"Mas links"
+
 }

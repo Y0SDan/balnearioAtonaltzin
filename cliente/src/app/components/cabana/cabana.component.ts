@@ -29,19 +29,37 @@ export class CabanaComponent implements OnInit {
   idImg = 0;
   imagencabana: ImagenCabana = new ImagenCabana();
   imagenescabana: ImagenCabana[] = [];
-  idioma: any;
+  idioma: any = 1;
 
   constructor(private cabanaService: CabanaService, private imagenesService: ImagenesService, private imagenescabanasService: ImagenescabanasService, private cambioIdiomaService: CambioIdiomaService) {
     this.imgCabana = null;
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
     this.idioma = 1;
+    //this.getLanguage(this.idioma);
+    this.idioma = localStorage.getItem("idioma");
+    console.log("idioma", this.idioma)
+    if (this.idioma === null || this.idioma === undefined || this.idioma === '') {
+      //Si el usuario no cambio el idioma lo dejamos por default en ingles
+      localStorage.setItem("idioma","2"); 
+      this.idioma= "2";
+    }
   }
+  
   ngOnInit(): void {
     this.cabanaService.list().subscribe((resusuario: any) => {
       this.cabanas = resusuario;
     }, err => console.error(err));
+    console.log(this.idioma);
+    
+    this.cambioIdiomaService.currentMsg$.subscribe(
+      (msg) => {
+        this.idioma = msg;
+        console.log("idioma actual cabanas:", this.idioma, " aaaa");
+      }
+    );
   }
+
   crearcabana() {
     this.cabanaNueva = new Cabana1();
     console.log("Cliente Nuevo")
@@ -50,7 +68,7 @@ export class CabanaComponent implements OnInit {
   }
   guardarNuevaCabana() {
     console.log("GuardandoUsuario")
-    if (this.idioma == 2) {
+    if (this.idioma != 1) {
       this.cabanaService.crearcabana(this.cabanaNueva).subscribe((res) => {
         $('#modalCrearCabana').modal('close');
         this.cabanaService.list().subscribe(
@@ -109,7 +127,9 @@ export class CabanaComponent implements OnInit {
     });
   }
   guardarActualizarCabana() {
-    if (this.idioma == 2) {
+    console.log(this.idioma);
+    
+    if (this.idioma != 1 ) {
       this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
         $('#modalModificarCabana').modal('close');
         this.showAlert('Cabaña actualizada correctamente', 'success');
@@ -137,7 +157,7 @@ export class CabanaComponent implements OnInit {
   eliminarCabana(id: any) {
     console.log("Click en eliminar esta cabaña");
     console.log("Identificador del Cliente: ", id);
-    if (this.idioma == 2) {
+    if (this.idioma != 1) {
       Swal.fire({
         title: " ¿Estás seguro de eliminar esta cabaña?",
         text: "¡No es posible revertir esta acción!",
