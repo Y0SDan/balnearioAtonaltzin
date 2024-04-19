@@ -15,7 +15,7 @@ export class Cliente{
         this.Email = 'marcos@gmail.com';
         this.password1 = 'hola';
         this.Telefono = '';
-        this.tipo = 'usuario';
+        this.tipo = ''; //No cambiar que afecta a un select
         this.foto = 0;
     }
 }

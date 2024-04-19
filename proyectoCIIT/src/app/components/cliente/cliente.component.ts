@@ -172,10 +172,6 @@ export class ClienteComponent implements OnInit {
     
   } 
 
-  compareFn(a : any, b : any) {
-    return a === b;
-  }
-
   seleccionarCliente(cliente: Cliente) {
     this.cliente = cliente;
     this.liga = environment.API_URL_IMAGENES + "/clientes/" + this.cliente.ID_Cliente + ".jpg";

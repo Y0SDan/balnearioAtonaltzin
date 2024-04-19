@@ -17,7 +17,8 @@
     paginate: {
       itemsPerPage: pageSize,
       currentPage: p };let i=index">
-    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}"></td>
+    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}">
+    </td>
     <td *ngIf="cliente.foto == 0"><img width="64" src="{{liga}}/clientes/0.jpg" alt="{{liga}}"></td>
     <td>{{ cliente.Nombre }}</td>
     <td>{{ cliente.Apellido }}</td>
@@ -66,6 +67,16 @@
           <label class="active">Telefono </label>
           <input [(ngModel)]="cliente.Telefono" type="text" class="validate">
         </div>
+        <div class="input-field col s12">
+          <select [(ngModel)]="cliente.tipo" id="cliente" name="cliente" class="browser-default waves-block">
+            <option value="" disabled>Elige el tipo de usuario</option>
+            <option value="administrador" [selected]="cliente.tipo === 'administrador'">Administrador</option>
+            <option value="seller" [selected]="cliente.tipo === 'seller'">Seller</option>
+            <option value="usuario" [selected]="cliente.tipo === 'usuario'">Usuario</option>
+          </select>
+          <label class="active">Tipo</label>
+        </div>
+        <!--
         <div class="col s12">
           <p>Tipo:</p>
           <p>
@@ -87,6 +98,7 @@
             </label>
           </p>
         </div>
+        -->
       </div>
       <div class="row">
         <div class="col s6 center">
@@ -127,18 +139,19 @@
           <input [(ngModel)]="clienteNuevo.Telefono" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <select [(ngModel)]="clienteNuevo.tipo" [compareWith]="compareFn">
+          <label class="active">Tipo</label>
+          <select [(ngModel)]="clienteNuevo.tipo" id="clienteNuevo" name="clienteNuevo" class="browser-default waves-block">
             <option value="" disabled selected>Elige el tipo de usuario</option>
             <option value="administrador">Administrador</option>
             <option value="seller">Seller</option>
             <option value="usuario">Usuario</option>
           </select>
-          <label class="active">Tipo</label>
         </div>
       </div>
       <div class="row">
         <div class="col s6 center">
-          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close" (click)="guardarNuevoUsuario()" value="Enviar">
+          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+            (click)="guardarNuevoUsuario()" value="Enviar">
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
@@ -163,7 +176,8 @@
       </div>
       <div class="row">
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text" (click)="recargarUsuario()">Enviar</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text"
+            (click)="recargarUsuario()">Enviar</a>
         </div>
         <div class="col s6 center">
           <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">Cancelar</a>
