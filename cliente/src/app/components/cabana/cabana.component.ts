@@ -6,6 +6,7 @@ import { ImagenesService } from './../../services/imagenes.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { ImagenescabanasService } from 'src/app/services/imagenescabanas.service';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 declare var $: any;
 
 @Component({
@@ -28,11 +29,13 @@ export class CabanaComponent implements OnInit {
   idImg = 0;
   imagencabana: ImagenCabana = new ImagenCabana();
   imagenescabana: ImagenCabana[] = [];
+  idioma: any;
 
-  constructor(private cabanaService: CabanaService, private imagenesService: ImagenesService, private imagenescabanasService: ImagenescabanasService) {
+  constructor(private cabanaService: CabanaService, private imagenesService: ImagenesService, private imagenescabanasService: ImagenescabanasService, private cambioIdiomaService: CambioIdiomaService) {
     this.imgCabana = null;
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
+    this.idioma = 1;
   }
   ngOnInit(): void {
     this.cabanaService.list().subscribe((resusuario: any) => {
@@ -47,26 +50,49 @@ export class CabanaComponent implements OnInit {
   }
   guardarNuevaCabana() {
     console.log("GuardandoUsuario")
-    this.cabanaService.crearcabana(this.cabanaNueva).subscribe((res) => {
-      $('#modalCrearCabana').modal('close');
-      this.cabanaService.list().subscribe(
-        (resusuarios: any) => {
-          this.cabanas = resusuarios;
-        },
-        err => console.error(err)
+    if (this.idioma == 2) {
+      this.cabanaService.crearcabana(this.cabanaNueva).subscribe((res) => {
+        $('#modalCrearCabana').modal('close');
+        this.cabanaService.list().subscribe(
+          (resusuarios: any) => {
+            this.cabanas = resusuarios;
+          },
+          err => console.error(err)
+        );
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          text: 'Cabaña agragada'
+        });
+      },
+        err => {
+          console.error(err);
+          this.showAlert('Something went wrong!', 'error');
+        }
       );
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        text: 'Plan Actualizado'
-      });
-    },
-      err => {
-        console.error(err);
-        this.showAlert('Something went wrong!', 'error');
-      }
-    );
+    } else {
+      this.cabanaService.crearcabana(this.cabanaNueva).subscribe((res) => {
+        $('#modalCrearCabana').modal('close');
+        this.cabanaService.list().subscribe(
+          (resusuarios: any) => {
+            this.cabanas = resusuarios;
+          },
+          err => console.error(err)
+        );
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          text: "Aggregated cabin"
+        });
+      },
+        err => {
+          console.error(err);
+          this.showAlert('Something went wrong!', 'error');
+        }
+      );
+    }
   }
+
   actualizarCabana(Nombre: any) {
     this.cabanaService.listOne(Nombre).subscribe((resusuario: any) => {
       this.cabana = resusuario;
@@ -83,51 +109,95 @@ export class CabanaComponent implements OnInit {
     });
   }
   guardarActualizarCabana() {
-    this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
-      $('#modalModificarCabana').modal('close');
-      this.showAlert('Cabaña actualizada correctamente', 'success');
-      this.cabanaService.list().subscribe((resusuario: any) => {
-        this.cabanas = resusuario;
-      })
-    }, err => {
-      console.error(err);
-      this.showAlert('Error al actualizar el cliente', 'error');
-    });
+    if (this.idioma == 2) {
+      this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
+        $('#modalModificarCabana').modal('close');
+        this.showAlert('Cabaña actualizada correctamente', 'success');
+        this.cabanaService.list().subscribe((resusuario: any) => {
+          this.cabanas = resusuario;
+        })
+      }, err => {
+        console.error(err);
+        this.showAlert('Error al actualizar la cabaña', 'error');
+      });
+    }
+    else {
+      this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
+        $('#modalModificarCabana').modal('close');
+        this.showAlert('Cabin properly upgraded', 'success');
+        this.cabanaService.list().subscribe((resusuario: any) => {
+          this.cabanas = resusuario;
+        })
+      }, err => {
+        console.error(err);
+        this.showAlert('Error updating the cabin', 'error');
+      });
+    }
   }
   eliminarCabana(id: any) {
     console.log("Click en eliminar esta cabaña");
     console.log("Identificador del Cliente: ", id);
-    Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No es posible revertir este!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, quiero eliminarlo!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.cabanaService.eliminarCabana(id).subscribe((resusuario: any) => {
-          console.log("resusuario: ", resusuario);
-          this.cabanaService.list().subscribe((resusuario: any) => {
-            this.cabanas = resusuario;
-            //console.log(resusuario);
-            console.log(this.cabanas)
+    if (this.idioma == 2) {
+      Swal.fire({
+        title: " ¿Estás seguro de eliminar esta cabaña?",
+        text: "¡No es posible revertir esta acción!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, quiero eliminarlo!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.cabanaService.eliminarCabana(id).subscribe((resusuario: any) => {
+            console.log("resusuario: ", resusuario);
+            this.cabanaService.list().subscribe((resusuario: any) => {
+              this.cabanas = resusuario;
+              //console.log(resusuario);
+              console.log(this.cabanas)
+            },
+              err => console.error(err)
+            );
           },
             err => console.error(err)
           );
-        },
-          err => console.error(err)
-        );
-
-
-        Swal.fire({
-          title: "Eliminado!",
-          text: "Tu archivo ha sido eliminado.",
-          icon: "success"
-        });
-      }
-    });
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Tu archivo ha sido eliminado.",
+            icon: "success"
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Are you sure to eliminate this cabin?",
+        text: "It is not possible to reverse this action!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, I want to eliminate it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.cabanaService.eliminarCabana(id).subscribe((resusuario: any) => {
+            console.log("resusuario: ", resusuario);
+            this.cabanaService.list().subscribe((resusuario: any) => {
+              this.cabanas = resusuario;
+              //console.log(resusuario);
+              console.log(this.cabanas)
+            },
+              err => console.error(err)
+            );
+          },
+            err => console.error(err)
+          );
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted",
+            icon: "success"
+          });
+        }
+      });
+    }
   }
 
   MostrarCliente() {
@@ -150,13 +220,6 @@ export class CabanaComponent implements OnInit {
     );
   }
 
-  submitForm() {
-    // Ejecuta la función para guardar el nuevo usuario
-    this.guardarNuevaCabana();
-
-    // Redirige a la página principal
-    window.location.href = '/principal';
-  }
 
   metodoPrueba() {
     console.log(this.cabanaNueva);
@@ -172,34 +235,37 @@ export class CabanaComponent implements OnInit {
 
   cargandoImagen(archivo: any) {
     this.imagenescabanasService.crearImagenCabana({ ID_Cabana: this.cabana.ID_Cabana }).subscribe((res: any) => {
-        this.idImg = res.insertId;
-        console.log("idImg: ", this.idImg);
+      this.idImg = res.insertId;
+      console.log("idImg: ", this.idImg);
 
-        // Se movio el codigo acá para que respete el valor de idImg en ves de ir abajo
-        this.imgCabana = null;
-        this.liga = environment.API_URL_IMAGENES;
-        this.fileToUpload = archivo.files.item(0);
-        let imgPromise = this.getFileBlob(this.fileToUpload);
-        imgPromise.then(blob => {
-            this.imagenesService.guardarImagenCabana(this.cabana.ID_Cabana, this.idImg, "cabanas", blob).subscribe(
-                (res: any) => {
-                    this.imgCabana = blob;
-                    // Actualizar la variable 'liga' después de cargar la imagen
-                    this.liga = environment.API_URL_IMAGENES + "/cabanas/" + this.cabana.ID_Cabana + "_" + this.idImg + ".jpg";
-                    this.cabanaService.list().subscribe((resCabanas: any) => {
-                        this.cabanas = resCabanas;
-                    }, err => console.error(err));
-                    this.liga = environment.API_URL_IMAGENES;
-                },
-                err => console.error(err));
-        });
-        //en lugar de acá
-        this.cabana.foto = 1;
+      // Se movio el codigo acá para que respete el valor de idImg en ves de ir abajo
+      this.imgCabana = null;
+      this.liga = environment.API_URL_IMAGENES;
+      this.fileToUpload = archivo.files.item(0);
+      let imgPromise = this.getFileBlob(this.fileToUpload);
+      imgPromise.then(blob => {
+        this.imagenesService.guardarImagenCabana(this.cabana.ID_Cabana, this.idImg, "cabanas", blob).subscribe(
+          (res: any) => {
+            this.imgCabana = blob;
+            // Actualizar la variable 'liga' después de cargar la imagen
+            this.liga = environment.API_URL_IMAGENES + "/cabanas/" + this.cabana.ID_Cabana + "_" + this.idImg + ".jpg";
+            this.cabanaService.list().subscribe((resCabanas: any) => {
+              this.cabanas = resCabanas;
+            }, err => console.error(err));
+            this.liga = environment.API_URL_IMAGENES;
+          },
+          err => console.error(err));
+      });
+      //en lugar de acá
+      this.cabana.foto = 1;
     },
-    err => {
+      err => {
         console.error(err);
-    });
-}
+      });
+  }
+  guardarImagen() {
+
+  }
 
   /*
   this.cabanaService.actualizarCabana(this.cabana).subscribe(() => {
@@ -225,28 +291,43 @@ export class CabanaComponent implements OnInit {
   }
 
   guardarActualizarCabanaImg() {
-    this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
-      this.showAlert('Cabaña actualizada correctamente', 'success');
-      this.cabanaService.list().subscribe((resusuario: any) => {
-        this.cabanas = resusuario;
-      })
-    }, err => {
-      console.error(err);
-      this.showAlert('Error al actualizar el cliente', 'error');
-    });
-    //location.reload();  //Se actualiza la pagina para el caso en el que se actualice la imagen de una cabaña
+    if (this.idioma == 2) {
+      this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
+        this.showAlert('Imagen actualizada correctamente', 'success');
+        this.cabanaService.list().subscribe((resusuario: any) => {
+          this.cabanas = resusuario;
+        })
+      }, err => {
+        console.error(err);
+        this.showAlert('Error al actualizar la imagen', 'error');
+      });
+      //location.reload();  //Se actualiza la pagina para el caso en el que se actualice la imagen de una cabaña
+    }
+    else { 
+      this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
+        this.showAlert('Image updated correctly', 'success');
+        this.cabanaService.list().subscribe((resusuario: any) => {
+          this.cabanas = resusuario;
+        })
+      }, err => {
+        console.error(err);
+        this.showAlert('Error updating image', 'error');
+      });
+    }
   }
 
-  mostrarImagenes(idCabana: any) {
-    this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
-      this.cabana = resusuario;
-      this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
-        this.imagenescabana = res;
+
+
+    mostrarImagenes(idCabana: any) {
+      this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
+        this.cabana = resusuario;
+        this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
+          this.imagenescabana = res;
+        }, err => console.error(err));
+        $('#modalmostrarImagenes').modal();
+        $("#modalmostrarImagenes").modal("open");
       }, err => console.error(err));
-      $('#modalmostrarImagenes').modal();
-      $("#modalmostrarImagenes").modal("open");
-    }, err => console.error(err));
-    
-  }
 
-}
+    }
+
+  }

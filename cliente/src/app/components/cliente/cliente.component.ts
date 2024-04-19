@@ -1,8 +1,10 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/Models/Cliente';
 import { ClienteService } from './../../services/cliente.service';
 import { ImagenesService } from './../../services/imagenes.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 declare var $: any;
@@ -22,11 +24,13 @@ export class ClienteComponent implements OnInit {
   liga='';
   imgUsuario: any;
   fileToUpload: any;
+  idioma :any;
 
-  constructor(private clienteService: ClienteService,private imagenesService: ImagenesService, private cdr: ChangeDetectorRef) {
+  constructor(private clienteService: ClienteService,private imagenesService: ImagenesService, private cambioIdiomaService: CambioIdiomaService) {
     this.imgUsuario = null;
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
+    this.idioma=1;
   }
 
   ngOnInit(): void {
@@ -61,11 +65,18 @@ export class ClienteComponent implements OnInit {
           },
           err => console.error(err)
         );
+        if(this.idioma==2){
         Swal.fire({
           position: 'center',
           icon: 'success',
-          text: 'Plan Actualizado'
-        });
+          text: 'Nuevo usuario agregado'
+        });}else{
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            text: 'New user added'
+          });
+        }
       },
       err => {
         console.error(err);
@@ -75,9 +86,10 @@ export class ClienteComponent implements OnInit {
   }
 
   eliminarUsuario(id: any) {
+    if(this.idioma ==2){
     Swal.fire({
-      title: "¿Estás seguro?",
-      text: "No es posible revertir este!",
+      title: "¿Estás seguro de eliminar este usuario?",
+      text:  "¡No es posible revertir esta acción!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -104,7 +116,38 @@ export class ClienteComponent implements OnInit {
         });
       }
     });
+  }else{
+    Swal.fire({
+      title: "Are you sure to delete this user?",
+      text:  "It is not possible to reverse this action!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText:"Yes, I want to eliminate it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.clienteService.eliminarUsuario(id).subscribe(
+          (resusuario: any) => {
+            this.clienteService.list().subscribe(
+              (resusuario: any) => {
+                this.clientes = resusuario;
+              },
+              err => console.error(err)
+            );
+          },
+          err => console.error(err)
+        );
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted",
+          icon: "success"
+        });
+      }
+    });
   }
+}
 
   MostrarCliente() {
     this.clienteService.addCliente(this.clienteNuevo).subscribe(
@@ -132,18 +175,26 @@ export class ClienteComponent implements OnInit {
   }
   
   showAlert(message: string, type: 'success' | 'error' | 'warning' = 'success') {
+    if(this.idioma==2){
     Swal.fire({
       position: 'center',
       icon: type,
-      text: message
+      text: "Usuario actualizado"
+    });
+  }else{
+    Swal.fire({
+      position: 'center',
+      icon: type,
+      text: "Updated user"
     });
   }
+}
 
   guardarActualizarCliente() {
+    if(this.idioma ==2){
     this.clienteService.actualizarCliente(this.cliente).subscribe(() => {
       $('#modalModificarCliente').modal('close');
       this.showAlert('Cliente actualizado correctamente', 'success');
-      this.cdr.detectChanges();
       this.clienteService.list().subscribe((resusuario: any) => {
         this.clientes = resusuario;
     })
@@ -152,6 +203,19 @@ export class ClienteComponent implements OnInit {
       this.showAlert('Error al actualizar el cliente', 'error');
     });
   }
+else{
+  this.clienteService.actualizarCliente(this.cliente).subscribe(() => {
+    $('#modalModificarCliente').modal('close');
+    this.showAlert('Client successfully updated', 'success');
+    this.clienteService.list().subscribe((resusuario: any) => {
+      this.clientes = resusuario;
+  })
+  }, err => {
+    console.error(err);
+    this.showAlert('Error updating the client', 'error');
+  });
+}
+}
 
   submitForm() {
     // Ejecuta la función para guardar el nuevo usuario
@@ -223,11 +287,19 @@ export class ClienteComponent implements OnInit {
     }, err => {
       console.error(err);
     });
+    if(this.idioma ==2){
     Swal.fire({
       position: 'center',
       icon: 'success',
       text: 'Imagen actualizada'
     });
+  }else{
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      text: 'Updated image'
+    });
+  }
     this.recargarUsuario();
     
   }
