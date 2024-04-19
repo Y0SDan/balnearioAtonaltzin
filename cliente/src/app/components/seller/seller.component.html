@@ -1,10 +1,10 @@
 <table class="default" *ngIf="cobros != undefined && cobros.length > 0">
     <tr>
-        <th>IdCobro</th>
-        <th>IdReservacion</th>
-        <th>Monto a cobrar</th>
-        <th>Fecha de cobro</th>
-        <th>Estado</th>
+        <th>{{'IdCobro' | translate}}</th>
+        <th>{{'IdReservacion' | translate}}</th>
+        <th>{{'Monto a cobrar' | translate}}</th>
+        <th>{{'Fecha de cobro' | translate}}</th>
+        <th>{{'Estado' | translate}}</th>
     </tr>
     <tr *ngFor="let cobro of cobros|
     paginate: {
@@ -26,7 +26,7 @@
 </table>
 <div class="blue-text text-darken-2">
   <pagination-controls class="col s6" (pageChange)="p = ($event)"
-  previousLabel="Anterior" nextLabel="Siguiente">
+  previousLabel="{{'Anterior' | translate}}" nextLabel="{{'Siguiente' | translate}} ">
   </pagination-controls>
 </div>
 
@@ -34,25 +34,25 @@
     <div class="modal-content">
       <div class="row" style="margin-bottom: 0px !important;">
         <div class="col s12">
-          <h5 class="center">Actualizar Cobro</h5>
+          <h5 class="center">{{'Actualizar Cobro' | translate}}</h5>
         </div>
       </div>
       <div style="border: .5px solid #78909c; padding: 10px;">
         <div class="row">
           <div class="input-field col s6">
-            <label class="active">Id Reservacion </label>
+            <label class="active">{{'Id Reservacion' | translate}}</label>
             <input [(ngModel)]="cobro.IdReservacion" type="text" class="validate" disabled>
           </div>
           <div class="input-field col s6">
-              <label class="active">Monto cobrado </label>
+              <label class="active">{{'Monto cobrado' | translate}}</label>
               <input [(ngModel)]="cobro.MontoCobrado" type="text" class="validate" disabled>
             </div>
             <div class="input-field col s6">
-              <label class="active">Fecha de cobro </label>
+              <label class="active">{{'Fecha de cobro' | translate}}</label>
               <input [(ngModel)]="cobro.Fecha_Cobro" type="text" class="validate" disabled>
             </div>
             <div class="input-field col s6">
-              <label class="active">Estado </label>
+              <label class="active">{{'Estado' | translate}}</label>
               <input [(ngModel)]=" cobro.Estado" type="text" class="validate" disabled>
             </div>
         </div>
@@ -63,7 +63,7 @@
           </div>
           <div class="col s6 center">
             <a class="modal-action modal-close waves-effect btn-large brown lighten-3
-    black-text">Cancelar</a>
+    black-text">{{'Cancelar' | translate}}</a>
           </div>
         </div>
       </div>

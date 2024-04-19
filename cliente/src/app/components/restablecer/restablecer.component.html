@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Restablecer Contraseña</title>
+    <title>{{'Restablecer Contraseña' | translate}}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
     <div class="container">
-        <h3>Restablecer Contraseña</h3>
+        <h3>{{'Restablecer Contraseña' | translate}}</h3>
         <div class="row">
             <form class="col s12">
                 <div class="row">
                     <div class="input-field col s12">
                         <input [(ngModel)]="nuevaContrasena" name="nuevaContrasena" id="new-password" type="password" class="validate">
-                        <label for="new-password">Nueva Contraseña</label>
+                        <label for="new-password">{{'Nueva Contraseña' | translate}}</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input [(ngModel)]="nuevaContrasenaConfirmacion" name="nuevaContrasenaConfirmacion" id="confirm-password" type="password" class="validate">
-                        <label for="confirm-password">Confirmar Contraseña</label>
+                        <label for="confirm-password">{{'Confirmar Contraseña' | translate}}</label>
                     </div>
                 </div>
-                    <button (click)="actualizarContrasena()" class="btn col l12 s12 m12 btnLogin ">ACEPTAR</button>
+                    <button (click)="actualizarContrasena()" class="btn col l12 s12 m12 btnLogin ">{{'ACEPTAR' | translate}}</button>
             </form>
         </div>
     </div>

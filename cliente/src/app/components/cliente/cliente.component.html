@@ -38,7 +38,7 @@
   </tr>
 </table>
 <div class="blue-text text-darken-2">
-  <pagination-controls class="col s6" (pageChange)="p = ($event)" previousLabel="Anterior" nextLabel="Siguiente">
+  <pagination-controls class="col s6" (pageChange)="p = ($event)" previousLabel="{{'Anterior' | translate}}" nextLabel="{{'Siguiente' | translate}} ">
   </pagination-controls>
 </div>
 <!--Modal para Modificar el cliente-->
@@ -150,6 +150,10 @@
 </div>
 <div id="modalAgregarImagen" class="modal">
   <div class="modal-content">
+    <div style="text-align: center;">
+      <img class="center-image" *ngIf="cliente.foto == 1" width="150" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{cliente.Nombre}}">
+      <img class="center-image" *ngIf="cliente.foto == 0" width="150" src="{{liga}}/clientes/0.jpg" alt="No tiene foto el cliente">
+    </div>
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
         <h5 class="center">{{'Agregar Imagen' | translate}}</h5>
