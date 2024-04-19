@@ -5,9 +5,7 @@
     <a class="brand-logo">
       <img src="https://i.imgur.com/Xrn81hA.png" alt="Logo">
     </a>
-    <li class="center-text"> <a class="nav-text">Balneario
-        Atonaltzin</a>
-    </li>
+    <li class="center-text"> <a class="nav-text">BalnearioAtonaltzin</a></li>
     <ul id="nav-mobile" class="right hide-one-med-and-down" *ngIf="ID_Cliente == undefined">
       <li><a class="dropdown-trigger" data-target="dropdown3">{{"Idioma" | translate}}<i
         class="material-icons right">arrow_drop_down</i></a></li>
@@ -27,8 +25,8 @@
       
     </ul>
     <ul id="dropdown3" class="dropdown-content idioma-nav">
-      <li (click)="setIdioma(1)"><a>English</a></li>
-      <li (click)="setIdioma(2)"><a>Español</a></li>
+      <li (click)="setIdioma(1)"><a>{{"Ingles"| translate}}</a></li>
+      <li (click)="setIdioma(2)"><a>{{"Español"| translate}}</a></li>
       </ul>
     <!--
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

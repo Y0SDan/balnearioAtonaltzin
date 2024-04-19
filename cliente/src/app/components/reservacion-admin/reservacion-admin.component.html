@@ -1,10 +1,10 @@
 <table class="default" *ngIf="reservaciones !== undefined">
     <tr>
-        <th>ID Cliente</th>
-        <th>ID Cabaña</th>
-        <th>Fecha Inicio</th>
-        <th>Fecha Fin</th>
-        <th>Acciones</th>
+        <th>{{'ID Cliente' | translate}}</th>
+        <th>{{'ID Cabaña' | translate}}</th>
+        <th>{{'Fecha Inicio' | translate}}</th>
+        <th>{{'Fecha Fin' | translate}}</th>
+        <th>{{'Acciones' | translate}}</th>
     </tr>
     <tr *ngFor="let reservacion of reservaciones |
     paginate: {
@@ -23,38 +23,38 @@
 </table>
 <div class="blue-text text-darken-2">
   <pagination-controls class="col s6" (pageChange)="p = ($event)"
-  previousLabel="Anterior" nextLabel="Siguiente">
+  previousLabel="{{'Anterior' | translate}}" nextLabel="{{'Siguiente' | translate}} ">
   </pagination-controls>
 </div>
 
 <!-- Modal Structure -->
 <div id="modalModificarReservacion" class="modal">
   <div class="modal-content">
-    <h4>Modificar Reservación</h4>
-    <p>Realiza los cambios necesarios y presiona "Guardar".</p>
+    <h4>{{'Modificar Reservación' | translate}}</h4>
+    <p>{{'Realiza los cambios necesarios y presiona Guardar.' | translate}}</p>
 
     <!-- Aquí puedes agregar los campos para modificar la reservación -->
     <form>
       <div class="input-field">
         <input id="ID_Cabana" type="text" class="validate" [(ngModel)]="reservacion.ID_Cabana" name="ID_Cabana">
-        <label for="ID_Cabana">ID Cabana</label>
+        <label for="ID_Cabana">{{'ID Cabana' | translate}}</label>
       </div>
       <div class="input-field">
         <input id="ID_Cliente" type="text" class="validate" [(ngModel)]="reservacion.ID_Cliente" name="ID_Cliente">
-        <label for="ID_Cliente">ID Cliente</label>
+        <label for="ID_Cliente">{{'ID Cliente' | translate}}</label>
       </div>
       <div class="input-field">
         <input id="FechaInicio" type="date" class="validate" [(ngModel)]="reservacion.FechaInicio" name="FechaInicio">
-        <label for="FechaInicio">Fecha Inicio</label>
+        <label for="FechaInicio">{{'Fecha Inicio' | translate}}</label>
       </div>
       <div class="input-field">
         <input id="FechaFin" type="date" class="validate" [(ngModel)]="reservacion.FechaFin" name="FechaFin">
-        <label for="FechaFin">Fecha Fin</label>
+        <label for="FechaFin">{{'Fecha Fin' | translate}}</label>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <a class="modal-close waves-effect waves-green btn-flat" (click)="guardarActualizarReservacion()">Guardar</a>
+    <a class="modal-close waves-effect waves-green btn-flat" (click)="guardarActualizarReservacion()">{{'Guardar' | translate}}</a>
   </div>
 </div>
 
