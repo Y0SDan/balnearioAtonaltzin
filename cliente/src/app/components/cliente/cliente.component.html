@@ -1,0 +1,175 @@
+<a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="addCliente()">
+  <i class="material-icons left">add</i> {{"Crear usuario" | translate}}
+</a>
+
+<!--<div><img src="{{liga}}/cliente.jpg" class="center" style="width: 200px;" alt="{{liga}}"></div>-->
+
+<table class="default" *ngIf="clientes != undefined && clientes.length > 0">
+  <tr>
+    <th>{{"Foto"| translate}}</th>
+    <th>{{"Nombre"| translate}}</th>
+    <th>{{"Apellido"| translate}}</th>
+    <th>{{"Correo"| translate}}</th>
+    <th>{{"Telefono"| translate}}</th>
+    <th>{{"Tipo"| translate}}</th>
+  </tr>
+  <tr *ngFor="let cliente of clientes |
+    paginate: {
+      itemsPerPage: pageSize,
+      currentPage: p };let i=index">
+    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}">
+    </td>
+    <td *ngIf="cliente.foto == 0"><img width="64" src="{{liga}}/clientes/0.jpg" alt="{{liga}}"></td>
+    <td>{{ cliente.Nombre }}</td>
+    <td>{{ cliente.Apellido }}</td>
+    <td>{{ cliente.Email }}</td>
+    <td>{{ cliente.Telefono }}</td>
+    <td>{{ cliente.tipo }}</td>
+    <td>
+      <a href="javascript: void(0);" class="space" (click)="actualizarCliente(cliente.ID_Cliente)">
+        <i class="material-icons">edit</i></a>
+      <a href="javascript: void(0);" class="material-icons" (click)="MostrarImagen(cliente.ID_Cliente)"
+        style="color: rgb(49, 111, 226);">
+        <i class="material-icons">imagen</i></a>
+      <a href="javascript: void(0);" class="material-icons" (click)="eliminarUsuario(cliente.ID_Cliente)"
+        style="color: red;">
+        <i class="material-icons">delete_forever</i></a>
+    </td>
+  </tr>
+</table>
+<div class="blue-text text-darken-2">
+  <pagination-controls class="col s6" (pageChange)="p = ($event)" previousLabel="{{'Anterior' | translate}}"
+    nextLabel="{{'Siguiente' | translate}} ">
+  </pagination-controls>
+</div>
+<!--Modal para Modificar el cliente-->
+<div id="modalModificarCliente" class="modal">
+  <div class="modal-content">
+    <div class="row" style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">{{"Actualizar usuario" | translate}}</h5>
+      </div>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_cliente">{{"Nombre"| translate}} </label>
+          <input id="nombre_cliente" [(ngModel)]="cliente.Nombre" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">{{"Apellido"| translate}}</label>
+          <input [(ngModel)]="cliente.Apellido" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">{{"Correo" | translate}} </label>
+          <input [(ngModel)]="cliente.Email" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">{{"Telefono"| translate}} </label>
+          <input [(ngModel)]="cliente.Telefono" type="text" class="validate">
+        </div>
+        <div class="input-field col s12">
+          <select [(ngModel)]="cliente.tipo" id="cliente" name="cliente" class="browser-default waves-block">
+            <option value="" disabled>Elige el tipo de usuario</option>
+            <option value="administrador" [selected]="cliente.tipo === 'administrador'">Administrador</option>
+            <option value="seller" [selected]="cliente.tipo === 'seller'">Seller</option>
+            <option value="usuario" [selected]="cliente.tipo === 'usuario'">Usuario</option>
+          </select>
+          <label class="active">Tipo</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6 center">
+          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+            (click)="guardarActualizarCliente()" value="{{'Enviar' | translate}}">
+        </div>
+        <div class="col s6 center">
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar"
+            |translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal para Crear el cliente-->
+<div id="modalCrearCliente" class="modal">
+  <div class="modal-content">
+    <div class="row " style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">{{"Crear usuario" | translate}}</h5>
+      </div>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_usuario">{{"Nombre"| translate}}</label>
+          <input id="nombre_usuario" [(ngModel)]="clienteNuevo.Nombre" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">{{"Apellido"| translate}}</label>
+          <input [(ngModel)]="clienteNuevo.Apellido" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">{{"Correo"| translate}}</label>
+          <input [(ngModel)]="clienteNuevo.Email" type="text" class="validate">
+        </div>
+        <div class="input-field col s6">
+          <label class="active">{{"Telefono"| translate}}</label>
+          <input [(ngModel)]="clienteNuevo.Telefono" type="text" class="validate">
+        </div>
+        <div class="input-field col s12">
+          <label class="active">Tipo</label>
+          <select [(ngModel)]="clienteNuevo.tipo" id="clienteNuevo" name="clienteNuevo" class="browser-default waves-block">
+            <option value="" disabled selected>Elige el tipo de usuario</option>
+            <option value="administrador">Administrador</option>
+            <option value="seller">Seller</option>
+            <option value="usuario">Usuario</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6 center">
+          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+            (click)="guardarNuevoUsuario()" value="{{'Enviar'|translate}}">
+        </div>
+        <div class="col s6 center">
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" |
+            translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modalAgregarImagen" class="modal">
+  <div class="modal-content">
+    <div style="text-align: center;">
+      <img class="center-image" *ngIf="cliente.foto == 1" width="150" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg"
+        alt="{{cliente.Nombre}}">
+      <img class="center-image" *ngIf="cliente.foto == 0" width="150" src="{{liga}}/clientes/0.jpg"
+        alt="No tiene foto el cliente">
+    </div>
+    <div class="row" style="margin-bottom: 0px !important;">
+      <div class="col s12">
+        <h5 class="center">{{'Agregar Imagen' | translate}}</h5>
+      </div>
+    </div>
+    <div style="border: .5px solid #78909c; padding: 10px;">
+      <div class="row">
+        <div class="input-field col s12">
+          <label class="active" for="nombre_cliente">{{'Imagenes' | translate}} </label>
+          <input type="file" (change)="cargandoImagen($event.target)" multiple>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6 center">
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text"
+            (click)="guardarImagen()">{{'Enviar'|translate}}</a>
+        </div>
+        <div class="col s6 center">
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar"
+            |translate}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
