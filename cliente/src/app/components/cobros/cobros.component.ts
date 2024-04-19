@@ -3,7 +3,6 @@ import { Cobros } from 'src/app/Models/Cobros';
 import { CobrosService } from './../../services/cobros.service';
 import Swal from 'sweetalert2';
 import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
-import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 declare var $: any;
 
 @Component({
