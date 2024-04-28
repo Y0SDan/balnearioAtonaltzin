@@ -24,8 +24,6 @@ export class ReservaComponent implements OnInit {
   DiasReservados: number;
   TotalAPagar: number;
   PrecioPorNoche: number;
-  idioma: any = 1;
-
   idCabana: any;
   cabana: Cabana1 = new Cabana1();
   idioma: any;
@@ -119,65 +117,99 @@ export class ReservaComponent implements OnInit {
     $("#modalCrearReservacion").modal("open");
   }
 
-<<<<<<< HEAD
+
   guardarNuevaReserva() {
     this.nuevaReserva.FechaInicio = this.FechaInicio;
     this.nuevaReserva.FechaFin = this.FechaFin;
-
-    this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
-      .subscribe((res: any) => {
-        console.log(res.resultado);
-        console.log("ID_CABANA: ", this.nuevaReserva.ID_Cabana, "Fecha inicio: ", this.nuevaReserva.FechaInicio, "Fecha Fin: ", this.nuevaReserva.FechaFin)
-        if (res.resultado === 1) {
-=======
-guardarNuevaReserva() {
-  this.nuevaReserva.FechaInicio = this.FechaInicio;
-  this.nuevaReserva.FechaFin = this.FechaFin;
-  if (this.idioma  !=1) {
-  this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
-    .subscribe((res: any) => {
-      console.log(res.resultado);
-      console.log("ID_CABANA: ",this.nuevaReserva.ID_Cabana, "Fecha inicio: ",this.nuevaReserva.FechaInicio, "Fecha Fin: ",this.nuevaReserva.FechaFin)
-      if (res.resultado === 1) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          text: 'La cabaña no está disponible en el rango de fechas seleccionado'
-        });
-      } else if (res.error) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          text: res.message
-        });
-      } else {
-        if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
-          // Las fechas no son válidas, muestra un mensaje de error
->>>>>>> a09e1e37b7340a0fc8f9eee49853cff918a2eb7d
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            text: 'La cabaña no está disponible en el rango de fechas seleccionado'
-          });
-        } else if (res.error) {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            text: res.message
-          });
-        } else {
-          if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
-            // Las fechas no son válidas, muestra un mensaje de error
+    if (this.idioma != 1) {
+      this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
+        .subscribe((res: any) => {
+          console.log(res.resultado);
+          console.log("ID_CABANA: ", this.nuevaReserva.ID_Cabana, "Fecha inicio: ", this.nuevaReserva.FechaInicio, "Fecha Fin: ", this.nuevaReserva.FechaFin)
+          if (res.resultado === 1) {
             Swal.fire({
               position: 'center',
               icon: 'error',
-              text: 'Las fechas de la reserva no son válidas'
+              text: 'La cabaña no está disponible en el rango de fechas seleccionado'
             });
-<<<<<<< HEAD
-            return;
+          } else if (res.error) {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              text: res.message
+            });
+          } else {
+            if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
+              // Las fechas no son válidas, muestra un mensaje de error
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                text: 'La cabaña no está disponible en el rango de fechas seleccionado'
+              });
+            } else if (res.error) {
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                text: res.message
+              });
+            } else {
+              if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
+                // Las fechas no son válidas, muestra un mensaje de error
+                Swal.fire({
+                  position: 'center',
+                  icon: 'error',
+                  text: 'Las fechas de la reserva no son válidas'
+                });
+                return;
+              }
+              this.reservaService.addReserva(this.nuevaReserva)
+                .subscribe(() => {
+                  $('#modalCrearReservacion').modal('close');
+                  this.reservaService.list().subscribe(
+                    (resusuarios: any) => {
+                      this.reserva = resusuarios;
+                      console.log(resusuarios);
+                    },
+                    (err: any) => {
+                      console.error(err);
+                      this.showAlert('Something went wrong!', 'error');
+                    }
+                  );
+
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    text: 'Reserva realizada'
+                  });
+                }, err => console.error(err));
+            }
           }
-          this.reservaService.addReserva(this.nuevaReserva)
-            .subscribe(() => {
+        },err => console.error(err));   // Llamar a mostrarPrecioReserva para obtener el precio total
+          
+
+    } else {
+      this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
+        .subscribe((res: any) => {
+          console.log(res.resultado);
+          console.log("ID_CABANA: ", this.nuevaReserva.ID_Cabana, "Fecha inicio: ", this.nuevaReserva.FechaInicio, "Fecha Fin: ", this.nuevaReserva.FechaFin)
+          if (res.resultado === 1) {
+            Swal.fire({
+              position: 'center',
+              icon: 'error',
+              text: "The cabin is not available in the selected date range"
+            });
+          } else {
+            if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
+              // Las fechas no son válidas, muestra un mensaje de error
+              Swal.fire({
+                position: 'center',
+                icon: 'error',
+                text: "Reservation dates are not valid"
+              });
+              return;
+            }
+            // Si la cabaña está disponible, se agrega la reserva
+            this.reservaService.addReserva(this.nuevaReserva).subscribe((res) => {
               $('#modalCrearReservacion').modal('close');
               this.reservaService.list().subscribe(
                 (resusuarios: any) => {
@@ -189,67 +221,17 @@ guardarNuevaReserva() {
                   this.showAlert('Something went wrong!', 'error');
                 }
               );
-
               Swal.fire({
                 position: 'center',
                 icon: 'success',
-                text: 'Reserva realizada'
+                text: "Reservation completed"
               });
             }, err => console.error(err));
-        }
-      }, err => console.error(err));   // Llamar a mostrarPrecioReserva para obtener el precio total
-  }
-=======
-          }, err => console.error(err));
-      }
-  }, err => console.error(err));   // Llamar a mostrarPrecioReserva para obtener el precio total
-
-} else {
-  this.reservaService.ValidarReserva(this.nuevaReserva.ID_Cabana, this.nuevaReserva.FechaInicio, this.nuevaReserva.FechaFin)
-    .subscribe((res: any) => {
-      console.log(res.resultado);
-      console.log("ID_CABANA: ", this.nuevaReserva.ID_Cabana, "Fecha inicio: ", this.nuevaReserva.FechaInicio, "Fecha Fin: ", this.nuevaReserva.FechaFin)
-      if (res.resultado === 1) {
-        Swal.fire({
-          position: 'center',
-          icon: 'error',
-          text: "The cabin is not available in the selected date range"
-        });
-      } else {
-        if (new Date(this.nuevaReserva.FechaInicio) >= new Date(this.nuevaReserva.FechaFin) || new Date(this.nuevaReserva.FechaInicio).getTime() === new Date(this.nuevaReserva.FechaFin).getTime()) {
-          // Las fechas no son válidas, muestra un mensaje de error
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            text: "Reservation dates are not valid"
-          });
-          return;
-        }
-        // Si la cabaña está disponible, se agrega la reserva
-        this.reservaService.addReserva(this.nuevaReserva).subscribe((res) => {
-          $('#modalCrearReservacion').modal('close');
-          this.reservaService.list().subscribe(
-            (resusuarios: any) => {
-              this.reserva = resusuarios;
-              console.log(resusuarios);
-            },
-            (err: any) => {
-              console.error(err);
-              this.showAlert('Something went wrong!', 'error');
-            }
-          );
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            text: "Reservation completed"
-          });
+          }
         }, err => console.error(err));
-      }
-    }, err => console.error(err));
-}
+    }
 
-}
->>>>>>> a09e1e37b7340a0fc8f9eee49853cff918a2eb7d
+  }
 
 
   updateFechaInicio(event: any) {
