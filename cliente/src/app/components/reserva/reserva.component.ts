@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Reservacion } from 'src/app/Models/Reservacion';
 import { ReservaService } from './../../services/reserva.service';
-<<<<<<< HEAD
 import { Cabana1 } from 'src/app/Models/Cabana1';
 import { ImagenCabana } from 'src/app/Models/ImagenCabana';
 import { CabanaService } from './../../services/cabana.service';
 import { ImagenescabanasService } from 'src/app/services/imagenescabanas.service';
 import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 import { environment } from 'src/environments/environment';
-=======
-import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
->>>>>>> a09e1e37b7340a0fc8f9eee49853cff918a2eb7d
 import Swal from 'sweetalert2';
 declare var $: any;
 
