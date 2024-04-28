@@ -51,7 +51,6 @@ export class CabanaComponent implements OnInit {
       this.cabanas = resusuario;
       this.cabanas.forEach(cabana => {
         this.obtenerImagen(cabana.ID_Cabana);
-        console.log("Cabaña ngOninit: ", cabana)
       });
     }, err => console.error(err));
   }
@@ -358,8 +357,6 @@ export class CabanaComponent implements OnInit {
   obtenerImagen(idCabana: any) {
     this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
       this.cabana = resusuario;
-      console.log("Cabaña de ListOne: ", this.cabana)
-      console.log("idCabaña de ListOne: ", idCabana)
       this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
         this.imagenescabana = res;
         // Para ver que imagenescabana no esté vacío
