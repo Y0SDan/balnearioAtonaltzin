@@ -32,7 +32,10 @@ export class CabanaComponent implements OnInit {
   imgColumnas: { [idCabana: number]: number } = {};
   idioma: any = 1;
 
-  constructor(private cabanaService: CabanaService, private imagenesService: ImagenesService, private imagenescabanasService: ImagenescabanasService, private cambioIdiomaService: CambioIdiomaService) {
+  constructor(private cabanaService: CabanaService, 
+    private imagenesService: ImagenesService, 
+    private imagenescabanasService: ImagenescabanasService,
+    private cambioIdiomaService: CambioIdiomaService) {
     this.imgCabana = null;
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
