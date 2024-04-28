@@ -1,4 +1,3 @@
-
 <a href="javascript:void(0);" class="waves-effect btn btn-border" (click)="addCliente()">
   <i class="material-icons left">add</i> {{"Crear usuario" | translate}}
 </a>
@@ -18,7 +17,8 @@
     paginate: {
       itemsPerPage: pageSize,
       currentPage: p };let i=index">
-    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}"></td>
+    <td *ngIf="cliente.foto == 1"><img width="64" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{liga}}">
+    </td>
     <td *ngIf="cliente.foto == 0"><img width="64" src="{{liga}}/clientes/0.jpg" alt="{{liga}}"></td>
     <td>{{ cliente.Nombre }}</td>
     <td>{{ cliente.Apellido }}</td>
@@ -38,7 +38,8 @@
   </tr>
 </table>
 <div class="blue-text text-darken-2">
-  <pagination-controls class="col s6" (pageChange)="p = ($event)" previousLabel="{{'Anterior' | translate}}" nextLabel="{{'Siguiente' | translate}} ">
+  <pagination-controls class="col s6" (pageChange)="p = ($event)" previousLabel="{{'Anterior' | translate}}"
+    nextLabel="{{'Siguiente' | translate}} ">
   </pagination-controls>
 </div>
 <!--Modal para Modificar el cliente-->
@@ -67,26 +68,14 @@
           <label class="active">{{"Telefono"| translate}} </label>
           <input [(ngModel)]="cliente.Telefono" type="text" class="validate">
         </div>
-        <div class="col s12">
-          <p>{{"Tipo:"| translate}}</p>
-          <p>
-            <label>
-              <input name="tipo" type="radio" [(ngModel)]="cliente.tipo" value="administrador" />
-              <span>{{"Administrador" | translate}}</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="tipo" type="radio" [(ngModel)]="cliente.tipo" value="seller" />
-              <span>{{"Vendedor" | translate}}</span>
-            </label>
-          </p>
-          <p>
-            <label>
-              <input name="tipo" type="radio" [(ngModel)]="cliente.tipo" value="usuario" />
-              <span>{{"Usuario" | translate}}</span>
-            </label>
-          </p>
+        <div class="input-field col s12">
+          <select [(ngModel)]="cliente.tipo" id="cliente" name="cliente" class="browser-default waves-block">
+            <option value="" disabled>Elige el tipo de usuario</option>
+            <option value="administrador" [selected]="cliente.tipo === 'administrador'">Administrador</option>
+            <option value="seller" [selected]="cliente.tipo === 'seller'">Seller</option>
+            <option value="usuario" [selected]="cliente.tipo === 'usuario'">Usuario</option>
+          </select>
+          <label class="active">Tipo</label>
         </div>
       </div>
       <div class="row">
@@ -95,7 +84,8 @@
             (click)="guardarActualizarCliente()" value="{{'Enviar' | translate}}">
         </div>
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" |translate}}</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar"
+            |translate}}</a>
         </div>
       </div>
     </div>
@@ -128,21 +118,23 @@
           <input [(ngModel)]="clienteNuevo.Telefono" type="text" class="validate">
         </div>
         <div class="input-field col s12">
-          <select [(ngModel)]="clienteNuevo.tipo" [compareWith]="compareFn">
-            <option value="" disabled selected>{{"Elige el tipo de usuario" | translate}}</option>
-            <option value="administrador">{{"Administrador" | translate}}</option>
-            <option value="seller">{{"Vendedor" | translate}}</option>
-            <option value="usuario">{{"Usuario" | translate}}</option>
+          <label class="active">Tipo</label>
+          <select [(ngModel)]="clienteNuevo.tipo" id="clienteNuevo" name="clienteNuevo" class="browser-default waves-block">
+            <option value="" disabled selected>Elige el tipo de usuario</option>
+            <option value="administrador">Administrador</option>
+            <option value="seller">Seller</option>
+            <option value="usuario">Usuario</option>
           </select>
-          <label class="active">{{"Type" | translate}}</label>
         </div>
       </div>
       <div class="row">
         <div class="col s6 center">
-          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close" (click)="guardarNuevoUsuario()" value="{{'Enviar'|translate}}">
+          <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close"
+            (click)="guardarNuevoUsuario()" value="{{'Enviar'|translate}}">
         </div>
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" | translate}}</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" |
+            translate}}</a>
         </div>
       </div>
     </div>
@@ -151,8 +143,10 @@
 <div id="modalAgregarImagen" class="modal">
   <div class="modal-content">
     <div style="text-align: center;">
-      <img class="center-image" *ngIf="cliente.foto == 1" width="150" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg" alt="{{cliente.Nombre}}">
-      <img class="center-image" *ngIf="cliente.foto == 0" width="150" src="{{liga}}/clientes/0.jpg" alt="No tiene foto el cliente">
+      <img class="center-image" *ngIf="cliente.foto == 1" width="150" src="{{liga}}/clientes/{{cliente.ID_Cliente}}.jpg"
+        alt="{{cliente.Nombre}}">
+      <img class="center-image" *ngIf="cliente.foto == 0" width="150" src="{{liga}}/clientes/0.jpg"
+        alt="No tiene foto el cliente">
     </div>
     <div class="row" style="margin-bottom: 0px !important;">
       <div class="col s12">
@@ -168,10 +162,12 @@
       </div>
       <div class="row">
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text" (click)="guardarImagen()">{{'Enviar'|translate}}</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text"
+            (click)="guardarImagen()">{{'Enviar'|translate}}</a>
         </div>
         <div class="col s6 center">
-          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar" |translate}}</a>
+          <a class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text">{{"Cancelar"
+            |translate}}</a>
         </div>
       </div>
     </div>

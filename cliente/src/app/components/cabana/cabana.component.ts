@@ -29,35 +29,33 @@ export class CabanaComponent implements OnInit {
   idImg = 0;
   imagencabana: ImagenCabana = new ImagenCabana();
   imagenescabana: ImagenCabana[] = [];
+  imgColumnas: { [idCabana: number]: number } = {};
   idioma: any = 1;
 
-  constructor(private cabanaService: CabanaService, private imagenesService: ImagenesService, private imagenescabanasService: ImagenescabanasService, private cambioIdiomaService: CambioIdiomaService) {
+  constructor(private cabanaService: CabanaService, 
+    private imagenesService: ImagenesService, 
+    private imagenescabanasService: ImagenescabanasService,
+    private cambioIdiomaService: CambioIdiomaService) {
     this.imgCabana = null;
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
-    this.idioma = 1;
-    //this.getLanguage(this.idioma);
     this.idioma = localStorage.getItem("idioma");
-    console.log("idioma", this.idioma)
-    if (this.idioma === null || this.idioma === undefined || this.idioma === '') {
-      //Si el usuario no cambio el idioma lo dejamos por default en ingles
-      localStorage.setItem("idioma","2"); 
-      this.idioma= "2";
-    }
+    this.cambioIdiomaService.currentMsg$.subscribe(
+      (msg) => {
+        if (msg != '') {
+          this.idioma = msg;
+        }
+      }
+    );
   }
-  
+
   ngOnInit(): void {
     this.cabanaService.list().subscribe((resusuario: any) => {
       this.cabanas = resusuario;
+      this.cabanas.forEach(cabana => {
+        this.obtenerImagen(cabana.ID_Cabana);
+      });
     }, err => console.error(err));
-    console.log(this.idioma);
-    
-    this.cambioIdiomaService.currentMsg$.subscribe(
-      (msg) => {
-        this.idioma = msg;
-        console.log("idioma actual cabanas:", this.idioma, " aaaa");
-      }
-    );
   }
 
   crearcabana() {
@@ -128,8 +126,8 @@ export class CabanaComponent implements OnInit {
   }
   guardarActualizarCabana() {
     console.log(this.idioma);
-    
-    if (this.idioma != 1 ) {
+
+    if (this.idioma != 1) {
       this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
         $('#modalModificarCabana').modal('close');
         this.showAlert('Cabaña actualizada correctamente', 'success');
@@ -155,8 +153,6 @@ export class CabanaComponent implements OnInit {
     }
   }
   eliminarCabana(id: any) {
-    console.log("Click en eliminar esta cabaña");
-    console.log("Identificador del Cliente: ", id);
     if (this.idioma != 1) {
       Swal.fire({
         title: " ¿Estás seguro de eliminar esta cabaña?",
@@ -165,6 +161,7 @@ export class CabanaComponent implements OnInit {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
+        cancelButtonText: "Cancelar",
         confirmButtonText: "Sí, quiero eliminarlo!"
       }).then((result) => {
         if (result.isConfirmed) {
@@ -254,37 +251,9 @@ export class CabanaComponent implements OnInit {
   }
 
   cargandoImagen(archivo: any) {
-    this.imagenescabanasService.crearImagenCabana({ ID_Cabana: this.cabana.ID_Cabana }).subscribe((res: any) => {
-      this.idImg = res.insertId;
-      console.log("idImg: ", this.idImg);
-
-      // Se movio el codigo acá para que respete el valor de idImg en ves de ir abajo
-      this.imgCabana = null;
-      this.liga = environment.API_URL_IMAGENES;
-      this.fileToUpload = archivo.files.item(0);
-      let imgPromise = this.getFileBlob(this.fileToUpload);
-      imgPromise.then(blob => {
-        this.imagenesService.guardarImagenCabana(this.cabana.ID_Cabana, this.idImg, "cabanas", blob).subscribe(
-          (res: any) => {
-            this.imgCabana = blob;
-            // Actualizar la variable 'liga' después de cargar la imagen
-            this.liga = environment.API_URL_IMAGENES + "/cabanas/" + this.cabana.ID_Cabana + "_" + this.idImg + ".jpg";
-            this.cabanaService.list().subscribe((resCabanas: any) => {
-              this.cabanas = resCabanas;
-            }, err => console.error(err));
-            this.liga = environment.API_URL_IMAGENES;
-          },
-          err => console.error(err));
-      });
-      //en lugar de acá
-      this.cabana.foto = 1;
-    },
-      err => {
-        console.error(err);
-      });
-  }
-  guardarImagen() {
-
+    this.imgCabana = null;
+    this.fileToUpload = null;
+    this.fileToUpload = archivo.files.item(0);
   }
 
   /*
@@ -311,43 +280,163 @@ export class CabanaComponent implements OnInit {
   }
 
   guardarActualizarCabanaImg() {
-    if (this.idioma == 2) {
-      this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
-        this.showAlert('Imagen actualizada correctamente', 'success');
-        this.cabanaService.list().subscribe((resusuario: any) => {
-          this.cabanas = resusuario;
-        })
-      }, err => {
-        console.error(err);
-        this.showAlert('Error al actualizar la imagen', 'error');
+    if (!this.fileToUpload || this.fileToUpload.size === 0) {
+      const errorMessage = (this.idioma === 2) ? "No has seleccionado ninguna imagen" : "You have not selected any image";
+
+      Swal.fire({
+        title: "Error",
+        text: errorMessage,
+        icon: "error"
       });
-      //location.reload();  //Se actualiza la pagina para el caso en el que se actualice la imagen de una cabaña
+      return; // Salir de la función si la imagen está vacía
     }
-    else { 
-      this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
-        this.showAlert('Image updated correctly', 'success');
-        this.cabanaService.list().subscribe((resusuario: any) => {
-          this.cabanas = resusuario;
-        })
-      }, err => {
-        console.error(err);
-        this.showAlert('Error updating image', 'error');
+    this.imagenescabanasService.crearImagenCabana({ ID_Cabana: this.cabana.ID_Cabana }).subscribe((res: any) => {
+      this.idImg = res.insertId;
+      // Se movio el codigo acá para que respete el valor de idImg en ves de ir abajo
+      this.liga = environment.API_URL_IMAGENES;
+      let imgPromise = this.getFileBlob(this.fileToUpload);
+      imgPromise.then(blob => {
+        this.imagenesService.guardarImagen(this.idImg, "cabanas", blob).subscribe(
+          (res: any) => {
+            this.imgCabana = blob;
+            // Actualizar la variable 'liga' después de cargar la imagen
+            this.liga = environment.API_URL_IMAGENES + "/cabanas/" + this.idImg + ".jpg";
+            this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
+              if (this.idioma == 2) {
+                Swal.fire({
+                  text: "Imagen actualizada correctamente.",
+                  icon: "success"
+                }).then(function () {
+                  location.reload();
+                });
+              }
+              else {
+                Swal.fire({
+                  text: "Image updated correctly.",
+                  icon: "success"
+                }).then(function () {
+                  location.reload();
+                });
+              }
+              this.cabanaService.list().subscribe((resCabanas: any) => {
+                this.cabanas = resCabanas;
+              }, err => console.error(err));
+            }, err => {
+              console.error(err);
+              if (this.idioma == 2) {
+                this.showAlert('Error al actualizar la imagen', 'error');
+              }
+              else {
+                this.showAlert('Error updating image', 'error');
+              }
+            });
+            this.liga = environment.API_URL_IMAGENES;
+          },
+          err => console.error(err));
       });
-    }
+      //en lugar de acá
+      this.cabana.foto = 1;
+    },
+      err => {
+        console.error(err);
+      });
+    //location.reload();
   }
 
 
 
-    mostrarImagenes(idCabana: any) {
-      this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
-        this.cabana = resusuario;
-        this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
-          this.imagenescabana = res;
-        }, err => console.error(err));
-        $('#modalmostrarImagenes').modal();
-        $("#modalmostrarImagenes").modal("open");
+  mostrarImagenes(idCabana: any) {
+    this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
+      this.cabana = resusuario;
+      this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
+        this.imagenescabana = res;
       }, err => console.error(err));
-
-    }
+      $('#modalmostrarImagenes').modal();
+      $("#modalmostrarImagenes").modal("open");
+    }, err => console.error(err));
 
   }
+
+  obtenerImagen(idCabana: any) {
+    this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
+      this.cabana = resusuario;
+      this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
+        this.imagenescabana = res;
+        // Para ver que imagenescabana no esté vacío
+        if (this.imagenescabana.length > 0) {
+          // Use Math.max con map para obtener el id más grande
+          this.imgColumnas[idCabana] = Math.max(...this.imagenescabana.map(imagen => imagen.id)); // ... es operador de propagación o spread operator se utiliza para expandir elementos iterables, como un array, en lugares donde se esperan cero o más argumentos (para llamadas a funciones) o elementos (para arrays literales)
+        }
+      }, err => {
+        console.error(err);
+        this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
+          this.cabana = resusuario;
+          this.cabana.foto = 0;
+          this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
+            this.cabanaService.list().subscribe((resusuario: any) => {
+              this.cabanas = resusuario;
+            })
+          }, err => {
+            console.error(err);
+          });
+        }, err => console.error(err));
+      });
+    }, err => console.error(err));
+  }
+
+  borrarImagen(idImagen: any) {
+    if (this.idioma != 1) {
+      Swal.fire({
+        title: " ¿Estás seguro de eliminar esta imagen?",
+        text: "¡No es posible revertir esta acción!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Sí, quiero eliminarlo!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.imagenescabanasService.eliminarImagenCabana(idImagen).subscribe((resimagenCabana: any) => {
+            this.imagenesService.eliminarImagen(idImagen, "cabanas").subscribe((resimagen: any) => {
+              //location.reload();
+            }, err => console.error(err));
+          }, err => console.error(err));
+          Swal.fire({
+            title: "Eliminado!",
+            text: "Tu imagen ha sido eliminada.",
+            icon: "success"
+          }).then(function () {
+            location.reload();
+          });
+        }
+      });
+    } else {
+      Swal.fire({
+        title: "Are you sure to eliminate this image?",
+        text: "It is not possible to reverse this action!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, I want to eliminate it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.imagenescabanasService.eliminarImagenCabana(idImagen).subscribe((resimagenCabana: any) => {
+            this.imagenesService.eliminarImagen(idImagen, "cabanas").subscribe((resimagen: any) => {
+              //location.reload();
+            }, err => console.error(err));
+          }, err => console.error(err));
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your image has been deleted",
+            icon: "success"
+          }).then(function () {
+            location.reload();
+          });
+        }
+      });
+    }
+  }
+
+}

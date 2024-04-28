@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 15-04-2024 a las 01:16:14
+-- Tiempo de generación: 19-04-2024 a las 14:35:55
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `cabana` (
   `ID_Cabana` int NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `Descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `Description` varchar(1000) COLLATE utf8mb4_general_ci NOT NULL,
   `PrecioPorNoche` decimal(10,2) DEFAULT NULL,
   `Capacidad` int DEFAULT NULL,
   `foto` int NOT NULL,
@@ -65,11 +66,11 @@ CREATE TABLE IF NOT EXISTS `cabana` (
 -- Volcado de datos para la tabla `cabana`
 --
 
-INSERT INTO `cabana` (`ID_Cabana`, `Nombre`, `Descripcion`, `PrecioPorNoche`, `Capacidad`, `foto`) VALUES
-(1, 'Cabana A', 'Para 2 personas, cómoda y cuenta con televisión', '800.00', 2, 1),
-(2, 'Cabaña Z', 'Para 4 personas, cuenta con television, chimenea, cafetera y frigobar', '1600.00', 4, 1),
-(3, 'Cabaña C', 'Para 6 personas, cuenta con television, chimenea, cafetera y frigobar', '2400.00', 6, 1),
-(4, 'Cabaña D', 'Para 10 personas, cuenta con television, chimenea, cafetera y frigobar', '4000.00', 10, 1);
+INSERT INTO `cabana` (`ID_Cabana`, `Nombre`, `Descripcion`, `Description`, `PrecioPorNoche`, `Capacidad`, `foto`) VALUES
+(1, 'Cabana A', 'Para 2 personas, cómoda y cuenta con televisión', 'For 2 people, comfortable and with television', '800.00', 2, 1),
+(2, 'Cabaña Z', 'Para 4 personas, cuenta con television, chimenea, cafetera y frigobar', 'For 4 people, with television, fireplace, coffee maker and minibar.', '1600.00', 4, 1),
+(3, 'Cabaña C', 'Para 6 personas, cuenta con television, chimenea, cafetera y frigobar', 'For 6 people, with television, fireplace, coffee maker and minibar.', '2400.00', 6, 1),
+(4, 'Cabaña D', 'Para 10 personas, cuenta con television, chimenea, cafetera y frigobar', 'For 10 people, with television, fireplace, coffee maker and minibar.', '4000.00', 10, 1);
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 --
 
 INSERT INTO `cliente` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Telefono`, `password1`, `tipo`, `foto`) VALUES
-(27, 'Diego', 'Ramses', 'lorga_77@hotmail.com', '2345670987', '123', 'administrador', 1),
+(27, 'Diego', 'Ramses', 'lorga_77@hotmail.com', '2345670987', '$2a$10$PIq7liKxQZEDlGBGfHtn0.kF05g8ze/CYKK7hrLG.5h7aIbSAlgB2', 'administrador', 1),
 (37, 'Evan', 'Lorga', 'lorga@gmail.com', '9514567890', 'wuero', 'seller', 0),
 (38, 'Diego Ramses ', 'Lorga Luz', 'ramseslorga@gmail.com', '9515451324', 'Reptilia', 'seller', 1),
 (42, 'Marcos', 'Martinez', 'marcos@gmail.com', '9876543210', '$2a$10$k63QEvPjeJ0AE9C5mkasve.RqURa1PMQnxAKzri99d8KhNZEiGBL6', 'seller', 1),
@@ -121,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `cobros` (
   `Estado` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`IdCobro`),
   KEY `IdReservacion` (`IdReservacion`)
-) ENGINE=InnoDB AUTO_INCREMENT=130 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=135 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cobros`
@@ -138,7 +139,12 @@ INSERT INTO `cobros` (`IdCobro`, `IdReservacion`, `MontoCobrado`, `Fecha_Cobro`,
 (106, 86, '4000', '2024-03-31 23:10:40', 'Pagado'),
 (107, 87, '4000', '2024-03-31 23:10:47', 'Pagado'),
 (108, 88, '3200', '2024-03-31 23:17:58', 'Pagado'),
-(109, 89, '3200', '2024-04-01 10:35:27', 'Pagado');
+(109, 89, '3200', '2024-04-01 10:35:27', 'Pagado'),
+(130, 110, '3200', '2024-04-19 06:26:18', 'Pagado'),
+(131, 111, '6400', '2024-04-19 08:49:15', 'Paid'),
+(132, 112, '1600', '2024-04-19 08:49:25', 'Pagado'),
+(133, 113, '6400', NULL, 'Sin pagar'),
+(134, 114, '1600', NULL, 'Sin pagar');
 
 -- --------------------------------------------------------
 
@@ -270,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `reservaciones` (
   PRIMARY KEY (`ID_Reservacion`),
   KEY `ID_Cabaña` (`ID_Cabana`),
   KEY `ID_Cliente` (`ID_Cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reservaciones`
@@ -296,7 +302,12 @@ INSERT INTO `reservaciones` (`ID_Reservacion`, `ID_Cabana`, `ID_Cliente`, `Fecha
 (91, 1, 48, '2024-03-04', '2024-03-06'),
 (92, 2, 48, '2024-03-05', '2024-03-07'),
 (93, 2, 48, '2024-03-06', '2024-03-07'),
-(94, 1, 48, '2024-03-05', '2024-03-08');
+(94, 1, 48, '2024-03-05', '2024-03-08'),
+(110, 1, -1, '2024-04-22', '2024-04-26'),
+(111, 2, 48, '2024-04-08', '2024-04-12'),
+(112, 2, 48, '2024-04-25', '2024-04-26'),
+(113, 2, 48, '2024-04-15', '2024-04-19'),
+(114, 2, 48, '2024-04-29', '2024-04-30');
 
 --
 -- Restricciones para tablas volcadas

@@ -17,12 +17,10 @@ export class ImagenesService {
     });
   }
 
-  guardarImagenCabana(id : any, idImagen : any, tipo : any, src : any) {
-    return this.http.post(`${environment.API_URL_IMAGENES}/uploadImagenCabana`, {
-      "id": id,
-      "idImagen" : idImagen,
-      "tipo": tipo,
-      "src": src
+  eliminarImagen(id : any, tipo : any){
+    return this.http.post(`${environment.API_URL_IMAGENES}/deleteImagen`, {
+      "id" : id,
+      "tipo" : tipo
     });
   }
 
