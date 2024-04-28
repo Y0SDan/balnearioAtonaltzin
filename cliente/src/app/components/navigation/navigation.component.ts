@@ -60,12 +60,12 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     localStorage.removeItem("Email")
     localStorage.removeItem("ID_Cliente")
     this.router.navigateByUrl('home/principal')
-    //location.reload();  //Se recarga la página para actualizar la barra de navegacion
 
     this.ID_Cliente = null;
     this.Tipo_Usuario = '';
 
     this.initializeDropdown();
+    location.reload();  //Se recarga la página para actualizar el local storage para principal
   }
 
   redireccion(pagina:string){

@@ -290,14 +290,11 @@ export class CabanaComponent implements OnInit {
     this.imagenescabanasService.crearImagenCabana({ ID_Cabana: this.cabana.ID_Cabana }).subscribe((res: any) => {
       this.idImg = res.insertId;
       // Se movio el codigo acá para que respete el valor de idImg en ves de ir abajo
-      this.liga = environment.API_URL_IMAGENES;
       let imgPromise = this.getFileBlob(this.fileToUpload);
       imgPromise.then(blob => {
         this.imagenesService.guardarImagen(this.idImg, "cabanas", blob).subscribe(
           (res: any) => {
             this.imgCabana = blob;
-            // Actualizar la variable 'liga' después de cargar la imagen
-            this.liga = environment.API_URL_IMAGENES + "/cabanas/" + this.idImg + ".jpg";
             this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
               if (this.idioma == 2) {
                 Swal.fire({
@@ -327,7 +324,6 @@ export class CabanaComponent implements OnInit {
                 this.showAlert('Error updating image', 'error');
               }
             });
-            this.liga = environment.API_URL_IMAGENES;
           },
           err => console.error(err));
       });
