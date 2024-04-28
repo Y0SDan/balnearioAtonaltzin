@@ -24,6 +24,7 @@ export class UsuarioComponent implements OnInit {
     $('.modal').modal();
   });
   }
+  
   addCliente() {
     this.clienteNuevo = new Cliente();
     console.log("Usuario Nuevo")
