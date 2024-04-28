@@ -37,10 +37,9 @@ export class CabanaComponent implements OnInit {
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
     this.idioma = localStorage.getItem("idioma");
-    console.log("idioma", this.idioma)
     this.cambioIdiomaService.currentMsg$.subscribe(
       (msg) => {
-        if(msg != ''){
+        if (msg != '') {
           this.idioma = msg;
         }
       }
@@ -52,16 +51,9 @@ export class CabanaComponent implements OnInit {
       this.cabanas = resusuario;
       this.cabanas.forEach(cabana => {
         this.obtenerImagen(cabana.ID_Cabana);
+        console.log("Cabaña ngOninit: ", cabana)
       });
     }, err => console.error(err));
-    console.log(this.idioma);
-
-    //this.cambioIdiomaService.currentMsg$.subscribe(
-    //  (msg) => {
-    //    this.idioma = msg;
-    //    console.log("idioma actual cabanas:", this.idioma, " aaaa");
-    //  }
-    //);
   }
 
   crearcabana() {
@@ -288,7 +280,7 @@ export class CabanaComponent implements OnInit {
   guardarActualizarCabanaImg() {
     if (!this.fileToUpload || this.fileToUpload.size === 0) {
       const errorMessage = (this.idioma === 2) ? "No has seleccionado ninguna imagen" : "You have not selected any image";
-      
+
       Swal.fire({
         title: "Error",
         text: errorMessage,
@@ -312,7 +304,7 @@ export class CabanaComponent implements OnInit {
                 Swal.fire({
                   text: "Imagen actualizada correctamente.",
                   icon: "success"
-                }).then(function() {
+                }).then(function () {
                   location.reload();
                 });
               }
@@ -320,7 +312,7 @@ export class CabanaComponent implements OnInit {
                 Swal.fire({
                   text: "Image updated correctly.",
                   icon: "success"
-                }).then(function() {
+                }).then(function () {
                   location.reload();
                 });
               }
@@ -342,7 +334,7 @@ export class CabanaComponent implements OnInit {
       });
       //en lugar de acá
       this.cabana.foto = 1;
-      },
+    },
       err => {
         console.error(err);
       });
@@ -366,6 +358,8 @@ export class CabanaComponent implements OnInit {
   obtenerImagen(idCabana: any) {
     this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
       this.cabana = resusuario;
+      console.log("Cabaña de ListOne: ", this.cabana)
+      console.log("idCabaña de ListOne: ", idCabana)
       this.imagenescabanasService.mostrarImagenesPorCabana(idCabana).subscribe((res: any) => {
         this.imagenescabana = res;
         // Para ver que imagenescabana no esté vacío
@@ -373,11 +367,24 @@ export class CabanaComponent implements OnInit {
           // Use Math.max con map para obtener el id más grande
           this.imgColumnas[idCabana] = Math.max(...this.imagenescabana.map(imagen => imagen.id)); // ... es operador de propagación o spread operator se utiliza para expandir elementos iterables, como un array, en lugares donde se esperan cero o más argumentos (para llamadas a funciones) o elementos (para arrays literales)
         }
-      }, err => console.error(err));
+      }, err => {
+        console.error(err);
+        this.cabanaService.listOne(idCabana).subscribe((resusuario: any) => {
+          this.cabana = resusuario;
+          this.cabana.foto = 0;
+          this.cabanaService.actualizarCabana(this.cabana).subscribe((res) => {
+            this.cabanaService.list().subscribe((resusuario: any) => {
+              this.cabanas = resusuario;
+            })
+          }, err => {
+            console.error(err);
+          });
+        }, err => console.error(err));
+      });
     }, err => console.error(err));
   }
 
-  borrarImagen(idImagen : any) {
+  borrarImagen(idImagen: any) {
     if (this.idioma != 1) {
       Swal.fire({
         title: " ¿Estás seguro de eliminar esta imagen?",
@@ -390,8 +397,8 @@ export class CabanaComponent implements OnInit {
         confirmButtonText: "Sí, quiero eliminarlo!"
       }).then((result) => {
         if (result.isConfirmed) {
-          this.imagenescabanasService.eliminarImagenCabana(idImagen).subscribe(( resimagenCabana : any) => {
-            this.imagenesService.eliminarImagen(idImagen, "cabanas").subscribe(( resimagen : any) => {
+          this.imagenescabanasService.eliminarImagenCabana(idImagen).subscribe((resimagenCabana: any) => {
+            this.imagenesService.eliminarImagen(idImagen, "cabanas").subscribe((resimagen: any) => {
               //location.reload();
             }, err => console.error(err));
           }, err => console.error(err));
@@ -399,7 +406,7 @@ export class CabanaComponent implements OnInit {
             title: "Eliminado!",
             text: "Tu imagen ha sido eliminada.",
             icon: "success"
-          }).then(function() {
+          }).then(function () {
             location.reload();
           });
         }
@@ -415,8 +422,8 @@ export class CabanaComponent implements OnInit {
         confirmButtonText: "Yes, I want to eliminate it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.imagenescabanasService.eliminarImagenCabana(idImagen).subscribe(( resimagenCabana : any) => {
-            this.imagenesService.eliminarImagen(idImagen, "cabanas").subscribe(( resimagen : any) => {
+          this.imagenescabanasService.eliminarImagenCabana(idImagen).subscribe((resimagenCabana: any) => {
+            this.imagenesService.eliminarImagen(idImagen, "cabanas").subscribe((resimagen: any) => {
               //location.reload();
             }, err => console.error(err));
           }, err => console.error(err));
@@ -424,7 +431,7 @@ export class CabanaComponent implements OnInit {
             title: "Deleted!",
             text: "Your image has been deleted",
             icon: "success"
-          }).then(function() {
+          }).then(function () {
             location.reload();
           });
         }
