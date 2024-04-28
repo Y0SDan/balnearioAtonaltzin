@@ -36,15 +36,15 @@ export class CabanaComponent implements OnInit {
     this.imgCabana = null;
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
-    this.idioma = 1;
-    //this.getLanguage(this.idioma);
     this.idioma = localStorage.getItem("idioma");
     console.log("idioma", this.idioma)
-    if (this.idioma === null || this.idioma === undefined || this.idioma === '') {
-      //Si el usuario no cambio el idioma lo dejamos por default en ingles
-      localStorage.setItem("idioma", "2");
-      this.idioma = "2";
-    }
+    this.cambioIdiomaService.currentMsg$.subscribe(
+      (msg) => {
+        if(msg != ''){
+          this.idioma = msg;
+        }
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -56,12 +56,12 @@ export class CabanaComponent implements OnInit {
     }, err => console.error(err));
     console.log(this.idioma);
 
-    this.cambioIdiomaService.currentMsg$.subscribe(
-      (msg) => {
-        this.idioma = msg;
-        console.log("idioma actual cabanas:", this.idioma, " aaaa");
-      }
-    );
+    //this.cambioIdiomaService.currentMsg$.subscribe(
+    //  (msg) => {
+    //    this.idioma = msg;
+    //    console.log("idioma actual cabanas:", this.idioma, " aaaa");
+    //  }
+    //);
   }
 
   crearcabana() {
