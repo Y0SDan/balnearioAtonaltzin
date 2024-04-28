@@ -25,6 +25,7 @@ class Server {
         this.app.use(express_1.default.urlencoded({ extended: false }));
     }
     routes() {
+        //Subir imagen
         this.app.post('/uploadImagen', (req, res) => {
             //console.log(req.body);
             //console.log("upload imageeee", req.body.id);
@@ -36,6 +37,17 @@ class Server {
                 console.log(err);
             });
             //console.log(res);
+            res.json({ fileName: id + '.jpg' });
+        });
+        //Eliminar imagen
+        this.app.post('/deleteImagen', (req, res) => {
+            const name = req.body.tipo;
+            const id = req.body.id;
+            try {
+                var sourceImg = `${__dirname}/imagenes/` + name + '/' + id + '.jpg';
+                fs_1.default.unlinkSync(sourceImg);
+            }
+            catch (err) { }
             res.json({ fileName: id + '.jpg' });
         });
     }

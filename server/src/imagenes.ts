@@ -26,6 +26,7 @@ class Server {
     }
 
     routes(): void {
+        //Subir imagen
         this.app.post('/uploadImagen', (req, res) => {
             //console.log(req.body);
             
@@ -42,6 +43,17 @@ class Server {
                 });
             //console.log(res);
             res.json({ fileName: id + '.jpg' });
+        });
+        //Eliminar imagen
+        this.app.post('/deleteImagen', (req, res)  => {
+            const name = req.body.tipo;
+            const id = req.body.id;
+            try {
+                var sourceImg = `${__dirname}/imagenes/` + name + '/' + id + '.jpg';
+                fs.unlinkSync(sourceImg);
+            }
+            catch(err){}
+            res.json({ fileName : id + '.jpg' })
         });
     }
 
