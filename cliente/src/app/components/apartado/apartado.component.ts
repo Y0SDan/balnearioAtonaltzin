@@ -27,29 +27,91 @@ export class ApartadoComponent implements OnInit {
     this.DiasReservados = 0;
     this.TotalAPagar = 0;
     this.PrecioPorNoche = 0;
-    this.idioma = 1;
-    this.idioma = localStorage.getItem("idioma");
-    console.log("idioma", this.idioma)
-    if (this.idioma === null || this.idioma === undefined || this.idioma === '') {
-      //Si el usuario no cambio el idioma lo dejamos por default en ingles
-      localStorage.setItem("idioma", "2");
-      this.idioma = "2";
-    }
+    this.idioma= localStorage.getItem("idioma");
+    this.cambioIdiomaService.currentMsg$.subscribe(
+        (msg) => {
+          console.log("idioma actual:", this.idioma, " aaaa");
+          if(msg != ''){
+            this.idioma = msg;
+          }
+            if(this.idioma=="1"){
+              console.log("Ingles");
+              this.calendarioEn();
+            }else{
+              console.log("Español");
+              this.calendarioEs();
+            }
+        });
+
   }
 
   ngOnInit(): void {
-    {
-      this.initDatepickerIni();
-      this.initDatepickerFin();
-    }
+    this.idioma = localStorage.getItem("idioma");
     $(document).ready(function () {
       $('.materialboxed').materialbox();
     });
-    this.cambioIdiomaService.currentMsg$.subscribe(
-      (msg) => {
-        this.idioma = msg;
-        console.log("idioma actual cabanas:", this.idioma, " aaaa");
-      } );
+
+  }
+  calendarioEn(){
+    $("#fechaIni").datepicker({
+      format: 'yyyy-mm-dd',
+      defaultDate: this.FechaInicio
+    })
+    ///////////////
+    $("#fechaFin").datepicker({
+      format: 'yyyy-mm-dd',
+      defaultDate: this.FechaFin
+    })
+    
+  }
+  calendarioEs(){
+    console.log("holaaaaaaa");
+    
+    $("#fechaIni").datepicker({
+      format: 'yyyy-mm-dd',
+      i18n: {
+        months: [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ],
+        monthsShort: [
+            'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+            'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+        ],
+        weekdays: [
+            'Domingo', 'Lunes', 'Martes', 'Miércoles',
+            'Jueves', 'Viernes', 'Sábado'
+        ],
+        weekdaysShort: [
+            'Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'
+        ],
+        weekdaysAbbrev: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+    },
+      defaultDate: this.FechaInicio
+    })
+    //////////
+    $("#fechaFin").datepicker({
+      format: 'yyyy-mm-dd',
+      i18n: {
+        months: [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ],
+        monthsShort: [
+            'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+            'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+        ],
+        weekdays: [
+            'Domingo', 'Lunes', 'Martes', 'Miércoles',
+            'Jueves', 'Viernes', 'Sábado'
+        ],
+        weekdaysShort: [
+            'Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'
+        ],
+        weekdaysAbbrev: ['D', 'L', 'M', 'M', 'J', 'V', 'S']
+    },
+      defaultDate: this.FechaFin
+    })
   }
   calcularPrecioTotal() {
     const fechaInicio = new Date(this.FechaInicio);

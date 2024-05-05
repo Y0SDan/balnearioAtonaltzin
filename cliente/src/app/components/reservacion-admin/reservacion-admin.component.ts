@@ -40,7 +40,7 @@ export class ReservacionAdminComponent implements OnInit {
       if (resusuario.FechaFin === '0000-00-00') {
         resusuario.FechaFin = '';
       }
-
+ 
       this.reservacion = resusuario; // Asigna el objeto a this.reservacion
       console.log(this.reservacion)
       $(`#modalModificarReservacion`).modal();

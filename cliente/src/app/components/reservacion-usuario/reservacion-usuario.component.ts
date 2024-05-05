@@ -12,7 +12,7 @@ export class ReservacionUsuarioComponent implements OnInit {
   reservaciones : ReservacionAdmin [] = [];
   ID_Cliente: any;
   pageSize = 5;
-  p = 1;
+  p = 1; 
 
   constructor(private reservaService : ReservaService) { }
 

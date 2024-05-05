@@ -34,8 +34,6 @@ export class ReservaComponent implements OnInit {
           if(msg != ''){
             this.idioma = msg;
           }
-          console.log(typeof(this.idioma));
-          
             if(this.idioma=="1"){
               console.log("Ingles");
               this.calendarioEn();

@@ -32,7 +32,7 @@ export class ReservacionComponent implements OnInit {
   ngOnInit(): void {
     {
       this.initDatepickerIni();
-      this.initDatepickerFin();
+      this.initDatepickerFin(); 
       }
       $(document).ready(function(){
         $('.materialboxed').materialbox();
