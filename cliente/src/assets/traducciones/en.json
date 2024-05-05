@@ -116,6 +116,9 @@
     "Crear Cobro": "Create Payment",
     "¿Estás seguro de eliminar este cobro?": "Are you sure to remove this payment?",
     "Mas links":"More links",
-    "Imagenes de la cabaña":"Pictures of the cabin"
+    "Imagenes de la cabaña":"Pictures of the cabin",
+    "administrador":"administrator",
+    "vendedor":"seller",
+    "usuario":"user"
 
 }

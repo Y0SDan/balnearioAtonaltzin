@@ -31,6 +31,14 @@ export class ClienteComponent implements OnInit {
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
     this.idioma=1;
+    this.idioma = localStorage.getItem("idioma");
+    this.cambioIdiomaService.currentMsg$.subscribe(
+      (msg) => {
+        if (msg != '') {
+          this.idioma = msg;
+        }
+      }
+    );
   }
 
   ngOnInit(): void {
