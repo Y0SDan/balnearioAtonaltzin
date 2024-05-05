@@ -21,10 +21,11 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     this.tipo = String(localStorage.getItem('Tipo_Usuario'));
     console.log("Este es el tipo de ususario desde header ", this.tipo);
     
+    
     // Obtener el idioma del almacenamiento local
-    this.idioma = localStorage.getItem("idioma");
+    this.idioma = localStorage.getItem("idioma") || "es";
     console.log("idioma", this.idioma);
-
+  
     // Verificar si el idioma está configurado
     if (this.idioma === null || this.idioma === undefined || this.idioma === '') {
       // Si el idioma no está configurado, establecerlo en español por defecto (idioma 2)
@@ -38,8 +39,10 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     } else {
       this.translate.setDefaultLang('en');
     }
+    
   }
 
+  
   ngOnInit() {
     this.Tipo_Usuario = String(localStorage.getItem('Tipo_Usuario'));
     this.ID_Cliente = localStorage.getItem('ID_Cliente');
@@ -82,10 +85,10 @@ export class NavigationComponent implements OnInit, AfterViewInit {
   gotoReservaciones(){
     this.router.navigateByUrl('/home/reservaciones-cliente');
   }
-
+  
   logout() {
- 
-    console.log("Valor de this.idioma:", this.idioma);
+
+    console.log("Valor de this.idioma:", this.idioma);    
 
     let title = "";
     let confirmationMessage = "";
@@ -146,4 +149,17 @@ export class NavigationComponent implements OnInit, AfterViewInit {
         break;
     }
   }
+
+  getBanderaSrc(idioma: string): string {
+    let rutaImagen = '';
+    if (idioma === 'en') {
+      rutaImagen = 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg';
+    } else if (idioma === 'es') {
+      rutaImagen = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/1280px-Flag_of_Mexico.svg.png';
+    }
+    return rutaImagen;
+  }
+  
+  
 }
+
