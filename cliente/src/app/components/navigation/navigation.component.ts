@@ -42,12 +42,15 @@ export class NavigationComponent implements OnInit, AfterViewInit {
   setIdioma(idioma: any) {
     if (idioma == 1) {
       this.translate.use("en");
+      localStorage.setItem("idioma", "1");
       this.enviarMensajeIdioma(1);
     }
     if (idioma == 2) {
       this.translate.use("es");
+      localStorage.setItem("idioma", "2");
       this.enviarMensajeIdioma(2);
     }
+    //window.location.reload(); 
   }
 
 
