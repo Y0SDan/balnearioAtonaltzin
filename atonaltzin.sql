@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 19-04-2024 a las 14:35:55
+-- Tiempo de generación: 05-05-2024 a las 23:02:09
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -88,24 +88,26 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `password1` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
   `tipo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'usuario',
   `foto` int NOT NULL,
+  `Type` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'user',
   PRIMARY KEY (`ID_Cliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `cliente`
 --
 
-INSERT INTO `cliente` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Telefono`, `password1`, `tipo`, `foto`) VALUES
-(27, 'Diego', 'Ramses', 'lorga_77@hotmail.com', '2345670987', '$2a$10$PIq7liKxQZEDlGBGfHtn0.kF05g8ze/CYKK7hrLG.5h7aIbSAlgB2', 'administrador', 1),
-(37, 'Evan', 'Lorga', 'lorga@gmail.com', '9514567890', 'wuero', 'seller', 0),
-(38, 'Diego Ramses ', 'Lorga Luz', 'ramseslorga@gmail.com', '9515451324', 'Reptilia', 'seller', 1),
-(42, 'Marcos', 'Martinez', 'marcos@gmail.com', '9876543210', '$2a$10$k63QEvPjeJ0AE9C5mkasve.RqURa1PMQnxAKzri99d8KhNZEiGBL6', 'seller', 1),
-(45, 'Gizelle', 'Ramirez', 'gizelle@gmail.com', '9876543212', '$2a$10$K3jloKecgDaaUUfcE9w6EeNefjfUsqAe1HZkTn6nnb6/zocvpeNpO', 'administrador', 1),
-(46, 'Ferras', 'Ramos', 'ferras@gmail.com', '987654331', '$2a$10$HaAqWzLOQ20DFgx2i5j0pulDuMHz/VN83qOABnbaF6Fu0Yyx2QWTy', 'usuario', 1),
-(48, 'Andres', 'Lopez', 'amlo@gmail.com', '9876543212', '$2a$10$sZF/W4C7TB5deqBKJ42z3eS5G04fnLF/2k0oiKsFaI8GaSJxDaU6G', 'usuario', 1),
-(49, 'Felipe', 'Lopez', 'felipe@gmail.com', '2123213123', '$2a$10$1wPJAls1.UGeL9YTarnwMeiyMF91x.YTB9S629TRRZrDJ3VBNuQWy', 'seller', 1),
-(50, 'Juan', 'Molar', 'juan@gmail.com', '131313131', '$2a$10$dTVrrl1fCZdMmoVoAAC9AOofrThcUOyDzZp0HlGIO5LMkNw9DPiqG', 'usuario', 1),
-(51, 'Luis', 'Padilla Martinez', 'jorgepad002@gmail.com', '9532391234', '$2a$10$1IklUwL1Fl3Im6eI1vn6yOXaUpe0.Kb8ycU7eqevsgnJXe081tMUu', 'usuario', 1);
+INSERT INTO `cliente` (`ID_Cliente`, `Nombre`, `Apellido`, `Email`, `Telefono`, `password1`, `tipo`, `foto`, `Type`) VALUES
+(27, 'Diego', 'Ramses', 'lorga_77@hotmail.com', '2345670987', '$2a$10$BWrDBpKUDsEop.KWmwF20uHjXzOzqFFd.3J2SQVCtMu7IZL0Upz9y', 'usuario', 1, 'user'),
+(37, 'Evan', 'Lorga', 'lorga@gmail.com', '9514567890', '$2a$10$WiGup3/zK1m1KHsXJAh0c.8odfWcHL1.klFW5suxUq6weApZcTdvW', 'usuario', 0, 'user'),
+(38, 'Diego Ramses ', 'Lorga Luz', 'ramseslorga@gmail.com', '9515451324', 'Reptilia', 'vendedor', 1, 'seller'),
+(42, 'Marcos', 'Martinez', 'marcos@gmail.com', '9876543210', '$2a$10$k63QEvPjeJ0AE9C5mkasve.RqURa1PMQnxAKzri99d8KhNZEiGBL6', 'vendedor', 1, 'seller'),
+(45, 'Gizelle', 'Ramirez', 'gizelle@gmail.com', '9876543212', '$2a$10$K3jloKecgDaaUUfcE9w6EeNefjfUsqAe1HZkTn6nnb6/zocvpeNpO', 'administrador', 1, 'administrator'),
+(46, 'Ferras', 'Ramos', 'ferras@gmail.com', '987654331', '$2a$10$HaAqWzLOQ20DFgx2i5j0pulDuMHz/VN83qOABnbaF6Fu0Yyx2QWTy', 'usuario', 1, 'user'),
+(48, 'Andres', 'Lopez', 'amlo@gmail.com', '9876543212', '$2a$10$sZF/W4C7TB5deqBKJ42z3eS5G04fnLF/2k0oiKsFaI8GaSJxDaU6G', 'usuario', 1, 'user'),
+(49, 'Felipe', 'Lopez', 'felipe@gmail.com', '2123213123', '$2a$10$1wPJAls1.UGeL9YTarnwMeiyMF91x.YTB9S629TRRZrDJ3VBNuQWy', 'vendedor', 1, 'seller'),
+(50, 'Juan', 'Molar', 'juan@gmail.com', '131313131', '$2a$10$dTVrrl1fCZdMmoVoAAC9AOofrThcUOyDzZp0HlGIO5LMkNw9DPiqG', 'usuario', 1, 'user'),
+(51, 'Luis', 'Padilla Martinez', 'jorgepad002@gmail.com', '9532391234', '$2a$10$1IklUwL1Fl3Im6eI1vn6yOXaUpe0.Kb8ycU7eqevsgnJXe081tMUu', 'usuario', 1, 'user'),
+(55, 'Pancho ', 'Lopez', 'pancho123@gmail.com', '9535371545', '$2a$10$YBYkCAeeYrrCnxRzp0zWn.52OSl33b/dFG2OW1uvGDVN/cMaQIHkC', 'administrador', 0, 'administrator');
 
 -- --------------------------------------------------------
 
@@ -144,7 +146,7 @@ INSERT INTO `cobros` (`IdCobro`, `IdReservacion`, `MontoCobrado`, `Fecha_Cobro`,
 (131, 111, '6400', '2024-04-19 08:49:15', 'Paid'),
 (132, 112, '1600', '2024-04-19 08:49:25', 'Pagado'),
 (133, 113, '6400', NULL, 'Sin pagar'),
-(134, 114, '1600', NULL, 'Sin pagar');
+(134, 114, '1600', '2024-04-29 00:34:55', 'Paid');
 
 -- --------------------------------------------------------
 
