@@ -240,8 +240,7 @@ else{
       this.clientes = resReservas;
     },err => console.error(err));
     this.liga=environment.API_URL_IMAGENES;
-    console.log(this.liga + "   recarga");
-    
+    console.log(this.liga + "   recarga");   
   } 
 
   compareFn(a : any, b : any) {

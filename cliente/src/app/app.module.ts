@@ -9,7 +9,9 @@ import { PrincipalComponent } from './components/principal/principal.component';
 import { LoginComponent } from './components/login/login.component';
 import { ClienteComponent } from './components/cliente/cliente.component';
 import { HomeComponent } from './components/home/home.component';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { NavegaAdminComponent } from './components/navega-admin/navega-admin.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ReservaComponent } from './components/reserva/reserva.component';
@@ -44,7 +46,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     ClienteComponent,
     HomeComponent,
+    HomeAdminComponent,
     NavigationComponent,
+    NavegaAdminComponent,
     FooterComponent,
     AdminComponent,
     ReservaComponent,

@@ -7,43 +7,31 @@ import Swal from 'sweetalert2';
 declare var $: any;
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css']
+  selector: 'app-navega-admin',
+  templateUrl: './navega-admin.component.html',
+  styleUrls: ['./navega-admin.component.css']
 })
-export class NavigationComponent implements OnInit, AfterViewInit {
+export class NavegaAdminComponent implements OnInit, AfterViewInit {
   Tipo_Usuario: string = '';
   ID_Cliente: any;
-  tipo: string;
+  tipo: string
   idioma: any;
-  
+
   constructor(private router: Router, private translate: TranslateService, private cambioIdiomaService: CambioIdiomaService) {
-    this.tipo = String(localStorage.getItem('Tipo_Usuario'));
+    this.tipo = String(localStorage.getItem('Tipo_Usuario'))
     console.log("Este es el tipo de ususario desde header ", this.tipo);
-    
-    
-    // Obtener el idioma del almacenamiento local
-    this.idioma = localStorage.getItem("idioma") || "es";
-    console.log("idioma", this.idioma);
-  
-    // Verificar si el idioma está configurado
+
+    this.idioma = 1;
+    this.idioma = localStorage.getItem("idioma");
+    console.log("idioma", this.idioma)
     if (this.idioma === null || this.idioma === undefined || this.idioma === '') {
-      // Si el idioma no está configurado, establecerlo en español por defecto (idioma 2)
-      localStorage.setItem("idioma", "2"); 
-      this.idioma = "2";
-    }
+      //Si el usuario no cambio el idioma lo dejamos por default en ingles
+      localStorage.setItem("idioma","2"); 
+      this.idioma= "2";
+    }
+   }
 
-    // Establecer el idioma predeterminado según el valor configurado
-    if (this.idioma === "2") {
-      this.translate.setDefaultLang('es');
-    } else {
-      this.translate.setDefaultLang('en');
-    }
-    
-  }
-
-  
-  ngOnInit() {
+  ngOnInit(): void {
     this.Tipo_Usuario = String(localStorage.getItem('Tipo_Usuario'));
     this.ID_Cliente = localStorage.getItem('ID_Cliente');
     console.log("Este es el tipo de usuario desde header ", this.Tipo_Usuario);
@@ -52,25 +40,20 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     this.cambioIdiomaService.currentMsg$.subscribe(
       (msg) => {
         this.idioma = msg;
-        console.log("Valor de idioma recibido:", this.idioma);
-        
+        console.log("idioma actual cabanas:", this.idioma, " aaaa");
       } );
   }
-
-  ngAfterViewInit(): void {
-    //Esto está para que la condición *ngIf="ID_Cliente == undefined" no afecte al dropdown
+  ngAfterViewInit(): void {   //Esto esta para que la condición *ngIf="ID_Cliente == undefined" no afecte al dropdown
+    //$('.dropdown-trigger').dropdown();
     this.initializeDropdown();
-    
   }
 
   initializeDropdown() {
     $('.dropdown-trigger').dropdown();
   }
-
   enviarMensajeIdioma(idioma: any) {
     this.cambioIdiomaService.sendMsg(idioma);
   }
-
   setIdioma(idioma: any) {
     if (idioma == 1) {
       this.translate.use("en");
@@ -82,27 +65,25 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     }
   }
 
+
   gotoReservaciones(){
-    this.router.navigateByUrl('/home/reservaciones-cliente');
+    this.router.navigateByUrl('/home/reservaciones-cliente')
   }
-  
+
   logout() {
-
-    console.log("Valor de this.idioma:", this.idioma);    
-
     let title = "";
     let confirmationMessage = "";
     let confirmationButtonText = "";
     let cancelButtonText = "";
   
     if (this.idioma == 2) {
-      title = "Cerrar Sesion";
+      title = "Alerta";
       confirmationMessage = "¿Estás seguro?";
       confirmationButtonText = "Sí, estoy seguro";
       cancelButtonText = "Cancelar";
       this.setIdioma(2); // Asegurar que el idioma se establezca correctamente
     } else if (this.idioma == 1) {
-      title = "Logout";
+      title = "Alert";
       confirmationMessage = "Are you sure?";
       confirmationButtonText = "Yes, I'm sure";
       cancelButtonText = "Cancel";
@@ -123,10 +104,6 @@ export class NavigationComponent implements OnInit, AfterViewInit {
         localStorage.removeItem("Tipo_Usuario");
         localStorage.removeItem("Email");
         localStorage.removeItem("ID_Cliente");
-        
-        // Establecer el idioma en el almacenamiento local antes de redirigir al usuario
-        localStorage.setItem("idioma", this.idioma);
-  
         this.router.navigateByUrl('home/principal');
         this.ID_Cliente = null;
         this.Tipo_Usuario = '';
@@ -136,30 +113,22 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     });
   }
   
-  redireccion(pagina: string) {
+
+  redireccion(pagina:string){
     switch (pagina) {
       case "login":
-          this.router.navigateByUrl('login');
+          this.router.navigateByUrl('login')
           break;
       case "usuario":
-          this.router.navigateByUrl('home/usuario');
+          this.router.navigateByUrl('home/usuario')
           break;
       default:
-        console.log("Ocurrió un error");
+        console.log("Ocurrio un error");
         break;
+      
     }
   }
 
-  getBanderaSrc(idioma: string): string {
-    let rutaImagen = '';
-    if (idioma === 'en') {
-      rutaImagen = 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg';
-    } else if (idioma === 'es') {
-      rutaImagen = 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Flag_of_Mexico.svg/1280px-Flag_of_Mexico.svg.png';
-    }
-    return rutaImagen;
-  }
-  
-  
 }
+
 
