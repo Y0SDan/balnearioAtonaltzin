@@ -41,7 +41,7 @@ export class LoginComponent  {
           this.router.navigateByUrl('home/principal');
         } else if (resusuario.tipo_usuario === 'administrador') {
           this.router.navigateByUrl('home/admin');
-        } else if (resusuario.tipo_usuario === 'seller') {
+        } else if (resusuario.tipo_usuario === 'vendedor') {
           this.router.navigateByUrl('home/seller');
         } else {
           console.log('Tipo de usuario desconocido');

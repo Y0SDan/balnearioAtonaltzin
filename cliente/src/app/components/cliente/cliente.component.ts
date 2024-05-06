@@ -31,6 +31,14 @@ export class ClienteComponent implements OnInit {
     this.fileToUpload = null;
     this.liga = environment.API_URL_IMAGENES;
     this.idioma=1;
+    this.idioma = localStorage.getItem("idioma");
+    this.cambioIdiomaService.currentMsg$.subscribe(
+      (msg) => {
+        if (msg != '') {
+          this.idioma = msg;
+        }
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -232,8 +240,7 @@ else{
       this.clientes = resReservas;
     },err => console.error(err));
     this.liga=environment.API_URL_IMAGENES;
-    console.log(this.liga + "   recarga");
-    
+    console.log(this.liga + "   recarga");   
   } 
 
   compareFn(a : any, b : any) {

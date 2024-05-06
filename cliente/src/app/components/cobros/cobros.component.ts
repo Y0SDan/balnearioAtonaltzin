@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Cobros } from 'src/app/Models/Cobros';
 import { CobrosService } from './../../services/cobros.service';
 import Swal from 'sweetalert2';
+import { TranslateService } from "@ngx-translate/core";
 import { CambioIdiomaService } from 'src/app/services/cambio-idioma.service';
 declare var $: any;
 
@@ -22,7 +23,7 @@ export class CobrosComponent implements OnInit {
   p = 1;
   idioma: any;
   
-  constructor(private cobroService: CobrosService, private cambioIdiomaService: CambioIdiomaService) {
+  constructor(private cobroService: CobrosService,private translate: TranslateService, private cambioIdiomaService: CambioIdiomaService) {
     this.FechaInicio = ""
     this.FechaFin = ""
     this.Fecha_Cobro = ""

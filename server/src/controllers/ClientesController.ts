@@ -31,6 +31,7 @@ class ClientesController {
         console.log("YA ESTAMOS AQUI");
         const respuesta = await pool.query('SELECT * FROM cliente');
         res.json(respuesta);
+        console.log(respuesta);
     }
     public async showOne(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
@@ -52,7 +53,7 @@ class ClientesController {
         req.body.password1 = await bcrypt.hash(req.body.password1, salt);
         const resp = await pool.query("UPDATE cliente set ? WHERE ID_Cliente = ?", [req.body, id]);
         res.json(resp);
-        //res.json(null);
+        console.log(resp);
     }
 
     public async obtenerClienteCorreo(req: Request, res: Response): Promise<void> {

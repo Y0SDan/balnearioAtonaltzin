@@ -6,6 +6,7 @@ export class Cliente{
     password1: string;
     Telefono: string;
     tipo:string;
+    Type:string;
     foto: number;
 
     constructor() {
@@ -16,6 +17,7 @@ export class Cliente{
         this.password1 = 'hola';
         this.Telefono = '';
         this.tipo = 'usuario';
+        this.Type= 'user';
         this.foto = 0;
     }
 }

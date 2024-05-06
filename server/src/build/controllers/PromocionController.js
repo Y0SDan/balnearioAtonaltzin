@@ -37,9 +37,10 @@ class PromocionController {
     }
     showPromos(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("YA ESTAMOS AQUI");
-            const respuesta = yield database_1.default.query('SELECT * FROM Promocion');
+            console.log("Promos");
+            const respuesta = yield database_1.default.query('SELECT * FROM promocion');
             res.json(respuesta);
+            console.log(respuesta);
         });
     }
     showOne(req, res) {

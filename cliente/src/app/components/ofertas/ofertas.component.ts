@@ -37,7 +37,11 @@ export class OfertasComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.recargarOfertas()
+    this.ofertaService.list().subscribe((resOfertas: any) => {
+      this.ofertas = resOfertas;
+      console.log(this.ofertas);
+      
+    },err => console.error(err));
     console.log("Fecha actual:", fechaActual);
     $(document).ready(function(){
       $('.modal').modal();
@@ -60,25 +64,13 @@ export class OfertasComponent implements OnInit {
       $("#modalModificarOfertas").modal("open");
     }, err => console.error(err));
   }
-  recargarOfertas() {
-    this.ofertaService.list().subscribe((resOfertas: any) => {
-      this.ofertas = resOfertas;
-      console.log(this.ofertas);
-      
-    },err => console.error(err));
-    this.cabanaService.list().subscribe((res: any) => {
-      this.cabanas = res;
-      console.log(this.cabanas);
-      
-    },err => console.error(err));
-  }
   funcion(){
     console.log("prueba para las funciones");
   }
   CrearOferta(){
     console.log(this.ofertaNuevo);
     let Fecha_reserva:Date = new Date(this.ofertaNuevo.Fecha_inicio);
-  if  (this.idioma  !=1) {
+  if  (this.idioma  == 2) {
     if(this.ofertaNuevo.Fecha_inicio == " " || this.ofertaNuevo.Fecha_fin == " "){
       Swal.fire({
         title: "Error!",
@@ -208,7 +200,7 @@ export class OfertasComponent implements OnInit {
       });
     } else {
       Swal.fire({
-        title: "¿Estás seguro?",
+        title: "Are you sure to delete this offer ?",
         text: "It is not possible to reverse this!",
         icon: "warning",
         showCancelButton: true,

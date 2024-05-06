@@ -24,9 +24,11 @@ class PromocionController
     }
     
     public async showPromos(req: Request, res: Response ): Promise<void>{
-        console.log("YA ESTAMOS AQUI");
-        const respuesta = await pool.query('SELECT * FROM Promocion');
+        console.log("Promos");
+        const respuesta = await pool.query('SELECT * FROM promocion');
         res.json( respuesta );
+        console.log(respuesta);
+        
     }
     public async showOne(req: Request, res: Response): Promise <void>{
         const {id} = req.params;

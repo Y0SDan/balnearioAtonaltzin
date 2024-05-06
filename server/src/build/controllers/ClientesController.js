@@ -42,6 +42,7 @@ class ClientesController {
             console.log("YA ESTAMOS AQUI");
             const respuesta = yield database_1.default.query('SELECT * FROM cliente');
             res.json(respuesta);
+            console.log(respuesta);
         });
     }
     showOne(req, res) {
@@ -69,7 +70,7 @@ class ClientesController {
             req.body.password1 = yield bcryptjs_1.default.hash(req.body.password1, salt);
             const resp = yield database_1.default.query("UPDATE cliente set ? WHERE ID_Cliente = ?", [req.body, id]);
             res.json(resp);
-            //res.json(null);
+            console.log(resp);
         });
     }
     obtenerClienteCorreo(req, res) {
