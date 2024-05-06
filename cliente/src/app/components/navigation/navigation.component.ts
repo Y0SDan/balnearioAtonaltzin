@@ -85,55 +85,18 @@ export class NavigationComponent implements OnInit, AfterViewInit {
   gotoReservaciones(){
     this.router.navigateByUrl('/home/reservaciones-cliente');
   }
-  
-  logout() {
 
-    console.log("Valor de this.idioma:", this.idioma);    
+  logout(){
+    localStorage.removeItem("Tipo_Usuario")
+    localStorage.removeItem("Email")
+    localStorage.removeItem("ID_Cliente")
+    this.router.navigateByUrl('home/principal')
 
-    let title = "";
-    let confirmationMessage = "";
-    let confirmationButtonText = "";
-    let cancelButtonText = "";
-  
-    if (this.idioma == 2) {
-      title = "Cerrar Sesion";
-      confirmationMessage = "¿Estás seguro?";
-      confirmationButtonText = "Sí, estoy seguro";
-      cancelButtonText = "Cancelar";
-      this.setIdioma(2); // Asegurar que el idioma se establezca correctamente
-    } else if (this.idioma == 1) {
-      title = "Logout";
-      confirmationMessage = "Are you sure?";
-      confirmationButtonText = "Yes, I'm sure";
-      cancelButtonText = "Cancel";
-      this.setIdioma(1); // Asegurar que el idioma se establezca correctamente
-    }
-  
-    Swal.fire({
-      title: title,
-      text: confirmationMessage,
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: confirmationButtonText,
-      cancelButtonText: cancelButtonText
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.removeItem("Tipo_Usuario");
-        localStorage.removeItem("Email");
-        localStorage.removeItem("ID_Cliente");
-        
-        // Establecer el idioma en el almacenamiento local antes de redirigir al usuario
-        localStorage.setItem("idioma", this.idioma);
-  
-        this.router.navigateByUrl('home/principal');
-        this.ID_Cliente = null;
-        this.Tipo_Usuario = '';
-    
-        this.initializeDropdown();
-      }
-    });
+    this.ID_Cliente = null;
+    this.Tipo_Usuario = '';
+
+    this.initializeDropdown();
+    location.reload();  //Se recarga la página para actualizar el local storage para principal
   }
   
   redireccion(pagina: string) {
