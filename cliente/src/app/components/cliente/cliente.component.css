@@ -1,0 +1,19 @@
+.ilike-blue-container {
+    @extend .blue, .lighten-4;
+  }
+  /* Cambia el color de fondo de la paginación */
+/* Cambia el color de fondo de la paginación */
+.pagination-controls {
+  background-color: blue;
+}
+
+/* Cambia el color del texto de la paginación */
+.pagination-controls .page-link {
+  color: white;
+}
+
+/* Cambia el color del botón activo de la paginación */
+.pagination-controls .current {
+  background-color: white;
+  color: black;
+}

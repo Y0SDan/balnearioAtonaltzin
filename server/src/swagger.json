@@ -1,0 +1,1847 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "REST API Balneario Atonaltzin",
+        "description": "<html><body>Documentacion del servidor para el proyecto <b>Balneario Atonaltzin</b></body></html>",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    
+    "host": "77.37.63.58:3000",
+    "basePath": "",
+    "tags": [
+        {
+            "name": "Cabañas",
+            "description": "API para obtener información de las cabanas atonaltzin"
+        },
+        {
+            "name": "Reservaciones",
+            "description": "API para obtener información de las reservaciones de atonaltzin"
+        },
+        {
+            "name": "Cobros",
+            "description": "API para obtener información de los cobros de reservaciones"
+        },
+        {
+            "name": "Usuarios",
+            "description": "API para obtener información de los usuarios"
+        },
+        {
+            "name": "Ofertas",
+            "description": "API para obtener la información de las ofertas"
+        },
+        {
+            "name": "Imagenes-Cabañas",
+            "description": "API para obtener la relación de una imagen con una cabaña"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/cabanas/crearcabana": {
+            "post": {
+                "summary": "Agregar una cabaña",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Cabañas",
+                        "in": "body",
+                        "description": "Cabaña agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaCabana"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Cabañas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/cabanas/MostrarTodasCabanas": {
+            "get": {
+                "tags": [
+                    "Cabañas"
+                ],
+                "summary": "Listado de todas las cabañas que existen",
+                "description": "<p>Servicio que devuelve la información detallada de todas las cabañas que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las cabanas registradas?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Cabana": 1,
+                                    "Nombre": "Cabaña A",
+                                    "Descripcion": "Para 2 personas, cómoda y cuenta con televisión",
+                                    "PrecioPorNoche": 600,
+                                    "Capacidad": 2
+                                },
+                                {
+                                    "ID_Cabana": 2,
+                                    "Nombre": "Cabaña B",
+                                    "Descripcion": "Para 4 personas, cómoda y cuenta con televisión",
+                                    "PrecioPorNoche": 600,
+                                    "Capacidad": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Cabanas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/cabanas/listOne/{id}": {
+            "get": {
+                "tags": [
+                    "Cabañas"
+                ],
+                "summary": "Informacion asociada a la cabaña, si es que existe en el atonaltzin",
+                "description": "<p>Servicio que devuelve la información detallada de la cabaña solicitada</p><p>&nbsp;</p><p><em><strong>¿Cuál es la cabaña de este ID?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "Nombre": "Cabaña A",
+                                        "Descripcion": "Para 4 personas, cuenta con televisión, chimenea, cafetera y frigobar",
+                                        "PrecioPorNoche": 1200,
+                                        "Capacidad": 4
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Cabanas"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID de la cabaña",
+                        "schema": {
+                            "type": "string",
+                            "example": "1"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/cabanas/actualizarCabana/{id}": {
+            "put": {
+                "summary": "Actualizar la informaciòn de la cabaña",
+                "description": "<p>Servicio que permite editar la informaciòn de la cabana de balneario atonaltzin, dado el id el mismo </p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Identificador de la cabana",
+                        "type": "number",
+                        "default": "2"
+                    },
+                    {
+                        "name": "Cabana",
+                        "in": "body",
+                        "description": "Nombre de la cabana",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaCabana"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Cabañas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/cabanas/eliminarCabana/{id}": {
+            "delete": {
+                "tags": [
+                    "Cabañas"
+                ],
+                "summary": "Elimina una cabaña del balneario.",
+                "description": "<p>Servicio que elimina una cabaña registrada en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué cabaña se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la cabaña.",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/reservas/addReserva/": {
+            "post": {
+                "summary": "Agrega una reservacion",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "body",
+                        "description": "Reservacion agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaReservacion"
+                        },
+                        "example": {
+                            "ID_Cabana": 30,
+                            "ID_Cliente": 27,
+                            "FechaInicio": "2023-07-01",
+                            "FechaFin": "2023-07-10"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Reservaciones"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Consulta con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/reservas/Mostrar_reservaciones": {
+            "get": {
+                "tags": [
+                    "Reservaciones"
+                ],
+                "summary": "Listado de todas las reservaciones que existen en atonaltzin.",
+                "description": "<p>Servicio que devuelve la información detallada de todas las reservaciones que existen en atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las reservaciones que existen?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Reservacion": 1,
+                                    "ID_Cabana": 1,
+                                    "ID_Cliente": 1,
+                                    "FechaInicio": "2023-07-01",
+                                    "FechaFin": "2023-07-10"
+                                },
+                                {
+                                    "ID_Reservacion": 2,
+                                    "ID_Cabana": 4,
+                                    "ID_Cliente": 1,
+                                    "FechaInicio": "2024-07-01",
+                                    "FechaFin": "2024-07-10"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Reservaciones"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/reservas/showOne/{id}": {
+            "get": {
+                "tags": [
+                    "Reservaciones"
+                ],
+                "summary": "Obtención de información de una reservación",
+                "description": "<p>Servicio que devuelve la información detallada de una reservación</p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Reservacion": 1,
+                                    "ID_Cabana": 1,
+                                    "ID_Cliente": 1,
+                                    "FechaInicio": "2023-07-01",
+                                    "FechaFin": "2023-07-10"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Reservacion"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador de la reservacion",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/reservas/ValidarReserva/{ID_Cabana}/{FechaInicio}/{FechaFin}": {
+            "get": {
+                "tags": [
+                    "Reservaciones"
+                ],
+                "summary": "Verifica si el  la cabaña está disponible dentro del rango de fechas dado.",
+                "description": "<p>Servicio que verifica la disponibilidad de una cabaña dentro de un rango de fechas dado, devuelve un resultado 1 si no se encuentra disponible y un resultado 0 si esta disponible.</p><p>&nbsp;</p><p><em><strong>¿Estará diponible la cabaña en esas fechas?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "resultado": 1
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/validarReserva"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ID_Cabana",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la cabaña.",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "FechaInicio",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha inicial de la reservacion",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-07-01"
+                        }
+                    },
+                    {
+                        "name": "FechaFin",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha final de la reservacion",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-08-01"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/reservas/Mostrar_reservaciones_usuario/{id}": {
+            "get": {
+                "tags": [
+                    "Reservaciones"
+                ],
+                "summary": "Listado de todas las reservaciones que existentes de un cliente.",
+                "description": "<p>Servicio que devuelve la información detallada de todas las reservaciones de un cliente que existen en atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las reservaciones que existen de dicho cliente?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Reservacion": 1,
+                                    "ID_Cabana": 1,
+                                    "ID_Cliente": 1,
+                                    "FechaInicio": "2023-07-01",
+                                    "FechaFin": "2023-07-10"
+                                },
+                                {
+                                    "ID_Reservacion": 2,
+                                    "ID_Cabana": 4,
+                                    "ID_Cliente": 1,
+                                    "FechaInicio": "2024-07-01",
+                                    "FechaFin": "2024-07-10"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Reservaciones"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id del cliente",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/reservas/actualizarReservacion/{id}": {
+            "put": {
+                "summary": "Actualizar la información de la reservacion",
+                "description": "<p>Servicio que permite editar la información de una reservacion dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la reservación",
+                        "type": "number",
+                        "default": "4"
+                    },
+                    {
+                        "name": "Reservacion",
+                        "in": "body",
+                        "description": "Reservación a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaReservacion"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Reservaciones"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/reservas/eliminarReservacion/{id}": {
+            "delete": {
+                "tags": [
+                    "Reservaciones"
+                ],
+                "summary": "Elimina una reservación del balneario.",
+                "description": "<p>Servicio que elimina una reservación registrada en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué reservación se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la reserva.",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/cobros/addCobro": {
+            "post": {
+                "tags": [
+                    "Cobros"
+                ],
+                "summary": "Agrega un cobro.",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Cobro",
+                        "in": "body",
+                        "description": "<p>Información del cobro que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoCobro"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cobro Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/cobros/showCobros": {
+            "get": {
+                "tags": [
+                    "Cobros"
+                ],
+                "summary": "Listado de todos los cobros que existen en atonaltzin.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los cobros que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son los cobros que existen?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_Cobro": 1,
+                                    "MontoCobrado": "1200"
+                                },
+                                {
+                                    "id_Cobro": 2,
+                                    "MontoCobrado": "2200"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Cobros"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/cobros/showOne/{id}": {
+            "get": {
+                "tags": [
+                    "Cobros"
+                ],
+                "summary": "Muestra un cobro existente en balneario.",
+                "description": "<p>Servicio que devuelve la información detallada de un cobro que existe en balneario.</p><p>&nbsp;</p><p><em><strong>¿Existe el cobro en el balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_Cobro": 1,
+                                    "MontoCobrado": "1200"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Cobro"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id del cobro",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/cobros/reporteventas/{fechaInicial}/{fechaFinal}": {
+            "get": {
+                "tags": [
+                    "Cobros"
+                ],
+                "summary": "Muestra un reporte de ventas en un lapso determinado del balneario.",
+                "description": "<p>Servicio que devuelve un reporte de ventas de una fecha inicial a una fecha final de todas las cabañas.</p><p>&nbsp;</p><p><em><strong>¿Cuáles fueron las ventas totales en Atonaltzin?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "Fecha_Cobro": "2023-07-01",
+                                        "Fecha_Final": "2023-08-01"
+                                    }
+                                ]
+                            }
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Cobros"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "fechaInicial",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha inicial del periodo de ventas",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-07-01"
+                        }
+                    },
+                    {
+                        "name": "fechaFinal",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha final del periodo de ventas",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-08-01"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/cobros/actualizarCobro/{id}": {
+            "put": {
+                "summary": "Actualizar la información del cobro",
+                "description": "<p>Servicio que permite editar la información de un cobro dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id del cobro",
+                        "type": "number",
+                        "default": 0
+                    },
+                    {
+                        "name": "Cobro",
+                        "in": "body",
+                        "description": "Cobro a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoCobro"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Cobros"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/cobros/eliminarCobro/{id}": {
+            "delete": {
+                "tags": [
+                    "Cobros"
+                ],
+                "summary": "Elimina un cobro del balneario.",
+                "description": "<p>Servicio que elimina un cobro registrado en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué cobro se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id del cobro.",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/addCliente": {
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Agrega un usuario al balneario.",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "<p>Información del usuario que se va a agregar.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario agregado"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/clientes/login": {
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Muestra el rol del usuario.",
+                "operationId": "create",
+                "description": "<p>Servicio que devuelve el rol del usuario.</p><p>&nbsp;</p><p><em><strong>¿Cuál es el rol del usuario</strong></em></p>",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Email",
+                        "in": "body",
+                        "description": "<p>Correo electronico.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rol encontrado"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/clientes/showOne/{id}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Muestra un usuario existente en el balneario atonaltzin.",
+                "description": "<p>Servicio que devuelve la información detallada de un usuario existente en el atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Existe el usuario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Cliente": 1,
+                                    "Nombre": "Laura",
+                                    "Apellido": "Gutiérrez",
+                                    "Email": "laura@example.com",
+                                    "Telefono": "333-444-5555"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "identificador del usuario",
+                        "type": "number",
+                        "default": "1"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/obtenerReservacionesPorCliente/{nombre}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Muestra la informacion de reserva de un cliente.",
+                "description": "<p>Servicio que devuelve la informacion de la reserva de un cliente del balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las rerservaciones del cliente?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "Usuario": {
+                                        "Nombre": "Isabel",
+                                        "Apellido": "Torres"
+                                    },
+                                    "Reservaciones": [
+                                        {
+                                            "ID_Reservacion": 3,
+                                            "FechaInicio": "2023-09-10",
+                                            "FechaFin": "2023-09-15"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ReservasClienteResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "required": true,
+                        "description": "nombre usuario",
+                        "type": "string",
+                        "default": "Isabel"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/ShowCliente": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Listado de todas los usuarios que existen en atonaltzin.",
+                "description": "<p>Servicio que devuelve la información detallada de todos los usuarios que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuantos usuarios existen?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Cliente": 1,
+                                    "Nombre": "Laura",
+                                    "Apellido": "Gutiérrez",
+                                    "Email": "laura@example.com",
+                                    "Telefono": "333-444-5555"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Usuario"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/clientes/obtenerPagosPorCliente/{nombre}/{apellido}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtiene los pagos realizados por un cliente.",
+                "description": "<p>Obtiene un listado de pagos realizados por un cliente.</p><p>&nbsp;</p><p><em><strong>¿Cuántos pagos habrá realizado el cliente?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "Nombre_Cliente": "Ricardo",
+                                    "Apellido_Cliente": "Martinez",
+                                    "IdCobro": 108,
+                                    "IdReservacion": 90,
+                                    "MontoCobrado": 3200,
+                                    "Fecha_Cobro": "2024-03-30 17:52:32",
+                                    "Estado": "Pagado",
+                                    "ID_Reservacion": 90,
+                                    "ID_Cabana": 1,
+                                    "ID_Cliente": 48,
+                                    "FechaInicio": "2024-03-31",
+                                    "FechaFin": "2024-04-03"
+                                },
+                                {
+                                    "Nombre_Cliente": "Ricardo",
+                                    "Apellido_Cliente": "Martinez",
+                                    "IdCobro": 111,
+                                    "IdReservacion": 93,
+                                    "MontoCobrado": 74400,
+                                    "Fecha_Cobro": null,
+                                    "Estado": "Sin pagar",
+                                    "ID_Reservacion": 93,
+                                    "ID_Cabana": 3,
+                                    "ID_Cliente": 48,
+                                    "FechaInicio": "2024-03-31",
+                                    "FechaFin": "2024-04-30"
+                                },
+                                {
+                                    "Nombre_Cliente": "Ricardo",
+                                    "Apellido_Cliente": "Martinez",
+                                    "IdCobro": 112,
+                                    "IdReservacion": 94,
+                                    "MontoCobrado": 76000,
+                                    "Fecha_Cobro": null,
+                                    "Estado": "Sin pagar",
+                                    "ID_Reservacion": 94,
+                                    "ID_Cabana": 4,
+                                    "ID_Cliente": 48,
+                                    "FechaInicio": "2024-03-31",
+                                    "FechaFin": "2024-04-18"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Pagos"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "path",
+                        "required": true,
+                        "description": "Nombre del cliente.",
+                        "type": "string",
+                        "default": "Ricardo"
+                    },
+                    {
+                        "name": "apellido",
+                        "in": "path",
+                        "required": true,
+                        "description": "Apellidos del cliente",
+                        "type": "string",
+                        "default": "Lopez Jimenez"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/obtenerClienteCorreo/{correo}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtiene un cliente por medio de su correo.",
+                "description": "<p>Obtiene la información detallada de un cliente a través de su correo.</p><p>&nbsp;</p><p><em><strong>¿El correo le pertenecerá a un cliente?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "example": {
+                            "application/json": [
+                                {
+                                    "ID_Cliente": 37,
+                                    "Nombre": "Evan",
+                                    "Apellido": "Lorga",
+                                    "Email": "lorga@gmail.com",
+                                    "Telefono": "9514567890",
+                                    "password1": "wuero",
+                                    "tipo": "seller"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Usuario"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "correo",
+                        "in": "path",
+                        "required": true,
+                        "description": "Correo electronico del cliente.",
+                        "type": "string",
+                        "default": "algo@gmail.com"
+                    }
+                ]
+            }
+        },
+        "/api/clientes/actualizarCliente/{id}": {
+            "put": {
+                "summary": "Actualizar la información de un usuario",
+                "description": "<p>Servicio que permite editar la información de un usuario dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id del usuario",
+                        "type": "number",
+                        "default": 0
+                    },
+                    {
+                        "name": "Usuario",
+                        "in": "body",
+                        "description": "Usuario a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoUsuario"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Usuarios"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/clientes/eliminarCliente/{id}": {
+            "delete": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Elimina un ususario del balneario.",
+                "description": "<p>Servicio que elimina un usuario registrado en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué usuario se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id del usuario",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/promos/addPromocion": {
+            "post": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Agrega una oferta.",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Oferta",
+                        "in": "body",
+                        "description": "<p>Información de la oferta que se va a crear.</p>",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoOferta"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cobro Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/promos/showPromos": {
+            "get": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Listado de todos las Ofertas que existen en atonaltzin.",
+                "description": "<p>Servicio que devuelve la información detallada de todos las ofertas que existen en el balneario atonaltzin.</p><p>&nbsp;</p><p><em><strong>¿Cuáles son las ofertas que existen?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_promocion": 1,
+                                    "id_cabana": 1,
+                                    "descuento": 12,
+                                    "Fecha_inicio": "2024-04-05",
+                                    "Fecha_fin": "2024-04-09"
+                                },
+                                {
+                                    "id_promocion": 2,
+                                    "id_cabana": 1,
+                                    "descuento": 25,
+                                    "Fecha_inicio": "2024-04-02",
+                                    "Fecha_fin": "2024-04-08"
+                                },
+                                {
+                                    "id_promocion": 3,
+                                    "id_cabana": 2,
+                                    "descuento": 20,
+                                    "Fecha_inicio": "2024-04-02",
+                                    "Fecha_fin": "2024-04-06"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Ofertas"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/promos/showOne/{id}": {
+            "get": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Muestra una oferta existente en balneario.",
+                "description": "<p>Servicio que devuelve la información detallada de una oferta que existe en balneario.</p><p>&nbsp;</p><p><em><strong>¿Existe la oferta en el balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id_promocion": 1,
+                                    "id_cabana": 1,
+                                    "descuento": 12,
+                                    "Fecha_inicio": "2024-04-05",
+                                    "Fecha_fin": "2024-04-09"
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Oferta"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la oferta",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/promos/actualizarPromocion/{id}": {
+            "put": {
+                "summary": "Actualizar la información de una promoción",
+                "description": "<p>Servicio que permite editar la información de una promoción dado el id.</p><p>&nbsp;</p>",
+                "operationId": "update",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la promoción",
+                        "type": "number",
+                        "default": 0
+                    },
+                    {
+                        "name": "Promoción",
+                        "in": "body",
+                        "description": "Promoción a actualizar",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevoOferta"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Ofertas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/promos/eliminarPromocion/{id}": {
+            "delete": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Elimina una oferta del balneario.",
+                "description": "<p>Servicio que elimina una oferta registrada en el balneario.</p><p>&nbsp;</p><p><em><strong>¿Qué oferta se eliminará del balneario?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la oferta",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/imagenescabanas/crearImagenCabana": {
+            "post": {
+                "summary": "Agregar una imagen a una cabaña",
+                "operationId": "create",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Imagen-Cabana",
+                        "in": "body",
+                        "description": "Imagen-Cabana agregada",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/NuevaImagenCabana"
+                        }
+                    }
+                ],
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Insertado con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                }
+            }
+        },
+        "/api/imagenescabanas/MostrarImagenesPorCabana/{ID_Cabana}": {
+            "get": {
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "summary": "Muestra las relaciones existentes entre una cabaña y las imagenes",
+                "description": "<p>Servicio que devuelve el id de todas las imagenes que están relacionadas con una cabaña.</p><p>&nbsp;</p><p><em><strong>¿Existen imagenes relacionadas con la cabaña?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "id": 1
+                                },
+                                {
+                                    "id": 2
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/Oferta"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "ID_Cabana",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la cabaña",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
+        "/api/imagenescabanas/eliminarImagenCabana/{id}": {
+            "delete": {
+                "tags": [
+                    "Imagenes-Cabañas"
+                ],
+                "summary": "Elimina una relacion imagen-cabaña.",
+                "description": "<p>Servicio que elimina una orelación imagen-cabaña registrada.</p><p>&nbsp;</p><p><em><strong>¿Qué relación imagen-cabaña se eliminará?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "requiered": "true",
+                        "description": "Id de la relacion",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Cabana": {
+            "type": "object",
+            "properties": {
+                " ID_Cabana": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la cabana",
+                    "default": "1"
+                },
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre de la cabana",
+                    "default": "Cabaña A"
+                },
+                "Descripcion": {
+                    "type": "string",
+                    "description": "Descripcion de la cabana",
+                    "default": "Para 2 personas, cómoda y cuenta con televisión"
+                },
+                "PrecioPorNoche": {
+                    "type": "number",
+                    "description": "Precio de la cabana",
+                    "default": "600"
+                },
+                "Capacidad": {
+                    "type": "number",
+                    "description": "Capacidad de cabana",
+                    "default": "2"
+                }
+            }
+        },
+        "Cabanas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Cabana"
+            }
+        },
+        "NuevaCabana": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "description": "Nombre de la cabana",
+                    "default": "Cabaña X"
+                },
+                "Descripcion": {
+                    "type": "string",
+                    "description": "Descripcion de la cabana",
+                    "default": "Para 4 personas, cuenta con televisión, chimenea, cafetera y frigobar"
+                },
+                "PrecioPorNoche": {
+                    "type": "number",
+                    "description": "Precio de la cabana",
+                    "default": "1200"
+                },
+                "Capacidad": {
+                    "type": "number",
+                    "description": "Capacidad de cabana",
+                    "default": "4"
+                }
+            }
+        },
+        "Reservacion": {
+            "type": "object",
+            "properties": {
+                "ID_Reservacion": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la reservacion"
+                },
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la cabana"
+                },
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al cliente"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "description": "Permite saber el inicio de fecha de reservacion"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "description": "Permite saber el final de la fecha de reservacion"
+                }
+            }
+        },
+        "Reservaciones": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Reservacion"
+            }
+        },
+        "NuevaReservacion": {
+            "type": "object",
+            "properties": {
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la cabana",
+                    "default": "30"
+                },
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar al cliente",
+                    "default": "27"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "description": "Permite saber el inicio de fecha de reservacion",
+                    "default": "2023-07-01"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "description": "Permite saber el final de la fecha de reservacion",
+                    "default": "2023-07-10"
+                }
+            }
+        },
+        "Cobro": {
+            "type": "object",
+            "properties": {
+                "IdCobro": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar el cobro"
+                },
+                "IdReservacion": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la reservacion"
+                },
+                "MontoCobrado": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la reservacion"
+                },
+                "Fecha_Cobro": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2024-02-10",
+                    "description": "Permite saber la fecha del cobro"
+                },
+                "Estado": {
+                    "type": "string",
+                    "description": "Permite saber el estado del cobro"
+                }
+            }
+        },
+        "Cobros": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Cobros"
+            }
+        },
+        "NuevoCobro": {
+            "type": "object",
+            "properties": {
+                "IdReservacion": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la reservacion"
+                },
+                "MontoCobrado": {
+                    "type": "number",
+                    "description": "Codigo que permite identificar la reservacion"
+                },
+                "Fecha_Cobro": {
+                    "type": "string",
+                    "description": "Fecha para saber cuando de hizo el cobro"
+                },
+                "Estado": {
+                    "type": "string",
+                    "description": "Estado del cobro"
+                }
+            }
+        },
+        "ReservasClienteResponse": {
+            "type": "object",
+            "properties": {
+                "Usuario": {
+                    "$ref": "#/definitions/Usuario"
+                },
+                "Reservaciones": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Reservaciones"
+                    }
+                }
+            }
+        },
+        "Usuario": {
+            "type": "object",
+            "properties": {
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Identificador del usuario"
+                },
+                "Nombre": {
+                    "type": "string",
+                    "description": "Nombre del usuario"
+                },
+                "Apellido": {
+                    "type": "string",
+                    "description": "Apellido del usuario"
+                },
+                "Email": {
+                    "type": "string",
+                    "description": "Email del usuario"
+                },
+                "Telefono": {
+                    "type": "number",
+                    "description": "Telefono del usuario"
+                },
+                "password1": {
+                    "type": "string",
+                    "description": "Contraseña del usuario"
+                },
+                "Tipo": {
+                    "type": "string",
+                    "description": "Tipo de usuario"
+                }
+            }
+        },
+        "Usuarios": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Usuario"
+            }
+        },
+        "NuevoUsuario": {
+            "type": "object",
+            "properties": {
+                "Nombre": {
+                    "type": "string",
+                    "description": "Nombre del usuario"
+                },
+                "Apellido": {
+                    "type": "string",
+                    "description": "Apellido del usuario"
+                },
+                "Email": {
+                    "type": "string",
+                    "description": "Email del usuario"
+                },
+                "Telefono": {
+                    "type": "number",
+                    "description": "Telefono del usuario"
+                },
+                "password1": {
+                    "type": "string",
+                    "description": "Contraseña del usuario"
+                },
+                "Tipo": {
+                    "type": "string",
+                    "description": "Tipo de usuario"
+                }
+            }
+        },
+        "Login": {
+            "type": "object",
+            "properties": {
+                "Email": {
+                    "type": "string",
+                    "description": "Email del usuario"
+                },
+                "password1": {
+                    "type": "string",
+                    "description": "Contraseña del usuario"
+                }
+            }
+        },
+        "Pago": {
+            "type": "object",
+            "properties": {
+                "Nombre_Cliente": {
+                    "type": "string",
+                    "description": "Nombre del cliente."
+                },
+                "Apellido": {
+                    "type": "string",
+                    "description": "Apellidos del cliente"
+                },
+                "IdCobro": {
+                    "type": "number",
+                    "description": "Id del cobro realizado"
+                },
+                "IdReservacion": {
+                    "type": "number",
+                    "description": "Id de la reservación"
+                },
+                "MontoCobrado": {
+                    "type": "number",
+                    "description": "Monto cobrado por la reservación"
+                },
+                "Fecha_Cobro": {
+                    "type": "string",
+                    "description": "Fecha en la que se realizó el cobro"
+                },
+                "Estado": {
+                    "type": "string",
+                    "description": "Estado del cobro"
+                },
+                "ID_Reservacion": {
+                    "type": "number",
+                    "description": "Id de la reservación"
+                },
+                " ID_Cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña."
+                },
+                "ID_Cliente": {
+                    "type": "number",
+                    "description": "Id del cliente"
+                },
+                "FechaInicio": {
+                    "type": "string",
+                    "description": "Fecha inicial de la reservacion"
+                },
+                "FechaFin": {
+                    "type": "string",
+                    "description": "Fecha final de la reservacion"
+                }
+            }
+        },
+        "Pagos": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Pago"
+            }
+        },
+        "Oferta": {
+            "type": "object",
+            "properties": {
+                "id_promocion": {
+                    "type": "number",
+                    "description": "Id de la oferta"
+                },
+                "id_cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña."
+                },
+                "descuento": {
+                    "type": "number",
+                    "description": "Porcewntaje de descuento"
+                },
+                "Fecha_inicio": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description": "Fecha de inicio de la oferta"
+                },
+                "Fecha_fin": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description": "Fecha de fin de la oferta"
+                }
+            }
+        },
+        "Ofertas": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Oferta"
+            }
+        },
+        "NuevoOferta": {
+            "type": "object",
+            "properties": {
+                "id_cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña."
+                },
+                "descuento": {
+                    "type": "number",
+                    "description": "Porcewntaje de descuento"
+                },
+                "Fecha_inicio": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description": "Fecha de inicio de la oferta"
+                },
+                "Fecha_fin": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description": "Fecha de fin de la oferta"
+                }
+            }
+        },
+        "ImagenCabana": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "description": "Id de la imagen",
+                    "default": "0"
+                }
+            }
+        },
+        "ImagenesCabana": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/ImagenCabana"
+            }
+        },
+        "NuevaImagenCabana": {
+            "type": "object",
+            "properties": {
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña",
+                    "default": "0"
+                }
+            }
+        }
+    }
+}
