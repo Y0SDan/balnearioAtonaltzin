@@ -28,6 +28,7 @@ function enviarCorreo(body: any) {
 
     //Tokenizamos el correo para poder ponerlo en la liga
     var correo = body.Email;
+    console.log(correo)
     const token : string = jwt.sign(correo, process.env.TOKEN_SECRET || 'prueba');
     console.log(token);
 

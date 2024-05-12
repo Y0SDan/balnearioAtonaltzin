@@ -37,12 +37,16 @@ export class OlvideContrasenaComponent implements OnInit {
     );
   }
   enviarCorreo() {
-    if (this.idioma  !=1) {
+    if (this.idioma  != 1) {
+      console.log('idioma:', this.idioma);
       this.correosService.verificarCorreo(this.correo).subscribe((res: any) => {
-      
+        console.log('verificando correo',res);
         if (res && res.length > 0) {
+          console.log('Hola');
+          console.log('Email:', this.correo)
+          console.log('verificando correo',res);
           this.correosService.enviarCorreoRecuperarContrasena({ Email: this.correo }).subscribe((res: any) => {
-            //console.log('Correo enviado:', res);
+            console.log('Correo enviado:', res);
             Swal.fire({
               title: 'Correo enviado',
               text: 'Se ha enviado un correo a su dirección de correo electrónico',

@@ -11,9 +11,11 @@ import { of } from 'rxjs';
 })
 export class CorreoService {
   constructor(private http: HttpClient) { }
+
   enviarCorreoRecuperarContrasena(body: any) {
-    return this.http.post(`${environment.API_URL_CORREOS}/enviarCorreoRecuperarContrasena/`, body);
+    return this.http.post(`${environment.API_URL_CORREOS}/enviarCorreoRecuperarContrasena`, body);
   }
+
   decodificarMail(token: any) {
     let dato = { "token": token };
     return this.http.post(`${environment.API_URL_CORREOS}/decodificarMail`, dato);

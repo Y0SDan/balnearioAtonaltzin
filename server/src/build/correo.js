@@ -46,7 +46,9 @@ class Server {
     }
     routes() {
         this.app.post('/enviarCorreoRecuperarContrasena', (req, res) => {
+            console.log(req.body);
             correoAcceso(req.body);
+            res.sendStatus(200);
         });
         this.app.post('/decodificarMail', (req, res) => __awaiter(this, void 0, void 0, function* () {
             let decodificado;

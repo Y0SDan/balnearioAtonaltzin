@@ -23,6 +23,7 @@ function enviarCorreo(body) {
     });
     //Tokenizamos el correo para poder ponerlo en la liga
     var correo = body.Email;
+    console.log(correo);
     const token = jsonwebtoken_1.default.sign(correo, process.env.TOKEN_SECRET || 'prueba');
     console.log(token);
     var message = {

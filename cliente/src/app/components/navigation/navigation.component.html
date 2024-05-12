@@ -5,9 +5,13 @@
     <a class="brand-logo">
       <img src="https://i.imgur.com/Xrn81hA.png" alt="Logo">
     </a>
-    <li class="center-text"> <a class="nav-text">BalnearioAtonaltzin</a></li>
+    <li class="center-text"> <a class="nav-text">{{"Balneario Atonaltzin" | translate}}</a></li>
     <ul id="nav-mobile" class="right hide-one-med-and-down" *ngIf="ID_Cliente == undefined">
-      <li><a class="dropdown-trigger" data-target="dropdown3">{{"Idioma" | translate}}<i
+      <li> <a class="dropdown-trigger" data-target="dropdown3">
+        <div style="display: flex; align-items: center;">
+          <i class="material-icons" style="color: #191919;">language</i>
+          <img [src]="getBanderaSrc(idioma)" class="bandera-img">
+        </div><i
         class="material-icons right">arrow_drop_down</i></a></li>
       <li><a id="user-icon" class="btn white lighten-2 dark-text" (click)="redireccion('login')">{{"Iniciar sesion" | translate}}</a></li>
       <!--
@@ -27,7 +31,7 @@
       </li>
       <li *ngIf="Tipo_Usuario == 'usuario'"><a id="user-icon" class="btn white lighten-2 dark-text"
         (click)="gotoReservaciones()">{{"Mis reservaciones"| translate}}</a></li>
-      <li><a id="user-icon" class="btn blue lighten-2" (click)="logout()"><i class="material-icons">exit_to_app</i></a></li>
+      <li><a id="user-icon" class="btn white lighten-2" (click)="logout()"><i class="material-icons">exit_to_app</i></a></li>
       
     </ul>
     <ul id="dropdown3" class="dropdown-content idioma-nav">
