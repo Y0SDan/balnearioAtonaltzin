@@ -9,7 +9,7 @@
             "url": "https://opensource.org/licenses/MIT"
         }
     },
-    "host": "77.37.63.58:3000",
+    "host": "localhost:3001",
     "basePath": "",
     "tags": [
         {
@@ -409,6 +409,99 @@
                             "format": "date",
                             "example": "2023-08-01"
                         }
+                    }
+                ]
+            }
+        },
+        "/api/reservas/PrecioReserva/{id}/{FechaInicio}/{FechaFin}": {
+            "get": {
+                "tags": [
+                    "Reservaciones"
+                ],
+                "summary": "Agrega el cobro correspondiente a la reserva.",
+                "description": "<p>Servicio que crea el cobro de una reserva de una cabaña en un rango de fechas dado.</p><p>&nbsp;</p><p><em><strong>¿Cuál será el precio de la reservación?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "Consulta con exito"
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la cabaña.",
+                        "type": "number",
+                        "default": "1"
+                    },
+                    {
+                        "name": "FechaInicio",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha inicial de la reservacion",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-07-01"
+                        }
+                    },
+                    {
+                        "name": "FechaFin",
+                        "in": "path",
+                        "required": true,
+                        "description": "Fecha final de la reservacion",
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2023-08-01"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/reservas/mostrarPrecioReserva/{id}": {
+            "get": {
+                "tags": [
+                    "Reservaciones"
+                ],
+                "summary": "Muestra información detallada de una reserva de una cabaña dado el id de la reserva.",
+                "description": "<p>Servicio que devuelve la información detallada de una reserva de una cabaña.</p><p>&nbsp;</p><p><em><strong>¿Cuál será el precio de la reservación?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "ID_Reservacion": 1,
+                                    "ID_Cabana": 1,
+                                    "NombreCabana": "Cabaña A",
+                                    "FechaInicio": "2023-07-01",
+                                    "FechaFin": "2023-07-12",
+                                    "PrecioPorNoche": 800,
+                                    "DiasReservados": 11,
+                                    "TotalAPagar": 9600
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/mostrarPrecioReserva"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Identificador de la reservacion",
+                        "type": "number",
+                        "default": "1"
                     }
                 ]
             }
@@ -1261,6 +1354,45 @@
                 ]
             }
         },
+        "/api/promos/ObtenerDescuento/{id}": {
+            "get": {
+                "tags": [
+                    "Ofertas"
+                ],
+                "summary": "Obtiene precio con descuento dado el id de una cabaña.",
+                "description": "<p>Servicio que devuelve el nombre, precio por noche y precio con descuento dado el id de la cabaña (en dado caso de que tenga una promoción actual).</p><p>&nbsp;</p><p><em><strong>¿Cuál será el precio con descuento?</strong></em></p>",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "examples": {
+                            "application/json": [
+                                {
+                                    "Nombre": "Cabaña A",
+                                    "PrecioPorNoche": 500,
+                                    "PrecioConDescuento": 400
+                                }
+                            ]
+                        },
+                        "schema": {
+                            "$ref": "#/definitions/ObtenerDescuento"
+                        }
+                    },
+                    "403": {
+                        "description": "Prohibido"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Id de la cabaña",
+                        "type": "number",
+                        "default": "0"
+                    }
+                ]
+            }
+        },
         "/api/promos/actualizarPromocion/{id}": {
             "put": {
                 "summary": "Actualizar la información de una promoción",
@@ -1838,6 +1970,81 @@
                 "ID_Cabana": {
                     "type": "number",
                     "description": "Id de la cabaña",
+                    "default": "0"
+                }
+            }
+        },
+        "validarReserva": {
+            "type": "object",
+            "properties": {
+                "resultado": {
+                    "type": "number",
+                    "description": "Resultado",
+                    "default": 0
+                }
+            }
+        },
+        "mostrarPrecioReserva": {
+            "type": "object",
+            "properties": {
+                "ID_Reservacion": {
+                    "type": "number",
+                    "description": "Id de la reservación",
+                    "default": 0
+                },
+                "ID_Cabana": {
+                    "type": "number",
+                    "description": "Id de la cabaña",
+                    "default": 0
+                },
+                "NombreCabana": {
+                    "type": "string",
+                    "description": "Nombre de la cabaña"
+                },
+                "Fecha_inicio": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description": "Fecha de inicio de la reserva"
+                },
+                "Fecha_fin": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "AAAA-MM-DD",
+                    "description": "Fecha de fin de la reserva"
+                },
+                "PrecioPorNoche": {
+                    "type": "number",
+                    "description": "Precio de la cabana",
+                    "default": "600"
+                },
+                "DiasReservados": {
+                    "type": "number",
+                    "description": "Dias que dura la reservación",
+                    "default": 0
+                },
+                "TotalAPagar": {
+                    "type": "number",
+                    "description": "Cantidad a pagar por la reservación",
+                    "default": 0
+                }
+            }
+        },
+        "ObtenerDescuento": {
+            "type": "object",
+            "properties": {
+                "Nombre": {
+                    "type": "string",
+                    "description": "Nombre de la cabaña"
+                },
+                "PrecioPorNoche": {
+                    "type": "number",
+                    "description": "Precio de la cabaña",
+                    "default": "0"
+                },
+                "PrecioConDescuento": {
+                    "type": "number",
+                    "description": "Precio de la cabaña con descuento",
                     "default": "0"
                 }
             }

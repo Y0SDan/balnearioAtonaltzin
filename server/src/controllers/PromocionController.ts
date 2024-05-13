@@ -70,7 +70,7 @@ public async actualizarPromocion(req: Request, res: Response): Promise<void> {
 }
 
 
-public async ObtenerDescuento(req: Request, res: Response): Promise<void> {
+public async ObtenerDescuento(req: Request, res: Response): Promise<void> { 
     const { id } = req.params;
     console.log(id);
 
